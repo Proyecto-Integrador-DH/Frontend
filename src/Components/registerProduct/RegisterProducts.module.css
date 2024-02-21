@@ -1,0 +1,37 @@
+.formContainer form {
+    box-sizing: border-box;
+    align-items: center;
+    background: linear-gradient(to right bottom , #ff4fe2, #ff94ed , #ffe2fa, #ffffff );
+    border-radius: 25px;
+    box-shadow: 0px 5px 10px rgba(0, 0, 0, 0.3),  /* Primera sombra */
+                0px 0px 20px rgba(0, 0, 0, 0.15); /* Segunda sombra */
+    display: flex;
+    flex-direction: column;
+    padding: 1em;
+    width: 60vw;
+    
+}
+
+label {
+    margin-bottom: 30px;
+}
+
+label input {
+    border-radius: 3px;
+    border-style: none;
+    width: 250px;
+    height: 30px;
+}
+
+label textarea {
+    border-radius: 3px;
+    border-style: none;
+    width: 250px;
+    height: 30px;
+}
+
+.title {
+
+    text-align: center;
+    
+}
