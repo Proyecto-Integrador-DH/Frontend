@@ -1,5 +1,8 @@
 import React from 'react'
 import Foto from '../../assets/richard-burlton-HTpmedSyZag-unsplash.jpg'
+import Button from '../Button/Button.jsx'
+import ButtonStyle from '../Button/button.module.css'
+import { Link } from 'react-router-dom'
 const Card = () => {
   return (
 
@@ -13,7 +16,9 @@ const Card = () => {
                 Texto de ejemplo, <br/>aaaaaaaaa
             </h2>
             <p className='text-precio font-bold text-x my-3'>$30.99</p>
-
+            <Link to={'/Details'} style={{ textDecoration: 'none' }}>
+            <button className='bg-rosa text-white py-2 px-5 hover:border-white' >Detalles</button>
+            </Link>
         </div>  
     </div>
     

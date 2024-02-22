@@ -9,7 +9,10 @@ export default {
       colors: {
         'rosa': '#F411CF',
         'precio': '#872BFF',
-      }
+      },
+      letterSpacing: {
+        'customSpacing': '.2em',
+      },
     },
   },
   plugins: [
