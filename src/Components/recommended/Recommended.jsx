@@ -41,14 +41,14 @@ const Recommended = () => {
 
         <div className={RecommendedStyles.navigationArrows}>
           <button
-            className={RecommendedStyles.arrow.back}
+            className={RecommendedStyles.flecha.back}
             onClick={() => sliderRef.current.slickPrev()}
             style={!showAll ? { display: "block" } : { display: "none" }}
           >
             {"<"}
           </button>
           <button
-            className={RecommendedStyles.arrow.next}
+            className={RecommendedStyles.flecha.next}
             onClick={() => sliderRef.current.slickNext()}
             style={!showAll ? { display: "block" } : { display: "none" }}
           >
@@ -56,6 +56,7 @@ const Recommended = () => {
           </button>
         </div>
       </div>
+      
 
       <Slider
         ref={sliderRef}
@@ -71,13 +72,13 @@ const Recommended = () => {
               <p>U$D 300</p>
             </div>
             <button className={RecommendedStyles.verDetalles}>
-              ver detalle
+              Ver detalle
             </button>
           </div>
         ))}
       </Slider>
 
-      <button onClick={handleToggleClick}>
+      <button className= {RecommendedStyles.verMas} onClick={handleToggleClick}>
         {showAll ? "Ver menos" : "Ver mas"}
       </button>
     </div>
