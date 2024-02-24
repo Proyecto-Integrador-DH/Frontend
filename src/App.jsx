@@ -12,6 +12,7 @@ function App  ()  {
         <Routes>
           <Route path='/Products' element={<Products/>}/>
           <Route path='/' element={ <HomePage/>}/>
+          <Route path='/error' element={<ErrorComponent/>}/>
         </Routes>
         
     </>
