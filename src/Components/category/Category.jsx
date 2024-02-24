@@ -1,4 +1,4 @@
-import React from "react";
+import React, { useEffect } from "react";
 import CategoryStyle from "./Category.module.css";
 import ImageCategorys from "../../assets/ChinaCategorias.png"
 import ImageCiudad from "../../assets/Ciudad.png";
@@ -6,7 +6,16 @@ import ImagenNaturaleza from "../../assets/Naturaleza.png";
 import ImageBienestar from "../../assets/Bienestar.png";
 import ImageHistoria from "../../assets/Historia.png";
 
+import { fetchCategorias } from "../../services/api";
+
+
 const Category = () => {
+
+    useEffect(() => {
+        fetchCategorias()
+            .then(data => console.log(data))
+            .catch(error => console.log(error.message));
+    });
 
     return (
 
