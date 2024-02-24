@@ -1,11 +1,11 @@
 import React from "react";
+import Searcher from "../../Components/searcher/Searcher";
+import Category from "../../Components/category/Category";
+import Banner from "../../Components/banner/Banner";
+import Header from "../../Components/header/Header";
+import Recommended from "../../Components/recommended/Recommended";
 
-import Searcher from "../../components/searcher/Searcher";
-import Category from "../../components/category/Category";
-import Banner from "../../components/banner/Banner";
-import Header from "../../components/header/Header";
-
-const Home = () => {
+const HomePage = () => {
 
     return(
         <div >
@@ -15,9 +15,9 @@ const Home = () => {
            
                 <Searcher/>
             
-           
                 <Banner/>
-           
+
+                <Recommended/>
             
                 <Category/>
               
@@ -26,4 +26,4 @@ const Home = () => {
     )
 }
 
-export default Home;
+export default HomePage;
