@@ -18,10 +18,14 @@ const RegisterProducts = () => {
 
       setError(null);
 
-     console.log(data)
+      console.log(response.data);
 
     } catch (error) {
-      setError(error.response.data.error);
+      if (error.response && error.response.status === 400 && error.response.data.error === 'Nombre ya en uso') {
+        setError('Ese nombre ya está en uso');
+      } else {
+        setError('Error al registrar el producto');
+      }
     }
   };
 
@@ -97,3 +101,4 @@ const RegisterProducts = () => {
 };
 
 export default RegisterProducts;
+
