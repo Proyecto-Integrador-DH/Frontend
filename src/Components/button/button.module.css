@@ -1,0 +1,10 @@
+.boton {
+    border-radius: 40px;
+    height: 50px;
+    width: 130px;
+    border: 1px solid transparent;
+    padding: 1em 1.2em;
+    font-size: 0.9em;
+    cursor: pointer;
+    transition: border-color 0.25s;
+}

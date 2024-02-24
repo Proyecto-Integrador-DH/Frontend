@@ -16,7 +16,7 @@ const Category = () => {
             </div>
             <div className={CategoryStyle.category}>
                 <h2>Categorias</h2>
-                <h3>Encuantra las experiencias de tus sueños</h3>
+                <h3>Encuentra las experiencias de tus sueños</h3>
                 <div className={CategoryStyle.categoryLinks}>
                     <div className={CategoryStyle.cityAndNigth}>
                         <img className={CategoryStyle.cityImg} src={ImageCiudad} alt="" />
