@@ -1,25 +1,43 @@
 header {
-   background-color: #ffffff;
+   background-color: transparent;
    position: sticky;
    top: 0;
    display: flex;
-   width: 100%;
+   width: 95%;
    justify-content: space-between;
-   padding: 20px;
-   box-shadow: 0px 14px 11px -8px rgba(0,0,0,1);
-   -webkit-box-shadow: 0px 14px 11px -8px rgba(0,0,0,1);
-   -moz-box-shadow: 0px 14px 11px -8px rgba(0,0,0,1);
+   padding: 10px;
+   margin-bottom: 20px;
 }
 
 header div {
    display: flex;
    gap: 20px;
-   padding-right: 100px;
+   padding-right: 60px;
 }
 
 header img {
-   margin-left: 100px;
+   margin-right: -500px;
+   max-width: 90px;
 }
+
+.logo {
+   display: flex;
+   text-align: justify;
+}
+
+.logo h2 {
+   margin-bottom: -19px;
+   font-family:Arial, Helvetica, sans-serif;
+ }
+
+ .logo p {
+   color: #872BFF;
+   font-family:Arial, Helvetica, sans-serif;
+ }
+
+ .textContainer {
+   display: block;
+ }
 
 .login {
    text-align: center;
@@ -27,9 +45,7 @@ header img {
    background-color: #ffffff;  
    border: 2.3px solid #E3E1E1;
    font-weight: 600;
-   box-shadow: 0px 8px 11px -6px rgba(0,0,0,1);
--webkit-box-shadow: 0px 8px 11px -6px rgba(0,0,0,1);
--moz-box-shadow: 0px 8px 11px -6px rgba(0,0,0,1);
+   box-shadow: 0px 2px 4px rgba(0, 0, 0, 0.2); /* Sombra en la parte inferior */
 }
 .login:hover{
    border: 2.3px solid #872BFF;
@@ -41,9 +57,7 @@ header img {
    background-color: #872BFF;
    border: 2.3px solid #872BFF;
    color: white;
-   box-shadow: 0px 8px 11px -6px rgba(0,0,0,0.77);
-   -webkit-box-shadow: 0px 8px 11px -6px rgba(0,0,0,0.77);
-   -moz-box-shadow: 0px 8px 11px -6px rgba(0,0,0,0.77);
+   box-shadow: 0px 2px 4px rgba(0, 0, 0, 0.2); /* Sombra en la parte inferior */
 }
 .signup:hover{
    border: 2px solid #E3E1E1;

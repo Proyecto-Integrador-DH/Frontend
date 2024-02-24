@@ -1,11 +1,9 @@
 import React from "react";
-import Searcher from "../../Components/searcher/Searcher";
-import Category from "../../Components/category/Category";
-import Recommended from "../../Components/recommended/Recommended";
-import HomeStyles from "./Home.module.css";
-import Banner from "../../Components/banner/Banner";
-import Header from "../../Components/header/Header"
-import RegisterProducts from "../../Components/registerProduct/RegisterProducts.jsx"
+
+import Searcher from "../../components/searcher/Searcher";
+import Category from "../../components/category/Category";
+import Banner from "../../components/banner/Banner";
+import Header from "../../components/header/Header";
 
 const Home = () => {
 
@@ -23,11 +21,6 @@ const Home = () => {
             
                 <Category/>
               
-           
-           
-
-                
-         
         
         </div>
     )
