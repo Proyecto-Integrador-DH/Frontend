@@ -1,6 +1,8 @@
-import React, { useState } from "react";
+import React, { useState, useEffect } from "react";
 import RpStyles from "./RegisterProducts.module.css";
 import axios from "axios";
+import { fetchProductoNuevo } from "../../services/api";
+import { errorHandling } from "../../services/errorHandling";
 
 const RegisterProducts = () => {
   const [nameProduct, setNameProduct] = useState("");
@@ -13,20 +15,13 @@ const RegisterProducts = () => {
   const handleSubmit = async (event) => {
     event.preventDefault();
 
-    try {
-      const response = await axios.post('http://localhost:3001/api/products', { name: nameProduct });
-
-      setError(null);
-
-      console.log(response.data);
-
-    } catch (error) {
-      if (error.response && error.response.status === 400 && error.response.data.error === 'Nombre ya en uso') {
-        setError('Ese nombre ya está en uso');
-      } else {
-        setError('Error al registrar el producto');
-      }
-    }
+    useEffect(()=>{
+      fetchProductoNuevo()
+      .then(response=>response.json())
+      .catch(error=>{
+        //componente de error alert(if si error.message.includes("400") se activa alert)
+      })
+    })
   };
 
   const handleImagenChange = (event) => {
