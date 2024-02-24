@@ -7,6 +7,7 @@ import ImageBienestar from "../../assets/Bienestar.png";
 import ImageHistoria from "../../assets/Historia.png";
 
 import { fetchCategorias } from "../../services/api";
+import { errorHandling } from "../../services/errorHandling";
 
 
 const Category = () => {
@@ -14,7 +15,9 @@ const Category = () => {
     useEffect(() => {
         fetchCategorias()
             .then(data => console.log(data))
-            .catch(error => console.log(error.message));
+            .catch(error => {
+                console.error(errorHandling(error));
+            });
     });
 
     return (
