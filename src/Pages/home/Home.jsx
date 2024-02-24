@@ -8,7 +8,7 @@ import Recommended from "../../Components/recommended/Recommended";
 const HomePage = () => {
 
     return(
-        <div >
+        <div>
             
                 <Header/>
             

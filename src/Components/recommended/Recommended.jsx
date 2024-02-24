@@ -1,139 +1,88 @@
-import React from "react";
+import React, { useState, useRef } from "react";
+import Slider from "react-slick";
+import "slick-carousel/slick/slick.css";
+import "slick-carousel/slick/slick-theme.css";
 import RecommendedStyles from "./Recommended.module.css";
 import imagenCard from "../../assets/playaDelCarmen.png";
 
 const Recommended = () => {
+  const [showAll, setShowAll] = useState(false);
+  const sliderRef = useRef(null);
 
-    return (
-        <div>
-            <div className={RecommendedStyles.recommendedContainer}>
-                <div className={RecommendedStyles.tittleContainer}>
-                    <h2>
-                        Recomendados
-                    </h2>
-                    <h3>
-                        Explora nuestros planes
-                    </h3>
-                </div>
-                <div className={RecommendedStyles.buttonContainer}>
-                    <button className={RecommendedStyles.buttonLeft}>
-                        {String.fromCharCode(0x003C)} {/* Carácter '<' */}
-                    </button>
-                    <button className={RecommendedStyles.buttonRight}>
-                        {String.fromCharCode(0x003E)} {/* Carácter '>' */}
-                    </button>
-                </div>
+  const sliderSettings = {
+    dots: false,
+    infinite: true,
+    speed: 500,
+    slidesToShow: 3,
+    slidesToScroll: 1,
+  };
 
+  const allProductsSliderSettings = {
+    dots: false,
+    infinite: true,
+    speed: 500,
+    slidesToShow: 5,
+    slidesToScroll: 5,
+  };
 
-            </div>
-            <div className={RecommendedStyles.cardContainer}>
-                <div className={RecommendedStyles.cardRecommended}>
-                    <div className={RecommendedStyles.imagenContainer}>
-                        <img src={imagenCard} alt="" />
-                    </div>
-                    <div>
-                        <p>Playa del carmen</p>
-                        <p>U$D 300</p>
-                    </div>
-                    <button className={RecommendedStyles.verDetalles}>ver detalle</button>
-                </div>
-                <div className={RecommendedStyles.cardRecommended}>
-                    <div className={RecommendedStyles.imagenContainer}>
-                        <img src={imagenCard} alt="" />
-                    </div>
-                    <div>
-                        <p>Playa del carmen</p>
-                        <p>U$D 300</p>
-                    </div>
-                    <button className={RecommendedStyles.verDetalles}>ver detalle</button>
-                </div>
-                <div className={RecommendedStyles.cardRecommended}>
-                    <div className={RecommendedStyles.imagenContainer}>
-                        <img src={imagenCard} alt="" />
-                    </div>
-                    <div>
-                        <p>Playa del carmen</p>
-                        <p>U$D 300</p>
-                    </div>
-                    <button className={RecommendedStyles.verDetalles}>ver detalle</button>
-                </div>
-                <div className={RecommendedStyles.cardRecommended}>
-                    <div className={RecommendedStyles.imagenContainer}>
-                        <img src={imagenCard} alt="" />
-                    </div>
-                    <div>
-                        <p>Playa del carmen</p>
-                        <p>U$D 300</p>
-                    </div>
-                    <button className={RecommendedStyles.verDetalles}>ver detalle</button>
-                </div>
-                <div className={RecommendedStyles.cardRecommended}>
-                    <div className={RecommendedStyles.imagenContainer}>
-                        <img src={imagenCard} alt="" />
-                    </div>
-                    <div>
-                        <p>Playa del carmen</p>
-                        <p>U$D 300</p>
-                    </div>
-                    <button className={RecommendedStyles.verDetalles}>ver detalle</button>
-                </div>
-                <div className={RecommendedStyles.cardRecommended}>
-                    <div className={RecommendedStyles.imagenContainer}>
-                        <img src={imagenCard} alt="" />
-                    </div>
-                    <div>
-                        <p>Playa del carmen</p>
-                        <p>U$D 300</p>
-                    </div>
-                    <button className={RecommendedStyles.verDetalles}>ver detalle</button>
-                </div>
-                <div className={RecommendedStyles.cardRecommended}>
-                    <div className={RecommendedStyles.imagenContainer}>
-                        <img src={imagenCard} alt="" />
-                    </div>
-                    <div>
-                        <p>Playa del carmen</p>
-                        <p>U$D 300</p>
-                    </div>
-                    <button className={RecommendedStyles.verDetalles}>ver detalle</button>
-                </div>
-                <div className={RecommendedStyles.cardRecommended}>
-                    <div className={RecommendedStyles.imagenContainer}>
-                        <img src={imagenCard} alt="" />
-                    </div>
-                    <div>
-                        <p>Playa del carmen</p>
-                        <p>U$D 300</p>
-                    </div>
-                    <button className={RecommendedStyles.verDetalles}>ver detalle</button>
-                </div>
-                <div className={RecommendedStyles.cardRecommended}>
-                    <div className={RecommendedStyles.imagenContainer}>
-                        <img src={imagenCard} alt="" />
-                    </div>
-                    <div>
-                        <p>Playa del carmen</p>
-                        <p>U$D 300</p>
-                    </div>
-                    <button className={RecommendedStyles.verDetalles}>ver detalle</button>
-                </div>
-                <div className={RecommendedStyles.cardRecommended}>
-                    <div className={RecommendedStyles.imagenContainer}>
-                        <img src={imagenCard} alt="" />
-                    </div>
-                    <div>
-                        <p>Playa del carmen</p>
-                        <p>U$D 300</p>
-                        
-                    </div>
-                    <button className={RecommendedStyles.verDetalles}>ver detalle</button>
-                </div>
-            </div>
-            <button>ver todo</button>
+  const handleToggleClick = () => {
+    setShowAll(!showAll);
+  };
+
+  return (
+    <div className={RecommendedStyles.recommendedBloque}>
+      <div className={RecommendedStyles.headerRecomendados}>
+        <div className={RecommendedStyles.recommendedContainer}>
+          <div className={RecommendedStyles.tittleContainer}>
+            <h2>Recomendados</h2>
+            <h3>Explora nuestros planes</h3>
+          </div>
         </div>
 
-    )
+        <div className={RecommendedStyles.navigationArrows}>
+          <button
+            className={RecommendedStyles.arrow.back}
+            onClick={() => sliderRef.current.slickPrev()}
+            style={!showAll ? { display: "block" } : { display: "none" }}
+          >
+            {"<"}
+          </button>
+          <button
+            className={RecommendedStyles.arrow.next}
+            onClick={() => sliderRef.current.slickNext()}
+            style={!showAll ? { display: "block" } : { display: "none" }}
+          >
+            {">"}
+          </button>
+        </div>
+      </div>
 
-}
+      <Slider
+        ref={sliderRef}
+        {...(showAll ? allProductsSliderSettings : sliderSettings)}
+      >
+        {[...Array(showAll ? 10 : 3)].map((_, index) => (
+          <div key={index} className={RecommendedStyles.cardRecommended}>
+            <div className={RecommendedStyles.imagenContainer}>
+              <img src={imagenCard} alt="" />
+            </div>
+            <div>
+              <p>Playa del Carmen</p>
+              <p>U$D 300</p>
+            </div>
+            <button className={RecommendedStyles.verDetalles}>
+              ver detalle
+            </button>
+          </div>
+        ))}
+      </Slider>
+
+      <button onClick={handleToggleClick}>
+        {showAll ? "Ver menos" : "Ver mas"}
+      </button>
+    </div>
+  );
+};
 
 export default Recommended;
+
