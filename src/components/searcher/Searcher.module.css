@@ -1,0 +1,24 @@
+
+
+.searcherContainer {
+    margin: 2rem;
+}
+
+.searcherContainer input {
+
+    border-radius: 2px;
+    border: 2px none;
+    box-shadow: 0px 2px 4px rgba(0, 0, 0, 0.2); /* Sombra en la parte inferior */
+    height: 39px;
+    width: 40%;
+}
+
+.searcherContainer button {
+    color: white;
+    background-color: #2FA6D9;
+    box-shadow: 0px 2px 4px rgba(0, 0, 0, 0.2); /* Sombra en la parte inferior */
+    border-style: none;
+    border-radius: 2px;
+    
+
+}

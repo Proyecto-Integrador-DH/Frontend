@@ -1,25 +1,26 @@
-import React from 'react'
-import estiloHeader from './header.module.css'
-import Button from '../Button/Button.jsx'
-import Logo from '../../assets/Logo.jpg'
-import { Link } from 'react-router-dom'
-const header = () => {
+import React from 'react';
+import HeaderStyle from './header.module.css';
+import Button from "../button/Button.jsx"
+import Logo from '../../assets/Logo.png';
+import { Link } from 'react-router-dom';
 
 
-  
+
+const Header = () => {
+
   return (
    <> 
-    <header className='z-10'>
-    <Link to={"/"}>
-        <a href=""><img src= {Logo} alt="logo"/></a>
-    </Link>   
-        <div>
-          <Button className={estiloHeader.login}>Iniciar sesión</Button>
-          <Button className={estiloHeader.signup}>Crear Cuenta</Button>
+    <header className='px-20'>
+        <Link to='/'>
+        <img src= {Logo} alt="logo"/>
+        </Link>
+        <div className='mt-1'>
+          <Button className={HeaderStyle.login}>Iniciar sesión</Button>
+          <Button className={HeaderStyle.signup}>Crear Cuenta</Button>
         </div>
     </header>
     </>
     )
 }
 
-export default header
+export default Header;
