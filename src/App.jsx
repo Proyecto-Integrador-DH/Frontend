@@ -1,5 +1,6 @@
 import "./App.css";
 import 'bootstrap/dist/css/bootstrap.min.css';
+import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import { Route, Routes } from "react-router";
 import Products from "./Routes/Products.jsx";
 import HomePage from "./Pages/home/Home.jsx";

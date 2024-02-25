@@ -29,9 +29,22 @@ const Recommended = () => {
     dots: false,
     infinite: true,
     speed: 500,
-    slidesToShow: 3,
+    slidesToShow: showAll ? 10 : 3, // Cambiado dinámicamente según el estado showAll
     slidesToScroll: 1,
   };
+
+  const recommendedItems = [...Array(showAll ? 10 : 3)].map((_, index) => (
+    <div key={index} className={RecommendedStyles.cardRecommended}>
+      <div className={RecommendedStyles.imagenContainer}>
+        <img src={imagenCard} alt="" />
+      </div>
+      <div>
+        <p>Playa del Carmen</p>
+        <p>U$D 300</p>
+        <button className={RecommendedStyles.verDetalles}>Ver detalle</button>
+      </div>
+    </div>
+  ));
 
   return (
     <div className={RecommendedStyles.recommendedBloque}>
@@ -54,18 +67,7 @@ const Recommended = () => {
 
       <div className={RecommendedStyles.customCarousel}>
         <Slider ref={carouselRef} {...sliderSettings}>
-          {[...Array(showAll ? 10 : 3)].map((_, index) => (
-            <div key={index} className={RecommendedStyles.cardRecommended}>
-              <div className={RecommendedStyles.imagenContainer}>
-                <img src={imagenCard} alt="" />
-              </div>
-              <div>
-                <p>Playa del Carmen</p>
-                <p>U$D 300</p>
-                <button className={RecommendedStyles.verDetalles}>Ver detalle</button>
-              </div>
-            </div>
-          ))}
+          {recommendedItems}
         </Slider>
 
         <button className={RecommendedStyles.verMas} onClick={handleToggleClick}>
@@ -77,3 +79,4 @@ const Recommended = () => {
 };
 
 export default Recommended;
+
