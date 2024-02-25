@@ -7,7 +7,23 @@ import imagenCard from "../../assets/playaDelCarmen.png";
 
 const Recommended = () => {
   const [showAll, setShowAll] = useState(false);
-  const sliderRef = useRef(null);
+  const carouselRef = useRef(null);
+
+  const handleToggleClick = () => {
+    setShowAll(!showAll);
+  };
+
+  const handleNext = () => {
+    if (carouselRef.current) {
+      carouselRef.current.slickNext();
+    }
+  };
+
+  const handlePrev = () => {
+    if (carouselRef.current) {
+      carouselRef.current.slickPrev();
+    }
+  };
 
   const sliderSettings = {
     dots: false,
@@ -15,18 +31,6 @@ const Recommended = () => {
     speed: 500,
     slidesToShow: 3,
     slidesToScroll: 1,
-  };
-
-  const allProductsSliderSettings = {
-    dots: false,
-    infinite: true,
-    speed: 500,
-    slidesToShow: 5,
-    slidesToScroll: 5,
-  };
-
-  const handleToggleClick = () => {
-    setShowAll(!showAll);
   };
 
   return (
@@ -37,53 +41,39 @@ const Recommended = () => {
             <h2>Recomendados</h2>
             <h3>Explora nuestros planes</h3>
           </div>
-        </div>
-
-        <div className={RecommendedStyles.navigationArrows}>
-          <button
-            className={RecommendedStyles.flecha.back}
-            onClick={() => sliderRef.current.slickPrev()}
-            style={!showAll ? { display: "block" } : { display: "none" }}
-          >
-            {"<"}
-          </button>
-          <button
-            className={RecommendedStyles.flecha.next}
-            onClick={() => sliderRef.current.slickNext()}
-            style={!showAll ? { display: "block" } : { display: "none" }}
-          >
-            {">"}
-          </button>
-        </div>
-      </div>
-      
-
-      <Slider
-        ref={sliderRef}
-        {...(showAll ? allProductsSliderSettings : sliderSettings)}
-      >
-        {[...Array(showAll ? 10 : 3)].map((_, index) => (
-          <div key={index} className={RecommendedStyles.cardRecommended}>
-            <div className={RecommendedStyles.imagenContainer}>
-              <img src={imagenCard} alt="" />
-            </div>
-            <div>
-              <p>Playa del Carmen</p>
-              <p>U$D 300</p>
-            </div>
-            <button className={RecommendedStyles.verDetalles}>
-              Ver detalle
+          <div className={RecommendedStyles.navigationArrows}>
+            <button className={RecommendedStyles.flecha} onClick={handlePrev}>
+              <div className={RecommendedStyles.back}></div>
+            </button>
+            <button className={RecommendedStyles.flecha} onClick={handleNext}>
+              <div className={RecommendedStyles.next}></div>
             </button>
           </div>
-        ))}
-      </Slider>
+        </div>
+      </div>
 
-      <button className= {RecommendedStyles.verMas} onClick={handleToggleClick}>
-        {showAll ? "Ver menos" : "Ver mas"}
-      </button>
+      <div className={RecommendedStyles.customCarousel}>
+        <Slider ref={carouselRef} {...sliderSettings}>
+          {[...Array(showAll ? 10 : 3)].map((_, index) => (
+            <div key={index} className={RecommendedStyles.cardRecommended}>
+              <div className={RecommendedStyles.imagenContainer}>
+                <img src={imagenCard} alt="" />
+              </div>
+              <div>
+                <p>Playa del Carmen</p>
+                <p>U$D 300</p>
+                <button className={RecommendedStyles.verDetalles}>Ver detalle</button>
+              </div>
+            </div>
+          ))}
+        </Slider>
+
+        <button className={RecommendedStyles.verMas} onClick={handleToggleClick}>
+          {showAll ? "Ver menos" : "Ver mas"}
+        </button>
+      </div>
     </div>
   );
 };
 
 export default Recommended;
-
