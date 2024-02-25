@@ -1,8 +1,7 @@
 import React, { useState, useEffect } from "react";
 import RpStyles from "./RegisterProducts.module.css";
-import axios from "axios";
 import { fetchProductoNuevo } from "../../services/api";
-import { errorHandling } from "../../services/errorHandling";
+import ErrorComponent from "../error/ErrorMessage";
 
 const RegisterProducts = () => {
   const [nameProduct, setNameProduct] = useState("");
@@ -11,18 +10,67 @@ const RegisterProducts = () => {
   const [quotaOfPeople, setQuotaOfPeople] = useState("");
   const [imagen, setImagen] = useState(null);
   const [error, setError] = useState(null);
+  const [successMessage, setSuccessMessage] = useState(null);
+
+  useEffect(() => {
+    fetchProductoNuevo()
+      .then((response) => response.json())
+      .catch((error) => {
+        if (error.message.includes("400")) {
+          setError({
+            title: "Error de solicitud",
+            message: "Hubo un problema al cargar los datos.",
+          });
+        } else {
+          setError({
+            title: "Error al cargar datos",
+            message: "Hubo un problema al cargar los datos.",
+          });
+        }
+      });
+  }, []);
 
   const handleSubmit = async (event) => {
     event.preventDefault();
 
-    useEffect(()=>{
-      fetchProductoNuevo()
-      .then(response=>response.json())
-      .catch(error=>{
-        //componente de error alert(if si error.message.includes("400") se activa alert)
-      })
-    })
+    try {
+      const data = {
+        nameProduct,
+        description,
+        price,
+        quotaOfPeople,
+        imagen,
+      };
+
+      const response = await fetchProductoNuevo(data);
+
+      if (!response.ok) {
+        throw new Error(`Error ${response.status}: ${response.statusText}`);
+      }
+
+      const responseData = await response.json();
+      console.log(responseData);
+
+      if (responseData.success) {
+        setSuccessMessage("Producto registrado con éxito");
+      } else {
+        setError({
+          title: "Error al registrar producto",
+          message:
+            "Hubo un problema al registrar el producto. Inténtalo de nuevo más tarde.",
+        });
+      }
+    } catch (error) {
+      console.error(error);
+
+      setError({
+        title: "Error al registrar producto",
+        message:
+          "Hubo un problema al registrar el producto. Inténtalo de nuevo más tarde.",
+      });
+    }
   };
+  
 
   const handleImagenChange = (event) => {
     const file = event.target.files[0];
@@ -35,10 +83,13 @@ const RegisterProducts = () => {
 
       <form onSubmit={handleSubmit}>
         {error && (
-          <ErrorComponent
-            title="Error al registrar producto"
-            message={error}
-          />
+          <ErrorComponent title={error.title} message={error.message} />
+        )}
+
+        {successMessage && (
+          <div className="success-message">
+            <p>{successMessage}</p>
+          </div>
         )}
 
         <label>
@@ -96,4 +147,3 @@ const RegisterProducts = () => {
 };
 
 export default RegisterProducts;
-

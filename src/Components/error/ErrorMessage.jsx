@@ -1,4 +1,5 @@
 import React from 'react';
+import './styleErrorMessage.css';
 
 const ErrorComponent = ({ title, message, footer }) => {
   return (
