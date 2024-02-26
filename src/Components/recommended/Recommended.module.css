@@ -34,9 +34,10 @@
     -webkit-box-shadow: 0px 8px 11px -6px rgba(0, 0, 0, 0.77);
     -moz-box-shadow: 0px 8px 11px -6px rgba(0, 0, 0, 0.77);
     border-radius: 20px;
-    width: 100%; 
+    width: 25%; 
     height: 100%; 
     margin-right: 20px;
+    padding-bottom: 10px;
   }
   
   .imagenContainer img {
@@ -74,14 +75,14 @@
     align-items: center;
   }
 
-button .flecha .back {
+.back {
     cursor: pointer;
     width: 50px;
     height: 50px;
     border-radius: 50%;
     background-color: #872BFF
 }
- button .flecha .next {
+.next {
     cursor: pointer;
     width: 50px;
     height: 50px;
@@ -94,11 +95,11 @@ button .flecha .back {
     justify-content: space-between;
   }
 
-  .verMas{
-    background-color: #F9F4FF;
-    color: #872BFF;
-    border-radius: 20px; 
-    font-size: 1.5em;  
-    margin-top: 20px;   
-    padding: 10px 10px;
+  .showAll{
+    display:flex;
+    flex-direction: row;
+    flex-wrap: wrap;
+    justify-content: center;
+    gap: 20px;
   }
+
