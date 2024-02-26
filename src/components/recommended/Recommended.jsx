@@ -6,6 +6,7 @@ import RecommendedStyles from "./Recommended.module.css";
 import imagenCard from "../../assets/playaDelCarmen.png";
 import VerMas from "../botonVerMas/BotonVerMas";
 import { fetchCategorias } from "../../services/api";
+import { Link } from "react-router-dom";
 
 const Recommended = () => {
   const [showAll, setShowAll] = useState(false);
@@ -80,9 +81,11 @@ const Recommended = () => {
                 <p>Playa del Carmen</p>
                 <p>U$D 300</p>
               </div>
-              <button className={RecommendedStyles.verDetalles}>
-                Ver detalle
-              </button>
+              <Link to={`/details/${index}`}>
+                <button className={RecommendedStyles.verDetalles}>
+                  Ver detalle
+                </button>
+              </Link>
             </div>
           ))}
         </div>
@@ -100,9 +103,11 @@ const Recommended = () => {
                 <p>Playa del Carmen</p>
                 <p>U$D 300</p>
               </div>
-              <button className={RecommendedStyles.verDetalles}>
-                Ver detalle
-              </button>
+              <Link to={`/details/${index}`}>
+                <button className={RecommendedStyles.verDetalles}>
+                  Ver detalle
+                </button>
+              </Link>
             </div>
           ))}
         </Slider>
