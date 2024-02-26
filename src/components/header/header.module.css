@@ -1,12 +1,12 @@
-header {
-   background-color: transparent;
+.bloque {
+   background-color: #FAF6F9;
    position: sticky;
    top: 0;
    display: flex;
-   width: 95%;
+   width: 100%; 
    justify-content: space-between;
    padding: 10px;
-   margin-bottom: 20px;
+   margin: 0%;
 }
 
 header div {
