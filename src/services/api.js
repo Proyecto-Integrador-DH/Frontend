@@ -41,3 +41,19 @@ export const fetchCargarImagen = async (data) => {
   }
   return await response.text();
 }
+
+export const fetchEmail = async (data) => {
+  const url = `${baseUrl}/usuario/email`;
+
+  const response = await fetch(url, {
+    method: 'GET',
+    headers: {
+      'Content-Type': 'application/json',
+    },
+    body: JSON.stringify(data),
+  });
+  if (!response.ok) {
+    throw new Error('Error en la solicitud: ' + response.status);
+  }
+  return await response.json();
+}
