@@ -16,7 +16,7 @@ const Recommended = () => {
   const fetchApiData = () => {
     //se llama a la funcion de api.js y se guarda en esta funcion
     //setProductosApi(fetchCategorias());
-    setProductosApi([0, 1, 2, 3, 4, 5, 6, 7, 8, 9, 10]);
+    setProductosApi([0, 1, 2, 3, 4, 5, 6, 7, 8, 9]);
   };
 
   const sliderSettings = {
@@ -31,8 +31,8 @@ const Recommended = () => {
     dots: false,
     infinite: true,
     speed: 500,
-    slidesToShow: 5,
-    slidesToScroll: 5,
+    slidesToShow: 2,
+    slidesToScroll: 2,
   };
 
   const handleToggleClick = () => {
@@ -73,7 +73,7 @@ const Recommended = () => {
       {showAll ? (
         <div className={RecommendedStyles.showAll}>
           {productosApi.map((product, index) => (
-            <div key={index} className={RecommendedStyles.cardRecommended}>
+            <div key={index} className={RecommendedStyles.cardRecommended2}>
               <div className={RecommendedStyles.imagenContainer}>
                 <img src={imagenCard} alt="" />
               </div>
