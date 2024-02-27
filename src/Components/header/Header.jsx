@@ -12,7 +12,9 @@ const Header = () => {
         <img src= {Logo} alt="logo"/>
         </Link>
         <div className='mt-1'>
+          <Link to={'/Login'}>
           <Button className={HeaderStyle.login}>Iniciar sesión</Button>
+          </Link>
           <Button className={HeaderStyle.signup}>Crear Cuenta</Button>
         </div>
     </div>
