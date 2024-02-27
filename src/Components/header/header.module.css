@@ -1,0 +1,66 @@
+.bloque {
+   background-color: #FAF6F9;
+   position: sticky;
+   top: 0;
+   display: flex;
+   width: 100%; 
+   justify-content: space-between;
+   padding: 10px;
+   margin: 0;
+   z-index: 1000;
+}
+
+header div {
+   display: flex;
+   gap: 20px;
+   padding-right: 60px;
+}
+
+header img {
+   margin-right: -500px;
+   max-width: 90px;
+}
+
+.logo {
+   display: flex;
+   text-align: justify;
+}
+
+.logo h2 {
+   margin-bottom: -19px;
+   font-family:Arial, Helvetica, sans-serif;
+ }
+
+ .logo p {
+   color: #872BFF;
+   font-family:Arial, Helvetica, sans-serif;
+ }
+
+ .textContainer {
+   display: block;
+ }
+
+.login {
+   text-align: center;
+   padding: 5px 30px 5px 30px;
+   background-color: #ffffff;  
+   border: 2.3px solid #E3E1E1;
+   font-weight: 600;
+   box-shadow: 0px 2px 4px rgba(0, 0, 0, 0.2); /* Sombra en la parte inferior */
+}
+.login:hover{
+   border: 2.3px solid #872BFF;
+}
+
+.signup {
+   text-align: center;
+   padding: 5px 30px 5px 30px;
+   background-color: #872BFF;
+   border: 2.3px solid #872BFF;
+   color: white;
+   box-shadow: 0px 2px 4px rgba(0, 0, 0, 0.2); /* Sombra en la parte inferior */
+}
+.signup:hover{
+   border: 2px solid #E3E1E1;
+}
+
