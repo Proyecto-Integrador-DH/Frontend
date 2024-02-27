@@ -1,31 +1,43 @@
 const baseUrl = 'http://localhost:8080';
 
-export const fetchCategorias = () => {
+export const fetchCategorias = async () => {
   const url = `${baseUrl}/categoria/all`;
 
-  return fetch(url)
-    .then(response => {
-      if (!response.ok) {
-        throw new Error('Error en la solicitud: ' + response.status);
-      }
-      return response.json();
-    });
+  const response = await fetch(url);
+  if (!response.ok) {
+    throw new Error('Error en la solicitud: ' + response.status);
+  }
+  return await response.json();
 };
 
-export const fetchProductoNuevo = (data) => {
+export const fetchProductoNuevo = async (data) => {
   const url = `${baseUrl}/producto/nuevo`;
 
-  return fetch(url, {
-    method:'POST',
-    headers:{
-      'Content-Type':'application/json',
+  const response = await fetch(url, {
+    method: 'POST',
+    headers: {
+      'Content-Type': 'application/json',
     },
-    body:JSON.stringify(data),
-  })
-    .then(response => {
-      if (!response.ok) {
-        throw new Error('Error en la solicitud: ' + response.status);
-      }
-      return response.json();
-    });
+    body: JSON.stringify(data),
+  });
+  if (!response.ok) {
+    return response.status;
+  }
+  return await response.text();
 };
+
+export const fetchCargarImagen = async (data) => {
+  const url = `${baseUrl}/imagen/cargar`;
+
+  const response = await fetch(url, {
+    method: 'POST',
+    headers: {
+      'Content-Type': 'application/json'
+    },
+    body: JSON.stringify(data),
+  });
+  if (!response.ok) {
+    throw new Error('Error en la solicitud: ' + response.status);
+  }
+  return await response.text();
+}

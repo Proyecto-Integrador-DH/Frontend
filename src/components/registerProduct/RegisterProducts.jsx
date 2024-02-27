@@ -1,146 +1,173 @@
-import React, { useState, useEffect } from "react";
+import React, { useState, useRef } from "react";
 import RpStyles from "./RegisterProducts.module.css";
+import ErrorComponent from "../error/ErrorAlert";
 import { fetchProductoNuevo } from "../../services/api";
-import ErrorComponent from "../error/ErrorMessage";
+import { fetchCargarImagen } from "../../services/api";
+import { errorHandling } from "../../services/errorHandling";
+import Button from "../button/Button";
 
 const RegisterProducts = () => {
-  const [nameProduct, setNameProduct] = useState("");
-  const [description, setDescription] = useState("");
-  const [price, setPrice] = useState("");
-  const [quotaOfPeople, setQuotaOfPeople] = useState("");
-  const [imagen, setImagen] = useState(null);
+  const [nombre, setNombre] = useState("");
+  const [descripcion, setDescripcion] = useState("");
+  const [fecha, setFecha] = useState("");
+  const [cupo, setCupo] = useState(0);
+  const [disponible, setDisponible] = useState(true);
+  const [imagenes, setImagenes] = useState([]);
   const [error, setError] = useState(null);
-  const [successMessage, setSuccessMessage] = useState(null);
-
-  useEffect(() => {
-    fetchProductoNuevo()
-      .then((response) => response.json())
-      .catch((error) => {
-        if (error.message.includes("400")) {
-          setError({
-            title: "Error de solicitud",
-            message: "Hubo un problema al cargar los datos.",
-          });
-        } else {
-          setError({
-            title: "Error al cargar datos",
-            message: "Hubo un problema al cargar los datos.",
-          });
-        }
-      });
-  }, []);
+  const [titleError, setTitleError] = useState(null);
+  const [modalErrorVisible, setModalErrorVisible] = useState(false);
 
   const handleSubmit = async (event) => {
     event.preventDefault();
 
     try {
-      const data = {
-        nameProduct,
-        description,
-        price,
-        quotaOfPeople,
-        imagen,
-      };
 
-      const response = await fetchProductoNuevo(data);
-
-      if (!response.ok) {
-        throw new Error(`Error ${response.status}: ${response.statusText}`);
-      }
-
-      const responseData = await response.json();
-      console.log(responseData);
-
-      if (responseData.success) {
-        setSuccessMessage("Producto registrado con éxito");
-      } else {
-        setError({
-          title: "Error al registrar producto",
-          message:
-            "Hubo un problema al registrar el producto. Inténtalo de nuevo más tarde.",
-        });
-      }
-    } catch (error) {
-      console.error(error);
-
-      setError({
-        title: "Error al registrar producto",
-        message:
-          "Hubo un problema al registrar el producto. Inténtalo de nuevo más tarde.",
+      const productoResponse = await fetchProductoNuevo({
+        nombre,
+        descripcion,
+        fecha,
+        cupo,
+        disponible
       });
+
+      if(productoResponse==400){
+        console.log("Ya existe un producto con ese nombre.");
+        setTitleError("Error");
+        setError("Ya existe un producto con ese nombre.");
+        setModalErrorVisible(true);
+        return;
+      } else {
+
+      const responseCargarImagen = await fetchCargarImagen({
+        imgPath: imagenes,
+        altText: "Img",
+        producto: {
+          id: Number(productoResponse)
+        }
+      });
+
+      setTitleError("Producto registrado");
+      setError("El producto ha sido registrado con éxito.");
+      setModalErrorVisible(true);
+
+      setNombre("");
+      setDescripcion("");
+      setFecha("");
+      setCupo(0);
+      setDisponible(true);
+      setImagenes(null);
+    }
+    } catch (error) {
+      setModalErrorVisible(true);
+      console.error("Error al registrar el producto:", error.message);
     }
   };
-  
 
   const handleImagenChange = (event) => {
-    const file = event.target.files[0];
-    setImagen(file);
+    const files = Array.from(event.target.files);
+    const imagenes = new Array();
+
+  Promise.all(
+    files.map((file) => {
+      return new Promise((resolve, reject) => {
+        const reader = new FileReader();
+        reader.readAsDataURL(file);
+        reader.onload = () => {
+          const base64String = reader.result.split(",")[1];
+          imagenes.push(base64String);
+          resolve(imagenes);
+        };
+        reader.onerror = (error) => reject(error);
+      });
+    })
+  ).then(() => {
+    console.log("Imágenes convertidas a base64:", imagenes);
+    setImagenes(imagenes.length === 0 ? [] : imagenes); 
+    console.log("Estado de imágenes actualizado:", imagenes.length);
+  });
+  };
+
+  const closeModal = () => {
+    setModalErrorVisible(false);
+    errorHandling(error);
   };
 
   return (
     <div className={RpStyles.formContainer}>
       <h2 className={RpStyles.title}> Registro de productos </h2>
 
+      {modalErrorVisible && (
+        <ErrorComponent
+          title={titleError}
+          message={error}
+          onClose={closeModal}
+        />
+      )}
+
       <form onSubmit={handleSubmit}>
-        {error && (
-          <ErrorComponent title={error.title} message={error.message} />
-        )}
-
-        {successMessage && (
-          <div className="success-message">
-            <p>{successMessage}</p>
-          </div>
-        )}
-
+    
         <label>
+          Nombre:
           <input
             type="text"
-            value={nameProduct}
+            value={nombre}
             placeholder="Nombre"
-            onChange={(e) => setNameProduct(e.target.value)}
+            onChange={(e) => setNombre(e.target.value)}
             required
           />
         </label>
 
         <label>
+          Descripción:
           <textarea
-            value={description}
+            value={descripcion}
             placeholder="Descripcion"
-            onChange={(e) => setDescription(e.target.value)}
+            rows={5}
+            onChange={(e) => setDescripcion(e.target.value)}
             required
           />
         </label>
 
         <label>
+          Fecha:
+          <input
+            type="date"
+            value={fecha}
+            onChange={(e) => setFecha(e.target.value)}
+            required
+          />
+        </label>
+
+        <label>
+          Máximo de personas:
           <input
             type="number"
-            value={price}
-            placeholder="Precio"
-            onChange={(e) => setPrice(e.target.value)}
+            value={cupo}
+            onChange={(e) => setCupo(e.target.value)}
             required
           />
         </label>
 
         <label>
+          Disponible:
           <input
-            type="number"
-            value={quotaOfPeople}
-            placeholder="Maximo de personas"
-            onChange={(e) => setQuotaOfPeople(e.target.value)}
-            required
+            type="checkbox"
+            checked={disponible}
+            onChange={(e) => setDisponible(e.target.checked)}
           />
         </label>
 
         <label>
+          Imagenes:
           <input
             type="file"
             accept="image/*"
             onChange={handleImagenChange}
+            multiple
             required
           />
         </label>
-
-        <button type="submit">Agregar Producto</button>
+        <Button type="submit" className={RpStyles.boton}>Agregar Producto</Button>
       </form>
     </div>
   );
