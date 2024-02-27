@@ -2,11 +2,11 @@
    display: flex;
    background-color: #FAF6F9;
    position: sticky;
-   height: 7rem;
+   height: 6rem;
    top: 0;
    width: 100%; 
    justify-content: space-between;
-   padding: 1rem 7rem 1rem 7rem ;
+   padding: 0.5rem 7rem 0.5rem 7rem ;
    z-index: 1000;
 }
 
