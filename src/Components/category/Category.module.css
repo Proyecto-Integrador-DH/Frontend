@@ -15,14 +15,12 @@ h3 {
 
 .recommended{
     width: 50%;
-    background-color: aqua;
-}
-
-.recommended img{
     max-width: 100%;
     height: auto;
     
 }
+
+
 .category{
     width: 50%;
 
@@ -134,13 +132,32 @@ h3 {
         gap: 1rem;
     }
     .recommended{
-        width: 80%;
+        display: none;
+        /* width: 80%; */
     }
     .category{
-        width: 80%;
+        width: 100%;
         padding: 2rem;
         font-size: 1rem;
     }
+    .cityAndNigth, 
+    .adventureAndNature,
+    .cultureAndHeritage,
+    .welfareAndCouching{
+        width: auto;
+    }
+    .categoryLinks{
+    width: 100%;
+    padding: 1rem;
+}
+.category h2{
+    font-size: 20px;
+}
+
+.category h3{
+    font-size: 27px;
+    text-align:start;
+}
  }
 
 
