@@ -4,6 +4,7 @@ import Category from "../../components/category/Category";
 import Banner from "../../components/banner/Banner";
 import Header from "../../components/header/Header";
 import Recommended from "../../components/recommended/Recommended";
+import RegisterUser from "../../components/registerUser/RegisterUser";
 
 const HomePage = () => {
 
@@ -12,7 +13,6 @@ const HomePage = () => {
             
                 <Header/>
             
-           
                 <Searcher/>
             
                 <Banner/>
@@ -20,6 +20,8 @@ const HomePage = () => {
                 <Recommended/>
             
                 <Category/>
+
+                <RegisterUser/>
               
         
         </div>
