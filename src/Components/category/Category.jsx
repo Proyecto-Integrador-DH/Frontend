@@ -27,11 +27,11 @@ const Category = () => {
                 <img src={ImageCategorys} alt="no funciona" />
             </div>
             <div className={CategoryStyle.category}>
-                <h2>Categorias</h2>
-                <h3>Encuentra las experiencias de tus sueños</h3>
+                <h2>CATEGORIAS</h2>
+                <h3>Encuentra la experiencia de tus sueños</h3>
                 <div className={CategoryStyle.categoryLinks}>
                     <div className={CategoryStyle.cityAndNigth}>
-                        <img className={CategoryStyle.cityImg} src={ImageCiudad} alt="" />
+                        <img className={CategoryStyle.cityImg} src={ImageCiudad} alt=""/>
                         <p>Ciudad y Noche</p>
                     </div>
                     <div className={CategoryStyle.adventureAndNature}>
@@ -43,8 +43,8 @@ const Category = () => {
                         <p>Cultura y Patrimonio</p>
                     </div>
                     <div className={CategoryStyle.welfareAndCouching}>
-                        <img className={CategoryStyle.walfareImg} src={ImageBienestar} alt="" />
-                        <p>Bienestar y Couching</p>
+                        <img className={CategoryStyle.walfareImg} src={ImageBienestar} alt=""/>
+                        <p>Bienestar y Coaching</p>
                     </div>
                 </div>
             </div>

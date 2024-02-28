@@ -11,6 +11,7 @@
 
 .tittleContainer {
   text-align: justify;
+  width: 100%;
 }
 
 
@@ -74,6 +75,7 @@
   color: #1E1E1E;
   font-weight: bold;
   font-size: 44px;
+  width: 100%;
 }
 
 .navigationArrows {
