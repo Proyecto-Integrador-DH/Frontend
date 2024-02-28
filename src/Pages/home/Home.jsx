@@ -2,30 +2,26 @@ import React from "react";
 import Searcher from "../../components/searcher/Searcher";
 import Category from "../../components/category/Category";
 import Banner from "../../components/banner/Banner";
-import Header from "../../components/header/Header";
 import Recommended from "../../components/recommended/Recommended";
-import RegisterUser from "../../components/registerUser/RegisterUser";
+import Footer from "../../components/footer/Footer";
 
 const HomePage = () => {
+  return (
+    <div>
 
-    return(
-        <div>
-            
-                <Header/>
-            
-                <Searcher/>
-            
-                <Banner/>
+      <Searcher />
 
-                <Recommended/>
-            
-                <Category/>
+      <Banner />
 
-                <RegisterUser/>
-              
-        
-        </div>
-    )
-}
+      <Recommended />
+
+      <Category />
+
+      <Footer />
+      
+    </div>
+  );
+};
+
 
 export default HomePage;
