@@ -114,3 +114,20 @@
   flex-wrap: wrap;
   justify-content: center;
 }
+
+/* Pantallas pequeñas (móviles en landscape de menos de 768px) */
+
+@media (max-width: 767.98px) { 
+  .recommendedBloque {
+    padding: 1rem 2rem 0.5rem 2rem ;
+  }
+
+  .tittleContainer h2{
+    font-size: 20px;
+  }
+  
+  .tittleContainer h3{
+    font-size: 27px;
+  }
+
+}

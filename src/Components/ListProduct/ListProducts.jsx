@@ -1,6 +1,7 @@
 import React, { useState, useEffect } from 'react';
 import axios from 'axios';
 import { fecthListarProductos } from '../../services/api'
+import style from './ListProducts.module.css'
 
 const ListProducts = () => {
 
@@ -8,6 +9,7 @@ const ListProducts = () => {
 
 
 	useEffect(() => {
+
 		fecthListarProductos()
 			.then(data => {
 				setProducts(data)
@@ -16,19 +18,37 @@ const ListProducts = () => {
 			.catch(error => {
 				console.error(errorHandling(error));
 			});
-	});
+	}, []);
 
- return (
-	  <div>
-		<h2>Lista de Productos</h2>
-		<ul>
-		  {productos.map(producto => (
-			<li key={producto.id}>
-			  {producto.nombre} - {producto.id}
-			</li>
-		  ))}
-		</ul>
-	  </div>
+
+	return (
+		<div>
+			<h2>Lista de Productos</h2>
+			<table>
+				<thead>
+					<tr>
+						<th>ID</th>
+						<th>Nombre del Producto</th>
+						<th>Acciones</th>
+					</tr>
+				</thead>
+				<tbody>
+					{productos.map(producto => (
+						<tr key={producto.id}>
+							<td>{producto.id}</td>
+							<td>{producto.nombre}</td>
+							<td>
+								<button className={style.button} onClick={() => handleEliminarProducto(producto.id)}>Eliminar</button>
+								<button className={style.button} onClick={() => handleAsignarCategoria(producto.id)}>Asignar Categoria</button>
+
+							</td>
+
+							
+						</tr>
+					))}
+				</tbody>
+			</table>
+		</div>
 	);
 }
 

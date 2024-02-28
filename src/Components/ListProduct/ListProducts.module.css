@@ -21,6 +21,7 @@ table {
     font-weight: bold;
     color: #333;
     text-transform: uppercase;
+    align-items: center;
   }
   
   tr:hover {
@@ -34,5 +35,21 @@ table {
   tbody tr:nth-child(odd) {
     background-color: #f0f0f0;
   }
+
+  .button {
+    padding: 10px 20px;
+    background-color: #db8ae6;
+    color: #7f399b;
+    border: none;
+    border-radius: 5px;
+    cursor: pointer;
+    margin-left: 10px;
+  }
+  
+  .button:hover {
+    background-color: #c4a3d8;
+  }
+
+
   
   

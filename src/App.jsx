@@ -7,6 +7,7 @@ import Details from './Routes/Details.jsx';
 import Header from "./Components/header/Header.jsx";
 import Admin from "./Pages/Administracion/Admin.jsx";
 import ListProducts from "./Components/ListProduct/ListProducts.jsx";
+import AsignarCategoria from "./Components/AsignarCategoria/AsignarCategoria.jsx";
 
 
 
@@ -23,6 +24,9 @@ function App() {
           <Route path='/details/:id' element={<Details/>}/>
           <Route path='/admin' element={<Admin/>}/>
           <Route path='/listarProductos' element={<ListProducts/>}/>
+          <Route path='/asignarCategoria' element={<AsignarCategoria/>}/>
+
+
 
         </Routes>
 
