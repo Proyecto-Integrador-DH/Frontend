@@ -1,6 +1,7 @@
 .categoryContainer {
     display: flex;
     flex-direction: row;
+    width: 90%;
 }
 
 h3 {
