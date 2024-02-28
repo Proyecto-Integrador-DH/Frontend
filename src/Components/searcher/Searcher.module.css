@@ -2,10 +2,10 @@
 
 .searcherContainer {
     margin: 1rem;
+    display: flex;
 }
 
 .searcherContainer input {
-
     border-radius: 2px;
     border: 2px none;
     box-shadow: 0px 2px 4px rgba(0, 0, 0, 0.2); /* Sombra en la parte inferior */
@@ -18,13 +18,16 @@
 /* Pantallas pequeñas (móviles en landscape de menos de 768px) */
 
 @media (max-width: 793.98px) { 
+    .searcherContainer {
+        margin: 1rem;
+        display: block;
+    }
+    
     .searcherContainer input {
-
         border-radius: 2px;
         border: 2px none;
         box-shadow: 0px 2px 4px rgba(0, 0, 0, 0.2); /* Sombra en la parte inferior */
-        height: 29px;
-        width: 40%;
+        width: 20px;
     }
 }
 

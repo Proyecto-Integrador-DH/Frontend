@@ -6,6 +6,7 @@ import { fetchCargarImagen } from "../../services/api";
 import { errorHandling } from "../../services/errorHandling";
 import Button from "../button/Button";
 import { fetchCategorias } from '../../services/api';
+import RegisterProductsStyles from "./RegisterProducts.module.css";
 
 
 const RegisterProducts = () => {
@@ -122,7 +123,7 @@ const RegisterProducts = () => {
         />
       )}
 
-      <form onSubmit={handleSubmit}>
+      <form onSubmit={handleSubmit} className={RegisterProductsStyles.formulario}>
 
         <label>
           Nombre:
