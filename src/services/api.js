@@ -41,3 +41,13 @@ export const fetchCargarImagen = async (data) => {
   }
   return await response.text();
 }
+
+export const fecthListarProductos = async () => {
+  const url = `${baseUrl}/producto/productos`;
+  const response = await fetch(url);
+  console.log("Productos: ", response);
+  if (!response.ok) {
+    throw new Error('Error en la solicitud: ' + response.status);
+  }
+  return await response.json();
+}
