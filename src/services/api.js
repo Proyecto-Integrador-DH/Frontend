@@ -42,7 +42,7 @@ export const fetchCargarImagen = async (data) => {
   return await response.text();
 }
 
-export const fecthListarProductos = async () => {
+export const fetchListarProductos = async () => {
   const url = `${baseUrl}/producto/productos`;
   const response = await fetch(url);
   console.log("Productos: ", response);
