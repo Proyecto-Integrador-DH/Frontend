@@ -12,6 +12,7 @@ const Recommended = () => {
   const [showAll, setShowAll] = useState(false);
   const sliderRef = useRef(null);
   const [productosApi, setProductosApi] = useState([]);
+  const { id } = useParams();
 
   const fetchApiData = async () => {
     try {
@@ -26,6 +27,8 @@ const Recommended = () => {
       console.error("Error al obtener datos:", error);
     }
   };
+
+  console.log(productosApi)
 
   const sliderSettings = {
     dots: false,
@@ -50,11 +53,6 @@ const Recommended = () => {
   useEffect(() => {
     fetchApiData();
   }, []);
-
-  const { id } = useParams();
-
-
-  console.log("productosApi:", productosApi);
 
   return (
     <div className={RecommendedStyles.recommendedBloque}>

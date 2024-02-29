@@ -5,3 +5,29 @@
   background-image: url('./assets/bodyback.png');
   background-size: cover; 
 }
+
+.cuadriculaImagenes{
+  display: flex;
+  flex-direction: row;
+  flex-wrap: wrap;
+  width: 50%;
+  box-sizing: border-box;
+
+}
+
+.cuadriculaImagenes img{
+  width: 50%;
+ border-radius: 30px;
+}
+
+.imageContainer{
+  display: flex;
+  flex-direction: row;
+  align-items: stretch;
+  box-sizing: border-box;
+
+}
+
+.imagenIzquierda{
+width:50%;
+}
