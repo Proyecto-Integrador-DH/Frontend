@@ -1,11 +1,11 @@
 import React from 'react';
 import HeaderStyle from './header.module.css';
-import Button from "../button/Button.jsx"
+import Button from '../button/Button.jsx';
 import Logo from '../../assets/Logo03.png';
 
 
 
-const Header = () => {
+const header = () => {
 
   return (
    <> 
@@ -30,4 +30,4 @@ const Header = () => {
     )
 }
 
-export default Header;
+export default header;
