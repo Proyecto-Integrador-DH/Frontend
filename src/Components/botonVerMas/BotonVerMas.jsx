@@ -4,7 +4,7 @@ import './botonVerMasStyle.css'
 const VerMas = ({ onClick, isExpanded }) => {
   return (
     <button className="boton" onClick={onClick}>
-      {isExpanded ? 'Ver menos' : 'Ver más'}
+      {isExpanded ? 'Ver menos' : 'Ver más >'}
     </button>
   );
 };
