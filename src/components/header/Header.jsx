@@ -4,7 +4,7 @@ import Button from "../button/Button.jsx"
 import Logo from '../../assets/Logo.png';
 import { Link } from 'react-router-dom';
 
-const header = () => {
+const Header = () => {
 
   const [scrollPosition, setScrollPosition] = useState(0);
 
@@ -36,4 +36,4 @@ const header = () => {
   );
 };
 
-export default header;
+export default Header;

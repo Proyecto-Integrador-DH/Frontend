@@ -25,7 +25,7 @@ const RegisterProducts = () => {
       const productoResponse = await fetchProductoNuevo({
         nombre,
         descripcion,
-        fecha,    
+        fecha,
         cupo,
         disponible
       });
