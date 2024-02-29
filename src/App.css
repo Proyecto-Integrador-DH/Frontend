@@ -18,6 +18,7 @@
 .cuadriculaImagenes img{
   width: 50%;
  border-radius: 30px;
+ padding:1% 1% 0% 0%;
 }
 
 .imageContainer{
@@ -25,9 +26,12 @@
   flex-direction: row;
   align-items: stretch;
   box-sizing: border-box;
-
+  justify-content: space-evenly;
+  margin: 5%;
+  height: 40%;
 }
 
 .imagenIzquierda{
 width:50%;
+margin:0% 1%;
 }
