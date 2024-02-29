@@ -1,0 +1,16 @@
+.formContainer{
+    border-radius: 20px;
+    width: 40%;
+    background-color:rgb(197, 162, 197);
+}
+
+.formContainer form{
+    align-items: center;
+    text-align: center;
+    padding: 10px;
+}
+
+.formContainer form input{
+    border-radius: 6px;
+    margin-bottom: 4px;
+}

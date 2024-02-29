@@ -1,33 +1,39 @@
-import React from 'react';
+import React, { useEffect, useState } from 'react';
 import HeaderStyle from './header.module.css';
-import Button from '../button/Button.jsx';
-import Logo from '../../assets/Logo03.png';
+import Button from "../button/Button.jsx"
+import Logo from '../../assets/Logo.png';
+import { Link } from 'react-router-dom';
 
+const Header = () => {
 
+  const [scrollPosition, setScrollPosition] = useState(0);
 
-const header = () => {
+  useEffect(() => {
+    const handleScroll = () => {
+      setScrollPosition(window.pageYOffset);
+    };
+
+    window.addEventListener('scroll', handleScroll);
+
+    return () => {
+      window.removeEventListener('scroll', handleScroll);
+    };
+  }, []);
 
   return (
-   <> 
-    <header>
-      <div className={HeaderStyle.logo}>
-        <div>
-        <img src={Logo} alt="" />
-        </div>
-        <div className={HeaderStyle.textContainer}>
-        <h2>Solo Aventuras</h2>
-        <p>compañia sin igual!</p>
-        </div>
-
-      </div>
-
-        <div>
+   <div id="navbar" className={`${HeaderStyle.bloque} ${scrollPosition > 0 ? 'bg-white' :  'bg-transparent'}`}> 
+        <Link to='/'>
+        <img src= {Logo} alt="logo"/>
+        </Link>
+        <div className='mt-1'>
           <Button className={HeaderStyle.login}>Iniciar sesión</Button>
           <Button className={HeaderStyle.signup}>Crear Cuenta</Button>
         </div>
-    </header>
-    </>
-    )
-}
 
-export default header;
+
+        
+    </div>
+  );
+};
+
+export default Header;
