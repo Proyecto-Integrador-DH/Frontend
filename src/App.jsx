@@ -7,7 +7,8 @@ import Details from './Routes/Details.jsx';
 import Header from "./components/header/Header.jsx";
 import Admin from "./Pages/Administracion/Admin.jsx";
 import ListProducts from "./components/ListProduct/ListProducts.jsx";
-import AsignarCategoria from "./Components/AsignarCategoria/AsignarCategoria.jsx";
+import AsignarCategoria from "./components/AsignarCategoria/AsignarCategoria.jsx";
+import RegisterUser from "./components/registerUser/RegisterUser.jsx";
 
 
 
@@ -25,6 +26,7 @@ function App() {
           <Route path='/admin' element={<Admin/>}/>
           <Route path='/listarProductos' element={<ListProducts/>}/>
           <Route path='/asignarCategoria' element={<AsignarCategoria/>}/>
+          <Route path='/registroDeUsuario' element={<RegisterUser/>}/>
         </Routes>
 
       </>

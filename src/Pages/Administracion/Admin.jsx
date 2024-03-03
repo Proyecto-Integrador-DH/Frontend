@@ -1,5 +1,4 @@
 import React from "react";
-import Footer from "../../components/footer/Footer";
 import Button from "../../components/button/Button";
 import AdminStyle from './Administrador.module.css';
 import { Link } from 'react-router-dom';
