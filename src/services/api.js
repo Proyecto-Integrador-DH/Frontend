@@ -1,4 +1,4 @@
-const baseUrl = 'http://localhost:8080';
+const baseUrl = 'http://localhost:8081';
 
 export const fetchCategorias = async () => {
   const url = `${baseUrl}/categoria/all`;

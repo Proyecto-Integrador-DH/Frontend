@@ -1,5 +1,5 @@
 import React, { useState, useEffect } from 'react';
-import axios from 'axios';
+//import axios from 'axios';
 import { fetchListarProductos } from '../../services/api';
 import style from './ListProducts.module.css'
 
