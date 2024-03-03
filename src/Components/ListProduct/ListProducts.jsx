@@ -1,6 +1,6 @@
 import React, { useState, useEffect } from 'react';
 import axios from 'axios';
-import { fecthListarProductos } from '../../services/api'
+import { fetchListarProductos } from '../../services/api';
 import style from './ListProducts.module.css'
 
 const ListProducts = () => {
@@ -10,7 +10,7 @@ const ListProducts = () => {
 
 	useEffect(() => {
 
-		fecthListarProductos()
+		fetchListarProductos()
 			.then(data => {
 				setProducts(data)
 				console.log(data);
