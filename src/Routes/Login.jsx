@@ -19,24 +19,34 @@ const Login = () => {
         email,
         pass,
       });
-      if (loginResponse == 400) {
-        console.log("Correo o contraseña incorrectos.");
-        setError("Error");
-        setTitleError("Correo o contraseña incorrectos.");
-        setModalErrorVisible(true);
-        return;
-      } else {
+      console.log(typeof loginResponse);
+      console.log(loginResponse);
+      if (loginResponse) {
         console.log("Login exitoso.");
         setError("Login exitoso.");
         setTitleError("Inicio de sesión exitoso.");
         setModalErrorVisible(true);
         setEmail("");
         setPassword("");
-        <Navigate to="/home"/>;
-      }
-    } catch (error) {
-      setModalErrorVisible(true);
-      console.error("Error al iniciar sesión:", error.message);
+        localStorage.setItem("token", loginResponse);
+
+        window.location.href = "/";
+        return;
+      } /* else  {
+        console.log("Correo o contraseña incorrectos.");
+        setError("Error");
+        setTitleError("Correo o contraseña incorrectos.");
+        setModalErrorVisible(true);
+        return;
+      } */
+      } catch (error) {
+        console.log("Correo o contraseña incorrectos.");
+        setError("Por favor verifique los datos ingresados");
+        setTitleError("Correo o contraseña incorrectos.");
+        setModalErrorVisible(true);
+        return;
+      /* setModalErrorVisible(true);
+      console.error("Error al iniciar sesión:", error.message); */
     }
   };
 

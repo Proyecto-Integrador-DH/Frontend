@@ -76,5 +76,5 @@ export const fetchLogin = async (data) => {
   if (!response.ok) {
     throw new Error('Error en la solicitud: ' + response.status);
   }
-  return await response.json();
+  return await response.text();
 }
