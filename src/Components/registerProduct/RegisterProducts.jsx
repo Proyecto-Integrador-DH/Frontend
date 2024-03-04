@@ -199,10 +199,12 @@ const RegisterProducts = () => {
                   aria-labelledby="listbox-label"
                   aria-activedescendant="listbox-option-3"
                 >
-                  <li className="text-gray-900 relative cursor-default select-none py-2 pl-3 pr-9" id="listbox-option-0" role="option">
+
+                  {categorias.map(categoria =>(
+                    <li className="text-gray-900 relative cursor-default select-none py-2 pl-3 pr-9" id="listbox-option-0" role="option">
                     <div className="flex items-center">
                     
-                      <span className="font-normal ml-3 block truncate">Opcion 1</span>
+                      <span className="font-normal ml-3 block truncate">{categoria.nombre}</span>
                     </div>
                     <span className="text-indigo-600 absolute inset-y-0 right-0 flex items-center pr-4">
                       <svg className="h-5 w-5" viewBox="0 0 20 20" fill="currentColor" aria-hidden="true">
@@ -211,29 +213,8 @@ const RegisterProducts = () => {
                     </span>
                   </li>
 
-                  <li className="text-gray-900 relative cursor-default select-none py-2 pl-3 pr-9" id="listbox-option-0" role="option">
-                    <div className="flex items-center">
-                    
-                      <span className="font-normal ml-3 block truncate">Opcion 2</span>
-                    </div>
-                    <span className="text-indigo-600 absolute inset-y-0 right-0 flex items-center pr-4">
-                      <svg className="h-5 w-5" viewBox="0 0 20 20" fill="currentColor" aria-hidden="true">
-                        <path fillRule="evenodd" d="M16.704 4.153a.75.75 0 01.143 1.052l-8 10.5a.75.75 0 01-1.127.075l-4.5-4.5a.75.75 0 011.06-1.06l3.894 3.893 7.48-9.817a.75.75 0 011.05-.143z" clipRule="evenodd" />
-                      </svg>
-                    </span>
-                  </li>
-
-                  <li className="text-gray-900 relative cursor-default select-none py-2 pl-3 pr-9" id="listbox-option-0" role="option">
-                    <div className="flex items-center">
-                    
-                      <span className="font-normal ml-3 block truncate">Opcion 3</span>
-                    </div>
-                    <span className="text-indigo-600 absolute inset-y-0 right-0 flex items-center pr-4">
-                      <svg className="h-5 w-5" viewBox="0 0 20 20" fill="currentColor" aria-hidden="true">
-                        <path fillRule="evenodd" d="M16.704 4.153a.75.75 0 01.143 1.052l-8 10.5a.75.75 0 01-1.127.075l-4.5-4.5a.75.75 0 011.06-1.06l3.894 3.893 7.48-9.817a.75.75 0 011.05-.143z" clipRule="evenodd" />
-                      </svg>
-                    </span>
-                  </li>
+                  ))}
+                  
 
                 </ul>
               )}

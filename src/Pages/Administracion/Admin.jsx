@@ -10,9 +10,6 @@ const Adminstrador = () => {
 
   return (
     <div>
-      <div className={AdminStyle.mensajeMovil}>
-        El panel de administración no está disponible en dispositivos móviles.
-      </div>
 
       <h2 className={AdminStyle.h2}> Panel de administracion</h2>
 
@@ -30,8 +27,13 @@ const Adminstrador = () => {
         </div>
 
         <div className={AdminStyle.tarjetas}>
-          <h2>Asignar Categoria</h2>
+          <h2>Lista de Categorias</h2>
           <Link to='/asignarCategoria'><Button className={AdminStyle.boton}>Click aqui</Button></Link>
+        </div>
+
+        <div className={AdminStyle.tarjetas}>
+          <h2>Listar Usuarios</h2>
+          <Link to='/listarUsuarios'><Button className={AdminStyle.boton}>Click aqui</Button></Link>
         </div>
 
       </div>
