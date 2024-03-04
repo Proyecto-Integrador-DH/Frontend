@@ -6,7 +6,7 @@ import ErrorComponent from "../Components/error/ErrorAlert";
 
 const Login = () => {
   const [email, setEmail] = useState("");
-  const [password, setPassword] = useState("");
+  const [pass, setPassword] = useState("");
   const [error, setError] = useState(null);
   const [titleError, setTitleError] = useState(null);
   const [modalErrorVisible, setModalErrorVisible] = useState(false);
@@ -17,7 +17,7 @@ const Login = () => {
     try {
       const loginResponse = await fetchLogin({
         email,
-        password,
+        pass,
       });
       if (loginResponse == 400) {
         console.log("Correo o contraseña incorrectos.");
@@ -84,6 +84,8 @@ const Login = () => {
                   name="email"
                   type="email"
                   autoComplete="email"
+                  value={email}
+                  onChange={(e) => setEmail(e.target.value)}
                   required
                   className="block w-full rounded-md border-0 py-1.5 text-gray-900 shadow-sm ring-1 ring-inset ring-gray-300 placeholder:text-gray-400 focus:ring-2 focus:ring-inset focus:ring-indigo-600 sm:text-sm sm:leading-6"
                 />
@@ -98,10 +100,12 @@ const Login = () => {
               </div>
               <div className="mt-2">
                 <input
-                  id="password"
-                  name="password"
+                  id="pass"
+                  name="pass"
                   type="password"
                   autoComplete="current-password"
+                  value={pass}
+                  onChange={(e) => setPassword(e.target.value)}
                   required
                   minLength={5}
                   className="block w-full rounded-md border-0 py-1.5 text-gray-900 shadow-sm ring-1 ring-inset ring-gray-300 placeholder:text-gray-400 focus:ring-2 focus:ring-inset focus:ring-indigo-600 sm:text-sm sm:leading-6"
