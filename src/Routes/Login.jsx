@@ -1,6 +1,6 @@
 import React, { useState } from "react";
 import Logo from "../assets/Logo03.png";
-import { fetchEmail } from "../services/api";
+import { fetchEmail, fetchLogin } from "../services/api";
 import { errorHandling } from "../services/errorHandling";
 import ErrorComponent from "../Components/error/ErrorAlert";
 
@@ -15,7 +15,7 @@ const Login = () => {
     event.preventDefault();
 
     try {
-      const loginResponse = await fetchEmail({
+      const loginResponse = await fetchLogin({
         email,
         password,
       });
@@ -30,9 +30,9 @@ const Login = () => {
         setError("Login exitoso.");
         setTitleError("Inicio de sesión exitoso.");
         setModalErrorVisible(true);
-
         setEmail("");
         setPassword("");
+        <Navigate to="/home"/>;
       }
     } catch (error) {
       setModalErrorVisible(true);
