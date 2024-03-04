@@ -1,5 +1,5 @@
 import React, { useState } from 'react';
-import { fetchCrarUsuario } from '../../service/Api';
+import { fetchCrearUsuario } from '../../services/api';
 import registerUserStyles from "./RegisterUser.module.css";
 
 const nombreRegex = /^[a-zA-Z]+$/;
@@ -60,7 +60,7 @@ function RegisterUser() {
         }
 
         try {
-            const usuarioResponse = await fetchCrarUsuario({
+            const usuarioResponse = await fetchCrearUsuario({
                 nombre, apellido, email, contrasena
             });
             if (!usuarioResponse.ok) {

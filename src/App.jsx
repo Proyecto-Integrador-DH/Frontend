@@ -2,13 +2,13 @@ import "./App.css";
 import { Route, Routes } from "react-router";
 import Products from "./Routes/Products.jsx";
 import HomePage from "./Pages/home/Home.jsx";
-import RegisterProducts from './components/registerProduct/RegisterProducts.jsx';
+import RegisterProducts from './Components/registerProduct/RegisterProducts.jsx';
 import Details from './Routes/Details.jsx';
-import Header from "./components/header/Header.jsx";
+import Header from "./Components/header/Header.jsx";
 import Admin from "./Pages/Administracion/Admin.jsx";
-import ListProducts from "./components/ListProduct/ListProducts.jsx";
-import AsignarCategoria from "./components/AsignarCategoria/AsignarCategoria.jsx";
-import RegisterUser from "./components/registerUser/RegisterUser.jsx";
+import ListProducts from "./Components/ListProduct/ListProducts.jsx";
+import AsignarCategoria from "./Components/AsignarCategoria/AsignarCategoria.jsx";
+import RegisterUser from "./Components/registerUser/RegisterUser.jsx";
 
 
 

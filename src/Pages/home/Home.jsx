@@ -1,9 +1,9 @@
 import React from "react";
-import Searcher from "../../components/searcher/Searcher";
-import Category from "../../components/category/Category";
-import Banner from "../../components/banner/Banner";
-import Recommended from "../../components/recommended/Recommended";
-import Footer from "../../components/footer/Footer";
+import Searcher from "../../Components/searcher/Searcher";
+import Category from "../../Components/category/Category";
+import Banner from "../../Components/banner/Banner";
+import Recommended from "../../Components/recommended/Recommended";
+import Footer from "../../Components/footer/Footer";
 
 const HomePage = () => {
   return (

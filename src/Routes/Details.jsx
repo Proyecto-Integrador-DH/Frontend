@@ -1,5 +1,5 @@
 import React, { useEffect, useState } from "react";
-import Searcher from "../components/searcher/Searcher";
+import Searcher from "../Components/searcher/Searcher";
 import flecha from "../assets/arrowRightflecha.png";
 import { useParams } from "react-router-dom";
 import { useNavigate } from "react-router-dom";

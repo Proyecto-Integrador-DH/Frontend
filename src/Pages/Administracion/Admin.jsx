@@ -1,5 +1,5 @@
 import React from "react";
-import Button from "../../components/button/Button";
+import Button from "../../Components/button/Button"
 import AdminStyle from './Administrador.module.css';
 import { Link } from 'react-router-dom';
 

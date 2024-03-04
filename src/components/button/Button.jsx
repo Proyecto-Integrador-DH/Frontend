@@ -2,7 +2,7 @@ import React from 'react';
 import ButtonStyle from'./button.module.css';
 
 
-const button = ({children, className}) => {
+const Button = ({children, className}) => {
 
   return (
     <button className={`${ButtonStyle.boton} ${className}`}>
@@ -11,4 +11,4 @@ const button = ({children, className}) => {
   )
 }
 
-export default button;
+export default Button;
