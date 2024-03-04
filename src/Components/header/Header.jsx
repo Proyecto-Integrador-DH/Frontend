@@ -1,6 +1,6 @@
 import React, { useEffect, useState } from 'react';
 import HeaderStyle from './header.module.css';
-import Button from "../button/Button.jsx"
+import Button from '../button/Button';
 import Logo from '../../assets/Logo.png';
 import Inicio from '../../assets/Inicio.jpg';
 import Registro from '../../assets/registrarse.png';
