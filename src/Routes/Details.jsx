@@ -12,7 +12,6 @@ const Details = () => {
 
   const fetchDetallesProductos = async () => {
     try {
-      console.log('hola')
       const data = await fetchProduct(id);
       setDetallesProducto(data);
     } catch (error) {

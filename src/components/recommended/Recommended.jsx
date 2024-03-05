@@ -93,7 +93,7 @@ const Recommended = () => {
         <div>
           <p>{product.nombre}</p>
         </div>
-        <Link to={`/details/${index}`}>
+        <Link to={`/details/${product.Id}`}>
           <button className={RecommendedStyles.verDetalles}>
             Ver detalle
           </button>
@@ -119,7 +119,7 @@ const Recommended = () => {
               <div>
                 <p>{product.nombre}</p>
               </div>
-              <Link to={`/details/${index}`}>
+              <Link to={`/details/${product.Id}`}>
                 <button className={RecommendedStyles.verDetalles}>
                   Ver detalle
                 </button>
