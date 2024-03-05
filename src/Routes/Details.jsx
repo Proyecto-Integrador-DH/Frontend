@@ -11,7 +11,7 @@ const Details = () => {
   const [detallesProducto, setDetallesProducto] = useState([]);
 
   const defaultImage = "https://via.placeholder.com/150";
-  const totalImage = 5;
+  const totalImage = 4;
 
 const missingImagesCount = Math.max(
   totalImage - (detallesProducto?.imagenes?.length ?? 0), // Usamos el operador de fusión nula (??) para manejar el caso de que detallesProducto?.imagenes sea nulo
