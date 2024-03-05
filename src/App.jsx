@@ -10,6 +10,7 @@ import Admin from "./Pages/Administracion/Admin.jsx";
 import ListProducts from "./Components/ListProduct/ListProducts.jsx";
 import AsignarCategoria from "./Components/AsignarCategoria/AsignarCategoria.jsx";
 import ListarUsuarios from "./Components/ListarUsuarios/ListarUsuarios.jsx";
+import RegisterUser from "./Components/registerUser/RegisterUser.jsx";
 
 import { useEffect } from "react";
 import { jwtDecode } from "jwt-decode";
@@ -44,6 +45,7 @@ function App() {
         <Route path='/listarProductos' element={<ListProducts />} />
         <Route path='/asignarCategoria' element={<AsignarCategoria />} />
         <Route path='/listarUsuarios' element={<ListarUsuarios />} />
+        <Route path='/crearUsuario' element={<RegisterUser />} />
       </Routes>
 
     </>
