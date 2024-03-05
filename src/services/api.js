@@ -29,7 +29,7 @@ export const fetchProductoNuevo = async (data) => {
 
 export const fetchCargarImagen = async (data) => {
   const url = `${baseUrl}/imagen/cargar`;
-  console.log("datos login " , data);
+  console.log("datos login ", data);
 
   const response = await fetch(url, {
     method: 'POST',
@@ -101,7 +101,7 @@ export const fetchEmail = async (data) => {
 export const fetchLogin = async (data) => {
   const url = `${baseUrl2}/usuario/login`;
 
-  console.log("datos login " , data);
+  console.log("datos login ", data);
 
   const response = await fetch(url, {
     method: 'POST',
@@ -110,9 +110,26 @@ export const fetchLogin = async (data) => {
     },
     body: JSON.stringify(data),
   });
-  console.log("login",response);
+  console.log("login", response);
   if (!response.ok) {
     throw new Error('Error en la solicitud: ' + response.status);
   }
   return await response.text();
+}
+
+export const fetchListarUsuarios = async () => {
+  const url = `${baseUrl2}/usuario/usuarios`;
+  const response = await fetch(url, {
+    method: 'GET',
+    headers: {
+      'Content-Type': 'application/json',
+      'Authorization': localStorage.getItem('token'), 
+    },
+  });
+
+  if (!response.ok) {
+    throw new Error('Error en la solicitud: ' + response.status);
+  }
+
+  return await response.json();
 }

@@ -4,23 +4,32 @@ import style from './ListProducts.module.css';
 import { fetchCategorias } from '../../services/api';
 import { errorHandling } from '../../services/errorHandling';
 
+
 const ListProducts = () => {
     const [productos, setProducts] = useState([]);
     const [categorias, setCategoria] = useState([]);
     const [categoriasSeleccionadas, setCategoriasSeleccionadas] = useState({});
     const [showOptions, setShowOptions] = useState({});
 
-	useEffect(() => {
+    useEffect(() => {
+        fetchListarProductos()
+            .then(data => {
+                setProducts(data);
+            })
+            .catch(error => {
+                console.error(errorHandling(error));
+            });
+    }, []);
 
-		fetchListarProductos()
-			.then(data => {
-				setProducts(data)
-				console.log(data);
-			})
-			.catch(error => {
-				console.error(errorHandling(error));
-			});
-	}, []);
+    useEffect(() => {
+        fetchCategorias()
+            .then(data => {
+                setCategoria(data);
+            })
+            .catch(error => {
+                console.error(errorHandling(error));
+            });
+    }, []);
 
     const handleCategoriaChange = (productoId, event) => {
         const nuevaSeleccion = { ...categoriasSeleccionadas };
@@ -48,6 +57,7 @@ const ListProducts = () => {
                             <td>
                                 <button className={style.button} >Eliminar</button>
                             </td>
+
                             <td>
                                 <div className="relative mt-2">
                                     <button
@@ -63,7 +73,7 @@ const ListProducts = () => {
                                         </span>
                                         <span className="pointer-events-none absolute inset-y-0 right-0 ml-3 flex items-center pr-2">
                                             <svg
-                                                className={`h-5 w-5 ${showOptions[producto.Id] ? 'transform rotate-180' : ''} text-gray-400`}
+                                                className={`h - 5 w-5 ${showOptions[producto.Id] ? 'transform rotate-180' : ''} text-gray-400`}
                                                 viewBox="0 0 20 20"
                                                 fill="currentColor"
                                                 aria-hidden="true"
@@ -95,11 +105,12 @@ const ListProducts = () => {
                                     )}
                                 </div>
                             </td>
+
                         </tr>
                     ))}
                 </tbody>
             </table>
-        </div>
+        </div >
     );
 }
 
