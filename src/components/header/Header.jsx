@@ -50,7 +50,9 @@ const Header = () => {
             </button>
           </div>
           <div>
+            <Link to='/Login'> 
             <Button className={HeaderStyle.login}>Iniciar sesión</Button>
+            </Link>  
             <Button className={HeaderStyle.signup}>Crear Cuenta</Button>
           </div>
 
