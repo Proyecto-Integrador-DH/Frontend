@@ -14,10 +14,14 @@ export const fetchCategorias = async () => {
 export const fetchProductoNuevo = async (data) => {
   const url = `${baseUrl}/producto/nuevo`;
 
+  console.log("token", localStorage.getItem('token'));
+
   const response = await fetch(url, {
     method: 'POST',
+    
     headers: {
       'Content-Type': 'application/json',
+      'Authorization': localStorage.getItem('token'),
     },
     body: JSON.stringify(data),
   });
