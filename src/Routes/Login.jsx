@@ -1,6 +1,6 @@
 import React, { useState } from "react";
 import Logo from "../assets/Logo03.png";
-import { fetchEmail, fetchLogin } from "../services/api";
+import { fetchLogin } from "../services/api";
 import { errorHandling } from "../services/errorHandling";
 import ErrorComponent from "../Components/error/ErrorAlert";
 import { Link } from "react-router-dom";
@@ -86,8 +86,8 @@ const Login = () => {
             method="POST"
           >
             <div>
-              <label className="block text-sm font-medium leading-6 text-gray-900">
-                Correo elctronico
+              <label className="block text-left text-sm font-medium leading-6 text-gray-900">
+                Correo electronico
               </label>
               <div className="mt-2">
                 <input

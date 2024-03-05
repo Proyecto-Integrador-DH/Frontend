@@ -11,22 +11,42 @@ import ListProducts from "./Components/ListProduct/ListProducts.jsx";
 import AsignarCategoria from "./Components/AsignarCategoria/AsignarCategoria.jsx";
 import ListarUsuarios from "./Components/ListarUsuarios/ListarUsuarios.jsx";
 import RegisterUser from "./Components/registerUser/RegisterUser.jsx";
-
+import { useState } from "react";
 import { useEffect } from "react";
-import { jwtDecode } from "jwt-decode";
+import { jwtDecode } from "jwt-decode"; 
+import { fetchEmail } from "./services/api.js";
+import { errorHandling } from "./services/errorHandling.js";
 
 function App() {
 
-
+  const [user, setUser] = useState(null);
+  const [email,setEmail] = useState("");
 
   useEffect(() => {
     const token = localStorage.getItem('token');
     if (token) {
       const decodedToken = jwtDecode(token);
-      console.log(decodedToken);
+      console.log("token decodificado:", decodedToken);
+      console.log("email:", decodedToken.sub);
+      setEmail(decodedToken.sub);
     }
   }, [])
 
+  useEffect(() => {
+    fetchEmail(email)
+    .then(data => {
+      setUser(data);
+      console.log("Info de usuario", user);
+    })
+    .catch(error => {
+      console.error(errorHandling(error));
+    });
+}
+,[]);
+
+
+
+  
 
 
 
