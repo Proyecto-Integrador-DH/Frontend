@@ -13,6 +13,16 @@ const Details = () => {
   const defaultImage = "https://via.placeholder.com/150";
   const totalImage = 4;
 
+  const fetchDetallesProductos = async () => {
+    try {
+      const data = await fetchProduct(id);
+      setDetallesProducto(data);
+    } catch (error) {
+      console.error("Error al obtener datos:", error);
+    }
+  };
+
+
 const missingImagesCount = Math.max(
   totalImage - (detallesProducto?.imagenes?.length ?? 0), // Usamos el operador de fusión nula (??) para manejar el caso de que detallesProducto?.imagenes sea nulo
   0
@@ -23,14 +33,7 @@ const allImages = detallesProducto?.imagenes
   ?.slice(1, 5)
   .concat(missingImagesArray);
 
-  const fetchDetallesProductos = async () => {
-    try {
-      const data = await fetchProduct(id);
-      setDetallesProducto(data);
-    } catch (error) {
-      console.error("Error al obtener datos:", error);
-    }
-  };
+  console.log("imagenes", allImages);
 
   useEffect(() => {
     fetchDetallesProductos();
@@ -64,7 +67,7 @@ const allImages = detallesProducto?.imagenes
         {/* Cuadrícula de imágenes más pequeñas a la derecha */}
         <div className="cuadriculaImagenes">
           {allImages && allImages.map((imagen, index) => (
-            <img key={index} src={imagen} alt={`Imagen ${index + 1}`} />
+            <img key={index} src={imagen.url} alt={`Imagen ${index + 1}`} />
           ))}
         </div>
       </div>
