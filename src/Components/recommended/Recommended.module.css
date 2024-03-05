@@ -1,5 +1,5 @@
 .recommendedBloque {
-  padding: 1rem 7rem 0.5rem 7rem ;
+  margin: 20px ;
 }
 
 .recommendedContainer {
@@ -46,7 +46,8 @@
   border-top-left-radius: 20px;
   border-top-right-radius: 20px;
   width: 100%;
-  height: auto;
+  height: 350px;
+  object-fit: cover;
 }
 
 .verDetalles {
@@ -132,9 +133,12 @@
 }
 
 @media (min-width: 992px) {
-  .imagenContainer img {
-    margin: 0 auto; /* Alinear la imagen al centro horizontalmente */
-    display: block;
-    object-fit: cover; /* Hacer que la imagen sea un bloque para poder centrarla */
+  .showAll .cardRecommended2 {
+    width: 50%; /* Ajusta el ancho para mostrar dos elementos por fila */
+    box-sizing: border-box; /* Incluye el borde en el ancho total */
+    padding: 10px; /* Espacio entre los elementos */
+    height: 100px;
   }
 }
+
+
