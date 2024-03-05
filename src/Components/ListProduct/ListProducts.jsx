@@ -46,8 +46,8 @@ const ListProducts = () => {
           <tr>
             <th>ID</th>
             <th>Nombre del Producto</th>
+            <th>Categorias</th>
             <th>Acciones</th>
-            <th>Categorías</th>
           </tr>
         </thead>
         <tbody>
@@ -55,9 +55,6 @@ const ListProducts = () => {
             <tr key={producto.Id}>
               <td>{producto.Id}</td>
               <td>{producto.nombre}</td>
-              <td>
-                <button className={style.button}>Eliminar</button>
-              </td>
               <td>
                 <div className="relative mt-2">
                   <button
@@ -78,7 +75,7 @@ const ListProducts = () => {
                     <span className="pointer-events-none absolute inset-y-0 right-0 ml-3 flex items-center pr-2">
                       <svg
                         className={`h-5 w-5 ${showOptions[producto.Id] ? "transform rotate-180" : ""
-                        } text-gray-400`}
+                          } text-gray-400`}
                         viewBox="0 0 20 20"
                         fill="currentColor"
                         aria-hidden="true"
@@ -107,7 +104,7 @@ const ListProducts = () => {
                           role="option"
                           onClick={() => {
                             handleCategoriaChange(producto.Id, { target: { value: categoria.nombre } });
-                            //setShowOptions(false);
+                            setShowOptions(false);
                           }}
                         >
                           <div className="flex items-center">
@@ -134,6 +131,10 @@ const ListProducts = () => {
                     </ul>
                   )}
                 </div>
+              </td>
+              <td>
+                <button className={style.button}>Actualizar</button>
+                <button className={style.button}>Eliminar</button>
               </td>
             </tr>
           ))}
