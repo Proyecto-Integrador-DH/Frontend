@@ -14,7 +14,14 @@
   text-decoration: none;
   border: none;
   outline: none;
+  
 }
 
+ul {
+  list-style: none;
+}
+a {
+  text-decoration: none;
+}
 
 

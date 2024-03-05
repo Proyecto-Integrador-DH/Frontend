@@ -1,5 +1,5 @@
 import React, { useState, useEffect } from 'react';
-import { fecthListarProductos } from '../../services/api';
+import { fetchListarProductos } from '../../services/api';
 import style from './ListProducts.module.css';
 import { fetchCategorias } from '../../services/api';
 import { errorHandling } from '../../services/errorHandling';
@@ -10,25 +10,17 @@ const ListProducts = () => {
     const [categoriasSeleccionadas, setCategoriasSeleccionadas] = useState({});
     const [showOptions, setShowOptions] = useState({});
 
-    useEffect(() => {
-        fecthListarProductos()
-            .then(data => {
-                setProducts(data);
-            })
-            .catch(error => {
-                console.error(errorHandling(error));
-            });
-    }, []);
+	useEffect(() => {
 
-    useEffect(() => {
-        fetchCategorias()
-            .then(data => {
-                setCategoria(data);
-            })
-            .catch(error => {
-                console.error(errorHandling(error));
-            });
-    }, []);
+		fetchListarProductos()
+			.then(data => {
+				setProducts(data)
+				console.log(data);
+			})
+			.catch(error => {
+				console.error(errorHandling(error));
+			});
+	}, []);
 
     const handleCategoriaChange = (productoId, event) => {
         const nuevaSeleccion = { ...categoriasSeleccionadas };

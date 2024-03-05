@@ -6,6 +6,7 @@ import { fetchCargarImagen } from "../../services/api";
 import { errorHandling } from "../../services/errorHandling";
 import Button from "../button/Button";
 import { fetchCategorias } from '../../services/api';
+import RegisterProductsStyles from "./RegisterProducts.module.css";
 
 
 const RegisterProducts = () => {
@@ -20,6 +21,7 @@ const RegisterProducts = () => {
   const [modalErrorVisible, setModalErrorVisible] = useState(false);
   const [showOptions, setShowOptions] = useState(false);
   const [categorias, setCategoria] = useState([]);
+  const [categoriaSeleccionada, setCategoriaSeleccionada] = useState(null);
 
 
   useEffect(() => {
@@ -45,7 +47,10 @@ const RegisterProducts = () => {
         descripcion,
         fecha,
         cupo,
-        disponible
+        disponible,
+        categoria: {
+          id: categoriaSeleccionada.id
+        }
       });
 
       if (productoResponse == 400) {
@@ -56,7 +61,7 @@ const RegisterProducts = () => {
         return;
       } else {
 
-        const responseCargarImagen = await fetchCargarImagen({
+        await fetchCargarImagen({
           imgPath: imagenes,
           altText: "Img",
           producto: {
@@ -64,9 +69,9 @@ const RegisterProducts = () => {
           }
         });
 
-        setTitleError("Producto registrado");
-        setError("El producto ha sido registrado con éxito.");
-        setModalErrorVisible(true);
+          setModalErrorVisible(true);
+          setTitleError("Producto registrado");
+          setError("El producto ha sido registrado con éxito.");        
 
         setNombre("");
         setDescripcion("");
@@ -74,6 +79,7 @@ const RegisterProducts = () => {
         setCupo(0);
         setDisponible(true);
         setImagenes(null);
+        setCategoriaSeleccionada(null);
       }
     } catch (error) {
       setModalErrorVisible(true);
@@ -122,7 +128,7 @@ const RegisterProducts = () => {
         />
       )}
 
-      <form onSubmit={handleSubmit}>
+      <form onSubmit={handleSubmit} className={RegisterProductsStyles.formulario}>
 
         <label>
           Nombre:
@@ -167,7 +173,7 @@ const RegisterProducts = () => {
         </label>
         <label>
           <div>
-            <label htmlFor="listbox-label" className="block text-sm font-medium leading-6 text-gray-900">Categorias</label>
+            <label htmlFor="listbox-label" className="block text-sm font-medium leading-6 text-gray-900">Categorías</label>
             <div className="relative mt-2">
               <button
                 type="button"
@@ -177,8 +183,8 @@ const RegisterProducts = () => {
                 aria-labelledby="listbox-label"
                 onClick={() => setShowOptions(!showOptions)}
               >
-                <span className="flex items-center">
-                  <span className="ml-3 block truncate">Selecciona una categoria</span>
+                <span className="flex items-center text-capitalize">
+                  <span className="ml-3 block truncate">{categoriaSeleccionada ? categoriaSeleccionada.nombre : 'Selecciona una categoría'}</span>
                 </span>
                 <span className="pointer-events-none absolute inset-y-0 right-0 ml-3 flex items-center pr-2">
                   <svg
@@ -199,22 +205,20 @@ const RegisterProducts = () => {
                   aria-labelledby="listbox-label"
                   aria-activedescendant="listbox-option-3"
                 >
-
-                  {categorias.map(categoria =>(
-                    <li className="text-gray-900 relative cursor-default select-none py-2 pl-3 pr-9" id="listbox-option-0" role="option">
-                    <div className="flex items-center">
-                    
-                      <span className="font-normal ml-3 block truncate">{categoria.nombre}</span>
-                    </div>
-                    <span className="text-indigo-600 absolute inset-y-0 right-0 flex items-center pr-4">
-                      <svg className="h-5 w-5" viewBox="0 0 20 20" fill="currentColor" aria-hidden="true">
-                        <path fillRule="evenodd" d="M16.704 4.153a.75.75 0 01.143 1.052l-8 10.5a.75.75 0 01-1.127.075l-4.5-4.5a.75.75 0 011.06-1.06l3.894 3.893 7.48-9.817a.75.75 0 011.05-.143z" clipRule="evenodd" />
-                      </svg>
-                    </span>
+                {categorias.map((categoria) =>(
+                  <li
+                    key={categoria.id}
+                    className="text-gray-900 cursor-default select-none relative py-2 pl-3 pr-9"
+                    id="listbox-option-0"
+                    role="option"
+                    onClick={() => {
+                      setCategoriaSeleccionada(categoria);
+                      setShowOptions(false);
+                    }}
+                  >
+                    <span className="block truncate nameCategory">{categoria.nombre}</span>
                   </li>
-
-                  ))}
-                  
+                ))}
 
                 </ul>
               )}

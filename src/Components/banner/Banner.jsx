@@ -2,7 +2,8 @@ import React from "react";
 import ImagenBanner from "../../assets/Image02.png"
 import Explorer from "../../assets/Frame 6.png"
 import BannerStyles from "./Banner.module.css";
-import Button from "../button/Button.jsx"
+import Button from "../button/Button.jsx";
+import ImagenBody from "../../assets/Image02.png";
 
 const Banner = () => {
 
