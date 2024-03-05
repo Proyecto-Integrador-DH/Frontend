@@ -21,8 +21,6 @@ function App() {
   const [user, setUser] = useState(null);
   const [email,setEmail] = useState("");
 
-
-
   useEffect(() => {
     const token = localStorage.getItem('token');
     if (token) {
@@ -30,15 +28,14 @@ function App() {
       console.log("token decodificado:", decodedToken);
       console.log("email:", decodedToken.sub);
       setEmail(decodedToken.sub);
-
     }
   }, [])
-  console.log("Aca esta el email: " ,email);
+
   useEffect(() => {
     fetchEmail(email)
     .then(data => {
       setUser(data);
-      console.log(user);
+      console.log("Info de usuario", user);
     })
     .catch(error => {
       console.error(errorHandling(error));
