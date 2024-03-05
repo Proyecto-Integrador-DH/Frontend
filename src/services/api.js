@@ -43,7 +43,7 @@ export const fetchCargarImagen = async (data) => {
 }
 
 export const fetchListarProductos = async () => {
-  const url = `${baseUrl}/producto/productos`;
+  const url = `${baseUrl}/producto/productosAll`;
   const response = await fetch(url);
   console.log("Productos: ", response);
   if (!response.ok) {
@@ -66,14 +66,14 @@ export const fetchCrearUsuario = async (data) => {
   const url = `${baseUrl}/usuario/nuevo`;
 
   const response = await fetch(url, {
-      method: "POST",
-      headers: {
-          "Content-Type": "application/json",
-      },
-      body: JSON.stringify(data),
+    method: "POST",
+    headers: {
+      "Content-Type": "application/json",
+    },
+    body: JSON.stringify(data),
   });
-  if(!response.ok){
-      return response.status;
+  if (!response.ok) {
+    return response.status;
   }
 
   return await response.text();

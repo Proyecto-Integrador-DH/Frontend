@@ -26,15 +26,15 @@ const RegisterProducts = () => {
 
   useEffect(() => {
 
-		fetchCategorias()
-			.then(data => {
-				setCategoria(data)
-				console.log(data);
-			})
-			.catch(error => {
-				console.error(errorHandling(error));
-			});
-	}, []);
+    fetchCategorias()
+      .then(data => {
+        setCategoria(data)
+        console.log(data);
+      })
+      .catch(error => {
+        console.error(errorHandling(error));
+      });
+  }, []);
 
 
   const handleSubmit = async (event) => {
@@ -69,9 +69,9 @@ const RegisterProducts = () => {
           }
         });
 
-          setModalErrorVisible(true);
-          setTitleError("Producto registrado");
-          setError("El producto ha sido registrado con éxito.");        
+        setModalErrorVisible(true);
+        setTitleError("Producto registrado");
+        setError("El producto ha sido registrado con éxito.");
 
         setNombre("");
         setDescripcion("");
@@ -205,28 +205,25 @@ const RegisterProducts = () => {
                   aria-labelledby="listbox-label"
                   aria-activedescendant="listbox-option-3"
                 >
-                {categorias.map((categoria) =>(
-                  <li
-                    key={categoria.id}
-                    className="text-gray-900 cursor-default select-none relative py-2 pl-3 pr-9"
-                    id="listbox-option-0"
-                    role="option"
-                    onClick={() => {
-                      setCategoriaSeleccionada(categoria);
-                      setShowOptions(false);
-                    }}
-                  >
-                    <span className="block truncate nameCategory">{categoria.nombre}</span>
-                  </li>
-                ))}
+                  {categorias.map((categoria) => (
+                    <li
+                      key={categoria.id}
+                      className="text-gray-900 cursor-default select-none relative py-2 pl-3 pr-9"
+                      id="listbox-option-0"
+                      role="option"
+                      onClick={() => {
+                        setCategoriaSeleccionada(categoria);
+                        //setShowOptions(false);
+                      }}
+                    >
+                      <span className="block truncate nameCategory">{categoria.nombre}</span>
+                    </li>
+                  ))}
 
                 </ul>
               )}
             </div>
           </div>
-
-
-
         </label>
 
         <label>
