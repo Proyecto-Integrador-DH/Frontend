@@ -22,22 +22,29 @@ const Details = () => {
     }
   };
 
+  const missingImagesCount = Math.max(
+    totalImage - (detallesProducto?.imagenes?.length ?? 0), // Usamos el operador de fusión nula (??) para manejar el caso de que detallesProducto?.imagenes sea nulo
+    0
+  );
+  const missingImagesArray = new Array(missingImagesCount).fill(defaultImage);
 
-const missingImagesCount = Math.max(
-  totalImage - (detallesProducto?.imagenes?.length ?? 0), // Usamos el operador de fusión nula (??) para manejar el caso de que detallesProducto?.imagenes sea nulo
-  0
-);
-const missingImagesArray = new Array(missingImagesCount).fill(defaultImage);
-
-const allImages = detallesProducto?.imagenes
-  ?.slice(1, 5)
-  .concat(missingImagesArray);
+  const allImages = detallesProducto?.imagenes
+    ?.slice(1, 5)
+    .concat(missingImagesArray);
 
   console.log("imagenes", allImages);
 
   useEffect(() => {
     fetchDetallesProductos();
   }, []);
+
+
+  // Función para formatear la fecha
+  const formatDate = (dateString) => {
+    const fecha = new Date(dateString);
+    const opcionesDeFormato = { year: 'numeric', month: 'long', day: '2-digit' };
+    return fecha.toLocaleDateString('es-ES', opcionesDeFormato);
+  };
 
   return (
     <>
@@ -66,9 +73,10 @@ const allImages = detallesProducto?.imagenes
 
         {/* Cuadrícula de imágenes más pequeñas a la derecha */}
         <div className="cuadriculaImagenes">
-          {allImages && allImages.map((imagen, index) => (
-            <img key={index} src={imagen.url} alt={`Imagen ${index + 1}`} />
-          ))}
+          {allImages &&
+            allImages.map((imagen, index) => (
+              <img key={index} src={imagen.url} alt={`Imagen ${index + 1}`} />
+            ))}
         </div>
       </div>
 
@@ -91,8 +99,9 @@ const allImages = detallesProducto?.imagenes
       <div className="pl-40 pr-56">
         {/* Muestra la descripción del producto seleccionado */}
         <p>{detallesProducto?.descripcion}</p>
-        <p>{detallesProducto?.fecha}</p>
-        <p>{detallesProducto?.cupo}</p>
+        {/* Mostrar la fecha formateada */}
+        <p>Fecha de salida: {formatDate(detallesProducto?.fecha)}</p>
+        <p>Cupos disponibles: {detallesProducto?.cupo}</p>
         <p>{detallesProducto?.disponible}</p>
       </div>
     </>
