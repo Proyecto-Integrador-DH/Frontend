@@ -10,6 +10,19 @@ const Details = () => {
   const navigate = useNavigate();
   const [detallesProducto, setDetallesProducto] = useState([]);
 
+  const defaultImage = "https://via.placeholder.com/150";
+  const totalImage = 5;
+
+const missingImagesCount = Math.max(
+  totalImage - (detallesProducto?.imagenes?.length ?? 0), // Usamos el operador de fusión nula (??) para manejar el caso de que detallesProducto?.imagenes sea nulo
+  0
+);
+const missingImagesArray = new Array(missingImagesCount).fill(defaultImage);
+
+const allImages = detallesProducto?.imagenes
+  ?.slice(1, 5)
+  .concat(missingImagesArray);
+
   const fetchDetallesProductos = async () => {
     try {
       const data = await fetchProduct(id);
@@ -35,25 +48,23 @@ const Details = () => {
         </h1>
       </div>
 
-      <div className="imageContainer"> 
+      <div className="imageContainer">
         {/* Imagen principal grande a la izquierda */}
         <div className="imagenIzquierda">
-          {detallesProducto?.imagenes?.length > 0 && (
+          {detallesProducto?.imagenes?.length > 0 ? (
             <img
               src={detallesProducto.imagenes[0]?.url}
               alt={`Imagen principal`}
             />
+          ) : (
+            <img src={defaultImage} alt="Imagen por defecto" />
           )}
         </div>
 
         {/* Cuadrícula de imágenes más pequeñas a la derecha */}
         <div className="cuadriculaImagenes">
-          {detallesProducto?.imagenes?.slice(1, 5).map((imagen, index) => (
-            <img
-              key={index}
-              src={imagen.url}
-              alt={`Imagen ${index + 1}`}
-            />
+          {allImages && allImages.map((imagen, index) => (
+            <img key={index} src={imagen} alt={`Imagen ${index + 1}`} />
           ))}
         </div>
       </div>

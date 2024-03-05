@@ -14,6 +14,8 @@ const Recommended = () => {
   const [productosApi, setProductosApi] = useState([]);
   const { id } = useParams();
 
+  const defaultImage = "https://via.placeholder.com/150";
+
   const fetchApiData = async () => {
     try {
       const data = await fetchListarProductos();
@@ -28,7 +30,7 @@ const Recommended = () => {
     }
   };
 
-  console.log(productosApi)
+  console.log(productosApi);
 
   const sliderSettings = {
     dots: false,
@@ -82,56 +84,60 @@ const Recommended = () => {
         </div>
       </div>
       {showAll ? (
-  <div className={RecommendedStyles.showAll}>
-    {productosApi.map((product, index) => (
-      <div key={index} className={RecommendedStyles.cardRecommended2}>
-        <div className={RecommendedStyles.imagenContainer}>
-          {product.imagenes.length > 0 && (
-            <img src={product.imagenes[0].url} alt={product.imagenes[0].altText} />
-          )}
-        </div>
-        <div>
-          <p>{product.nombre}</p>
-        </div>
-        <Link to={`/details/${product.Id}`}>
-          <button className={RecommendedStyles.verDetalles}>
-            Ver detalle
-          </button>
-        </Link>
-      </div>
-    ))}
-  </div>
-) : (
-        <Slider
-          ref={sliderRef}
-          {...(showAll ? allProductsSliderSettings : sliderSettings)}
-        >
-          {productosApi.map((product, index) => (
-            <div key={index} className={RecommendedStyles.cardRecommended}>
-              <div className={RecommendedStyles.imagenContainer}>
-                {product.imagenes.length > 0 && (
-                  <img
-                    src={product.imagenes[0].url}
-                    alt={product.imagenes[0].altText}
-                  />
-                )}
-              </div>
-              <div>
-                <p>{product.nombre}</p>
-              </div>
-              <Link to={`/details/${product.Id}`}>
-                <button className={RecommendedStyles.verDetalles}>
-                  Ver detalle
-                </button>
-              </Link>
+      <div className={RecommendedStyles.showAll}>
+        {productosApi.map((product, index) => (
+          <div key={index} className={RecommendedStyles.cardRecommended2}>
+            <div className={RecommendedStyles.imagenContainer}>
+              {product.imagenes.length > 0 ? (
+                <img src={product.imagenes[0].url} alt={product.imagenes[0].altText} />
+              ) : (
+                <img src={defaultImage} alt="Imagen por defecto" />
+              )}
             </div>
-          ))}
-        </Slider>
-      )}
+            <div>
+              <p>{product.nombre}</p>
+            </div>
+            <Link to={`/details/${product.Id}`}>
+              <button className={RecommendedStyles.verDetalles}>
+                Ver detalle
+              </button>
+            </Link>
+          </div>
+        ))}
+      </div>
+    ) : (
+      <Slider
+        ref={sliderRef}
+        {...(showAll ? allProductsSliderSettings : sliderSettings)}
+      >
+        {productosApi.map((product, index) => (
+          <div key={index} className={RecommendedStyles.cardRecommended}>
+            <div className={RecommendedStyles.imagenContainer}>
+              {product.imagenes.length > 0 ? (
+                <img
+                  src={product.imagenes[0].url}
+                  alt={product.imagenes[0].altText}
+                />
+              ) : (
+                <img src={defaultImage} alt="Imagen por defecto" />
+              )}
+            </div>
+            <div>
+              <p>{product.nombre}</p>
+            </div>
+            <Link to={`/details/${product.Id}`}>
+              <button className={RecommendedStyles.verDetalles}>
+                Ver detalle
+              </button>
+            </Link>
+          </div>
+        ))}
+      </Slider>
+    )}
 
-      <VerMas onClick={handleToggleClick} isExpanded={showAll} />
-    </div>
-  );
+    <VerMas onClick={handleToggleClick} isExpanded={showAll} />
+  </div>
+);
 };
 
 export default Recommended;
