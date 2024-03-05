@@ -6,8 +6,28 @@ import RegisterProducts from './Components/registerProduct/RegisterProducts.jsx'
 import Details from './Routes/Details.jsx';
 import Header from "./Components/header/Header.jsx";
 import Login from "./Routes/Login.jsx";
+import { useEffect } from "react";
+import { jwtDecode } from "jwt-decode";
+import { fetchEmail } from "./services/api.js";
 
 function App() {
+
+  
+
+  useEffect(() => {
+    const token = localStorage.getItem('token');
+    if(token){
+      const decodedToken = jwtDecode(token); 
+      console.log(decodedToken);
+      const usuario = fetchEmail({email: decodedToken.email});
+      console.log(usuario);
+    }
+  }, [])
+
+  
+
+
+
 
   return (
       <>

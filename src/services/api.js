@@ -46,8 +46,8 @@ export const fetchCargarImagen = async (data) => {
 
 export const fetchEmail = async (data) => {
   const url = `${baseUrl}/usuario/email`;
-
   const response = await fetch(url, {
+    Authorization: localStorage.getItem('token'),
     method: 'GET',
     headers: {
       'Content-Type': 'application/json',
