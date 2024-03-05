@@ -133,3 +133,22 @@ export const fetchListarUsuarios = async () => {
 
   return await response.json();
 }
+
+
+export const fetchCambiarCategoria = async (idProducto, idCategoria) => {
+  const url = `${baseUrl}/producto/addCategoria/${idProducto}/${idCategoria}`;
+  const response = await fetch(url, {
+    method: 'PUT',
+    headers: {
+      'Content-Type': 'application/json',
+      'Authorization': localStorage.getItem('token'), 
+    },
+    body: JSON.stringify({ idProducto, idCategoria })
+  });
+
+  if (!response.ok) {
+    throw new Error('Error en la solicitud: ' + response.status);
+  }
+
+  return await response.json();
+}

@@ -45,8 +45,8 @@ const ListProducts = () => {
                     <tr>
                         <th>ID</th>
                         <th>Nombre del Producto</th>
+                        <th>Categorias</th>
                         <th>Acciones</th>
-                        <th>Categorías</th>
                     </tr>
                 </thead>
                 <tbody>
@@ -54,10 +54,6 @@ const ListProducts = () => {
                         <tr key={producto.Id}>
                             <td>{producto.Id}</td>
                             <td>{producto.nombre}</td>
-                            <td>
-                                <button className={style.button} >Eliminar</button>
-                            </td>
-
                             <td>
                                 <div className="relative mt-2">
                                     <button
@@ -104,6 +100,11 @@ const ListProducts = () => {
                                         </ul>
                                     )}
                                 </div>
+                            </td>
+                            <td>
+                                <button className={style.button} >Actualizar</button>
+                                <button className={style.button} >Eliminar</button>
+
                             </td>
 
                         </tr>
