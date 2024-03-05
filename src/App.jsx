@@ -5,6 +5,9 @@ import HomePage from "./Pages/home/Home.jsx";
 import RegisterProducts from './Components/registerProduct/RegisterProducts.jsx';
 import Details from './Routes/Details.jsx';
 import Header from "./Components/header/Header.jsx";
+import Login from "./Routes/Login.jsx";
+import { useEffect } from "react";
+import { jwtDecode } from "jwt-decode";
 
 function App() {
 
@@ -15,8 +18,6 @@ function App() {
     if(token){
       const decodedToken = jwtDecode(token); 
       console.log(decodedToken);
-      const usuario = fetchEmail({email: decodedToken.email});
-      console.log(usuario);
     }
   }, [])
 
@@ -29,6 +30,7 @@ function App() {
       <>
       <Header/>
         <Routes>
+          <Route path='/Login' element={<Login/>}/>
           <Route path='/products' element={<Products/>}/>
           <Route path='/' element={ <HomePage/>}/>
           <Route path='/registrarProducto' element={<RegisterProducts/>}/>
