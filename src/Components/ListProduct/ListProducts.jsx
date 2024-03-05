@@ -30,10 +30,10 @@ const ListProducts = () => {
       .catch((error) => {
         console.error(errorHandling(error));
       });
-  });
+  }, []);
 
   const handleCategoriaChange = (productoId, event) => {
-    const nuevaSeleccion = { ...categoriasSeleccionadas };
+    const nuevaSeleccion = { ...categoriaSeleccionada };
     nuevaSeleccion[productoId] = event.target.value;
     setCategoriaSeleccionada(nuevaSeleccion);
   };
@@ -70,8 +70,8 @@ const ListProducts = () => {
                   >
                     <span className="flex items-center">
                       <span className="ml-3 block truncate">
-                        {categoriaSeleccionada
-                          ? categoriaSeleccionada.nombre
+                        {categoriaSeleccionada[producto.Id]
+                          ? categoriaSeleccionada[producto.Id]
                           : "Selecciona una categoría"}
                       </span>
                     </span>
@@ -106,7 +106,7 @@ const ListProducts = () => {
                           id="listbox-option-0"
                           role="option"
                           onClick={() => {
-                            setCategoriaSeleccionada(categoria);
+                            handleCategoriaChange(producto.Id, { target: { value: categoria.nombre } });
                             //setShowOptions(false);
                           }}
                         >
