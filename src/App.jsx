@@ -8,6 +8,8 @@ import Header from "./Components/header/Header.jsx";
 import Admin from "./Pages/Administracion/Admin.jsx";
 import ListProducts from "./Components/ListProduct/ListProducts.jsx";
 import AsignarCategoria from "./Components/AsignarCategoria/AsignarCategoria.jsx";
+import ListarUsuarios from "./Components/ListarUsuarios/ListarUsuarios.jsx";
+import RegisterUser from "./Components/registerUser/RegisterUser.jsx";
 
 
 
@@ -25,8 +27,8 @@ function App() {
           <Route path='/admin' element={<Admin/>}/>
           <Route path='/listarProductos' element={<ListProducts/>}/>
           <Route path='/asignarCategoria' element={<AsignarCategoria/>}/>
-
-
+          <Route path='/listarUsuarios' element={<ListarUsuarios/>}/>
+          <Route path='/registroDeUsuario' element={<RegisterUser />}/>
 
         </Routes>
 

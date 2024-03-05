@@ -49,6 +49,19 @@ table {
   .button:hover {
     background-color: #c4a3d8;
   }
+  .contenedor {
+    width: 100%;
+    display: flex;
+    flex-direction: row;
+}
+
+.tabla1{
+  width: 80%;
+}
+.tabla2{
+  width: 20%;
+}
+
 
 
   
