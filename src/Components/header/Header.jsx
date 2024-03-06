@@ -53,7 +53,9 @@ const Header = () => {
             <Link to='/Login'> 
             <Button className={HeaderStyle.login}>Iniciar sesión</Button>
             </Link>  
+            <Link to='/crearUsuario'> 
             <Button className={HeaderStyle.signup}>Crear Cuenta</Button>
+            </Link>
           </div>
 
         </div>

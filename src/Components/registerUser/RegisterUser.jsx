@@ -10,7 +10,7 @@ function RegisterUser() {
     const [nombre, setNombre] = useState('');
     const [apellido, setApellido] = useState('');
     const [email, setEmail] = useState('');
-    const [contrasena, setContrasena] = useState('');
+    const [pass, setPass] = useState('');
     const [errors, setErrors] = useState({});
 
 
@@ -45,10 +45,10 @@ function RegisterUser() {
         }
 
         // Validar contraseña
-        if (!contrasena.trim()) {
-            {newErrors.contrasena = <span className={registerUserStyles.errorContainer}> 'La contraseña es obligatoria'</span>};
-        } else if (contrasena.trim().length < 9) {
-            {newErrors.contrasena = <span className={registerUserStyles.errorContainer}> 'La contraseña debe tener al menos 9 caracteres'</span>};
+        if (!pass.trim()) {
+            {newErrors.pass = <span className={registerUserStyles.errorContainer}> 'La contraseña es obligatoria'</span>};
+        } else if (pass.trim().length < 9) {
+            {newErrors.pass = <span className={registerUserStyles.errorContainer}> 'La contraseña debe tener al menos 9 caracteres'</span>};
         }
 
         // Actualizar el estado de los errores
@@ -61,7 +61,7 @@ function RegisterUser() {
 
         try {
             const usuarioResponse = await fetchCrearUsuario({
-                nombre, apellido, email, contrasena
+                nombre, apellido, email, pass
             });
             if (!usuarioResponse.ok) {
                 // Si la respuesta no es exitosa, lanzar un alert de error
@@ -74,14 +74,15 @@ function RegisterUser() {
             alert("¡Registro exitoso!");
         } catch (error) {
             // Capturar y manejar errores que ocurran en el bloque try
-            console.error("Error al registrar el usuario", error.message);
-            alert("Ocurrió un error al registrar el usuario");
+            console.error("Error al registrar el usuario", error.message, error);
+            alert("Ocurrió un error al registrar el usuario: " + error.message); // Mostrar el mensaje de error específico
+        
         }
         // Restablecer los campos del formulario
         setNombre('');
         setApellido('');
         setEmail('');
-        setContrasena('');
+        setPass('');
 
         // Restablecer los errores
         setErrors({});
@@ -127,16 +128,17 @@ function RegisterUser() {
                     <input
                         className={registerUserStyles.inputStyle}
                         type="password"
-                        value={contrasena}
-                        onChange={(e) => setContrasena(e.target.value)}
+                        value={pass}
+                        onChange={(e) => setPass(e.target.value)}
                         placeholder='Contraseña'
                     />
-                    {errors.contrasena && <span className="error">{errors.contrasena}</span>}
+                    {errors.pass && <span className="error">{errors.pass}</span>}
                 </div>
                 <button type="submit">Registrarse</button>
             </form>
         </div>
     );
 }
+
 
 export default RegisterUser;

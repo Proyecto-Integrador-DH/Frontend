@@ -1,5 +1,5 @@
 .recommendedBloque {
-  margin: 20px ;
+  padding: 1rem 7rem 0.5rem 7rem ;
 }
 
 .recommendedContainer {
@@ -13,7 +13,6 @@
   text-align: justify;
   width: 100%;
 }
-
 
 .containerCardContainer {
   justify-items: center;
