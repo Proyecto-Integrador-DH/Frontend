@@ -10,11 +10,13 @@ import Admin from "./Pages/Administracion/Admin.jsx";
 import ListProducts from "./Components/ListProduct/ListProducts.jsx";
 import AsignarCategoria from "./Components/AsignarCategoria/AsignarCategoria.jsx";
 import ListarUsuarios from "./Components/ListarUsuarios/ListarUsuarios.jsx";
+import RegisterUser from "./Components/registerUser/RegisterUser.jsx";
 import { useState } from "react";
 import { useEffect } from "react";
 import { jwtDecode } from "jwt-decode";
 import { fetchEmail } from "./services/api.js";
 import { errorHandling } from "./services/errorHandling.js";
+
 
 function App() {
   const [user, setUser] = useState(null);
@@ -22,28 +24,28 @@ function App() {
 
   useEffect(() => {
     const obtenerEmail = () => {
-      const token = localStorage.getItem("token");
-      const decoded = jwtDecode(token);
-      setEmail(decoded.sub);
-      console.log("email", email);
+      if(localStorage.getItem("token")) {
+        const token = localStorage.getItem("token");
+        const decoded = jwtDecode(token);
+        setEmail(decoded.sub);
+      }
     };
 
     obtenerEmail();
-  }, []); 
+  }, []);
 
   useEffect(() => {
-    if (email) {
-      fetchEmail(email)
-        .then((data) => {
-          setUser(data);
-          console.log("Info de usuario", user);
-        })
-        .catch((error) => {
-          console.error(errorHandling(error));
-        });
-    }
-  }, [email]);
+    fetchEmail(email)
+      .then((data) => {
+        setUser(data);
+        console.log("Info de usuario", data);
+      })
+      .catch((error) => {
+        console.error(errorHandling(error));
+      });
+}, [email]);
 
+  console.log("Info de usuario", user);
   return (
     <>
       <Header />
@@ -57,6 +59,7 @@ function App() {
         <Route path="/listarProductos" element={<ListProducts />} />
         <Route path="/asignarCategoria" element={<AsignarCategoria />} />
         <Route path="/listarUsuarios" element={<ListarUsuarios />} />
+        <Route path='/crearUsuario' element={<RegisterUser />} />
       </Routes>
     </>
   );
