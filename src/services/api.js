@@ -18,7 +18,7 @@ export const fetchProductoNuevo = async (data) => {
 
   const response = await fetch(url, {
     method: 'POST',
-    
+
     headers: {
       'Content-Type': 'application/json',
       'Authorization': localStorage.getItem('token'),
@@ -88,9 +88,9 @@ export const fetchCrearUsuario = async (data) => {
 
 export const fetchEmail = async (email) => {
   const url = `${baseUrl2}/usuario/email/${email}`;
-  console.log("email",email);
+  console.log("email", email);
   const response = await fetch(url, {
-    
+
     method: 'GET',
     headers: {
       'Content-Type': 'application/json',
@@ -127,7 +127,7 @@ export const fetchListarUsuarios = async () => {
     method: 'GET',
     headers: {
       'Content-Type': 'application/json',
-      'Authorization': localStorage.getItem('token'), 
+      'Authorization': localStorage.getItem('token'),
     },
   });
 
@@ -138,21 +138,19 @@ export const fetchListarUsuarios = async () => {
   return await response.json();
 }
 
-
 export const fetchCambiarCategoria = async (idProducto, idCategoria) => {
   const url = `${baseUrl}/producto/addCategoria/${idProducto}/${idCategoria}`;
   const response = await fetch(url, {
     method: 'PUT',
     headers: {
       'Content-Type': 'application/json',
-      'Authorization': localStorage.getItem('token'), 
+      'Authorization': localStorage.getItem('token'),
     },
-    body: JSON.stringify({ idProducto, idCategoria })
   });
 
   if (!response.ok) {
     throw new Error('Error en la solicitud: ' + response.status);
   }
 
-  return await response.json();
+  return await response.text(); // Devuelve el texto plano en lugar de JSON
 }

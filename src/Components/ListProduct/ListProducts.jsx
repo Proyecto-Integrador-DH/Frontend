@@ -31,8 +31,12 @@ const ListProducts = () => {
             });
     }, []);
 
-    const handleChangeCategoria = async (idProducto, idCategoria) => {
-        console.log(idProducto, idCategoria);
+    const handleChangeCategoria = async (idProducto, categoria) => {
+        var valor = null;
+        for (let clave in categoria) {
+            valor = categoria[clave];
+        }
+        const idCategoria = categorias.find(c => c.nombre === valor).id;
         try {
             await fetchCambiarCategoria(idProducto, idCategoria);
             alert('Categoría actualizada correctamente');
@@ -126,7 +130,7 @@ const ListProducts = () => {
                                 </div>
                             </td>
                             <td>
-                                <button className={style.button} onClick={() => handleChangeCategoria(producto.Id, categoriasSeleccionadas.id)}>Actualizar</button>
+                                <button className={style.button} onClick={() => handleChangeCategoria(producto.Id, categoriasSeleccionadas)}>Actualizar</button>
                                 <button className={style.button} >Eliminar</button>
 
                             </td>
