@@ -154,3 +154,40 @@ export const fetchCambiarCategoria = async (idProducto, idCategoria) => {
 
   return await response.text(); // Devuelve el texto plano en lugar de JSON
 }
+
+export const fetchAsignarRol = async (data) => {
+  const url = `${baseUrl2}/usuario/asignarRol`;
+  console.log("datos traidos  ", data);
+
+  const response = await fetch(url, {
+    method: 'POST',
+    headers: {
+      'Content-Type': 'application/json',
+      'Authorization': localStorage.getItem('token'),
+    },
+    body: JSON.stringify(data),
+  });
+  if (!response.ok) {
+    throw new Error('Error en la solicitud: ' + response.status);
+  }
+  return await response.text();
+}
+
+
+export const fetchQuitarRol = async (data) => {
+  const url = `${baseUrl2}/usuario/quitarRol`;
+  console.log("datos traidos  ", data);
+
+  const response = await fetch(url, {
+    method: 'POST',
+    headers: {
+      'Content-Type': 'application/json',
+      'Authorization': localStorage.getItem('token'),
+    },
+    body: JSON.stringify(data),
+  });
+  if (!response.ok) {
+    throw new Error('Error en la solicitud: ' + response.status);
+  }
+  return await response.text();
+}
