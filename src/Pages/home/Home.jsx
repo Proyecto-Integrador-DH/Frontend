@@ -10,7 +10,7 @@ const HomePage = () => {
     <div>
 
       <Searcher />
-
+      
       <Banner />
 
       <Recommended />

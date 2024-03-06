@@ -14,10 +14,14 @@ export const fetchCategorias = async () => {
 export const fetchProductoNuevo = async (data) => {
   const url = `${baseUrl}/producto/nuevo`;
 
+  console.log("token", localStorage.getItem('token'));
+
   const response = await fetch(url, {
     method: 'POST',
+    
     headers: {
       'Content-Type': 'application/json',
+      'Authorization': localStorage.getItem('token'),
     },
     body: JSON.stringify(data),
   });
@@ -82,15 +86,15 @@ export const fetchCrearUsuario = async (data) => {
 }
 
 
-export const fetchEmail = async (data) => {
-  const url = `${baseUrl}/usuario/email`;
+export const fetchEmail = async (email) => {
+  const url = `${baseUrl2}/usuario/email/${email}`;
+  console.log("email",email);
   const response = await fetch(url, {
-    Authorization: localStorage.getItem('token'),
+    
     method: 'GET',
     headers: {
       'Content-Type': 'application/json',
     },
-    body: JSON.stringify(data),
   });
   if (!response.ok) {
     throw new Error('Error en la solicitud: ' + response.status);

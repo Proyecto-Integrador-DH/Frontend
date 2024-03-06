@@ -1,0 +1,12 @@
+.botonCerrarSesion {
+    box-shadow: 0px 5px 10px rgba(0, 0, 0, 0.3), 0px 0px 20px rgba(0, 0, 0, 0.15);
+    width: 125px;
+    height: 45px;
+    border-radius: 50px;
+}
+
+.botonCerrarSesion:hover {
+
+    color: #ffffff;
+    background-color: #ff4fe2;
+}

@@ -1,8 +1,9 @@
 import React, { useState } from "react";
 import Logo from "../assets/Logo03.png";
-import { fetchEmail, fetchLogin } from "../services/api";
+import { fetchLogin } from "../services/api";
 import { errorHandling } from "../services/errorHandling";
 import ErrorComponent from "../Components/error/ErrorAlert";
+import { Link } from "react-router-dom";
 
 const Login = () => {
   const [email, setEmail] = useState("");
@@ -85,8 +86,8 @@ const Login = () => {
             method="POST"
           >
             <div>
-              <label className="block text-sm font-medium leading-6 text-gray-900">
-                Correo elctronico
+              <label className="block text-left text-sm font-medium leading-6 text-gray-900">
+                Correo electronico
               </label>
               <div className="mt-2">
                 <input
@@ -135,12 +136,9 @@ const Login = () => {
 
           <p className="mt-10 text-center text-sm text-gray-500">
             No tienes una cuenta?{" "}
-            <a
-              href="#"
-              className="font-semibold leading-6 text-indigo-600 hover:text-indigo-500"
-            >
+            <Link to ="/crearUsuario" className="font-semibold leading-6 text-indigo-600 hover:text-indigo-500">
               Registrarse
-            </a>
+            </Link>
           </p>
         </div>
       </div>

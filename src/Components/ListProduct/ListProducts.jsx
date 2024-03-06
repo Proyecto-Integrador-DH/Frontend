@@ -1,52 +1,31 @@
-import React, { useState, useEffect } from 'react';
-import { fetchCambiarCategoria, fetchListarProductos } from '../../services/api';
-import style from './ListProducts.module.css';
-import { fetchCategorias } from '../../services/api';
-import { errorHandling } from '../../services/errorHandling';
+import React, { useState, useEffect } from "react";
+import { fetchCambiarCategoria, fetchListarProductos } from "../../services/api";
+import style from "./ListProducts.module.css";
+import { fetchCategorias } from "../../services/api";
+import { errorHandling } from "../../services/errorHandling";
 
 
 const ListProducts = () => {
-    const [productos, setProducts] = useState([]);
-    const [categorias, setCategoria] = useState([]);
-    const [categoriasSeleccionadas, setCategoriasSeleccionadas] = useState({});
-    const [showOptions, setShowOptions] = useState({});
+  const [productos, setProducts] = useState([]);
+  const [categorias, setCategoria] = useState([]);
+  const [categoriaSeleccionada, setCategoriaSeleccionada] = useState({});
+  const [showOptions, setShowOptions] = useState({});
 
-    useEffect(() => {
-        fetchListarProductos()
-            .then(data => {
-                setProducts(data);
-            })
-            .catch(error => {
-                console.error(errorHandling(error));
-            });
-    }, []);
+	useEffect(() => {
 
-    useEffect(() => {
-        fetchCategorias()
-            .then(data => {
-                setCategoria(data);
-            })
-            .catch(error => {
-                console.error(errorHandling(error));
-            });
-    }, []);
-
-    const handleChangeCategoria = async (idProducto, idCategoria) => {
-        console.log(idProducto, idCategoria);
-        try {
-            await fetchCambiarCategoria(idProducto, idCategoria);
-            alert('Categoría actualizada correctamente');
-        } catch (error) {
-            console.error('Error al actualizar la categoría:', error.message);
-            alert('Error al actualizar la categoría. Por favor, inténtalo de nuevo.');
-        }
-    };
+		fetchListarProductos()
+			.then(data => {
+				setProducts(data)
+				console.log(data);
+			})
+			.catch(error => {
+				console.error(errorHandling(error));
+			});
+	}, []);
 
     const handleCategoriaChange = (productoId, event) => {
         const nuevaSeleccion = { ...categoriasSeleccionadas };
         nuevaSeleccion[productoId] = event.target.value;
-        console.log(nuevaSeleccion);
-
         setCategoriasSeleccionadas(nuevaSeleccion);
     };
 
@@ -58,8 +37,8 @@ const ListProducts = () => {
                     <tr>
                         <th>ID</th>
                         <th>Nombre del Producto</th>
-                        <th>Categorias</th>
                         <th>Acciones</th>
+                        <th>Categorías</th>
                     </tr>
                 </thead>
                 <tbody>
@@ -67,6 +46,9 @@ const ListProducts = () => {
                         <tr key={producto.Id}>
                             <td>{producto.Id}</td>
                             <td>{producto.nombre}</td>
+                            <td>
+                                <button className={style.button} >Eliminar</button>
+                            </td>
                             <td>
                                 <div className="relative mt-2">
                                     <button
@@ -78,15 +60,11 @@ const ListProducts = () => {
                                         onClick={() => setShowOptions({ ...showOptions, [producto.Id]: !showOptions[producto.Id] })}
                                     >
                                         <span className="flex items-center">
-                                            <span className="ml-3 block truncate">
-                                                {categoriasSeleccionadas[producto.Id]
-                                                    ? categoriasSeleccionadas[producto.Id]
-                                                    : "Selecciona una categoría"}
-                                            </span>
+                                            <span className="ml-3 block truncate">Selecciona una categoria</span>
                                         </span>
                                         <span className="pointer-events-none absolute inset-y-0 right-0 ml-3 flex items-center pr-2">
                                             <svg
-                                                className={`h - 5 w-5 ${showOptions[producto.Id] ? 'transform rotate-180' : ''} text-gray-400`}
+                                                className={`h-5 w-5 ${showOptions[producto.Id] ? 'transform rotate-180' : ''} text-gray-400`}
                                                 viewBox="0 0 20 20"
                                                 fill="currentColor"
                                                 aria-hidden="true"
@@ -103,14 +81,7 @@ const ListProducts = () => {
                                             aria-activedescendant="listbox-option-3"
                                         >
                                             {categorias.map((categoria, index) => (
-                                                <li key={index} value={categoria.nombre}
-                                                    className="text-gray-900 relative cursor-default select-none py-2 pl-3 pr-9"
-                                                    id="listbox-option-0" role="option"
-                                                    onClick={() => {
-                                                        handleCategoriaChange(producto.Id, { target: { value: categoria.nombre } });
-                                                        setShowOptions(false);
-                                                    }}
-                                                >
+                                                <li key={index} value={categoria.nombre} className="text-gray-900 relative cursor-default select-none py-2 pl-3 pr-9" id="listbox-option-0" role="option">
                                                     <div className="flex items-center">
                                                         <span className="font-normal ml-3 block truncate">{categoria.nombre}</span>
                                                     </div>
@@ -125,17 +96,11 @@ const ListProducts = () => {
                                     )}
                                 </div>
                             </td>
-                            <td>
-                                <button className={style.button} onClick={() => handleChangeCategoria(producto.Id, categoriasSeleccionadas.id)}>Actualizar</button>
-                                <button className={style.button} >Eliminar</button>
-
-                            </td>
-
                         </tr>
                     ))}
                 </tbody>
             </table>
-        </div >
+        </div>
     );
 }
 
