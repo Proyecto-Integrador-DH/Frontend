@@ -16,6 +16,7 @@ import { useEffect } from "react";
 import { jwtDecode } from "jwt-decode";
 import { fetchEmail } from "./services/api.js";
 import { errorHandling } from "./services/errorHandling.js";
+import ProtectedRoutes from "./router/ProtectedRoutes.jsx";
 
 
 function App() {
@@ -27,6 +28,7 @@ function App() {
       if(localStorage.getItem("token")) {
         const token = localStorage.getItem("token");
         const decoded = jwtDecode(token);
+        console.log("Decoded", decoded);
         setEmail(decoded.sub);
       }
     };
@@ -43,19 +45,38 @@ function App() {
       .catch((error) => {
         console.error(errorHandling(error));
       });
-}, [email]);
+    }, [email]);
+    
+    console.log("Info de usuario", user);
+    localStorage.setItem("user", JSON.stringify(user));
 
-  console.log("Info de usuario", user);
+    const handleLogout = () => {
+      localStorage.removeItem("token");
+      localStorage.removeItem("user");
+      setUser(null);
+      window.location.href = "/";
+    }
+
+
+
+
+
+
+
+
+
   return (
     <>
-      <Header />
+      <Header user={user} onLogout={handleLogout} />
       <Routes>
         <Route path="/Login" element={<Login />} />
         <Route path="/products" element={<Products />} />
         <Route path="/" element={<HomePage />} />
         <Route path="/registrarProducto" element={<RegisterProducts />} />
         <Route path="/details/:id" element={<Details />} />
-        <Route path="/admin" element={<Admin />} />
+        <Route element={<ProtectedRoutes/>}>
+           <Route path="/admin" element={<Admin />} />
+        </Route>
         <Route path="/listarProductos" element={<ListProducts />} />
         <Route path="/asignarCategoria" element={<AsignarCategoria />} />
         <Route path="/listarUsuarios" element={<ListarUsuarios />} />

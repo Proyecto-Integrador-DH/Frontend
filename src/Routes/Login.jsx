@@ -30,8 +30,9 @@ const Login = () => {
         setEmail("");
         setPassword("");
         localStorage.setItem("token", loginResponse);
-
-        window.location.href = "/";
+        setTimeout(() => {
+          window.location.href = "/";
+        }, 2000);
         return;
       } /* else  {
         console.log("Correo o contraseña incorrectos.");
