@@ -16,7 +16,7 @@ const ProtectedRoutes = () => {
       try {
         const decoded = jwtDecode(token);
 
-        if (decoded.roles[0].nombre === 'Administrador' || decoded.roles[1].nombre === 'Administrador') {
+        if (decoded.roles[0].nombre === 'Administrador') {
           setIsAuthenticated(true);
         }
         else if (decoded.roles == undefined || decoded.roles == null || decoded.roles == []) {
