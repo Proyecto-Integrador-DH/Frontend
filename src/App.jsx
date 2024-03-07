@@ -16,6 +16,8 @@ import { useEffect } from "react";
 import { jwtDecode } from "jwt-decode"; 
 import { fetchEmail } from "./services/api.js";
 import { errorHandling } from "./services/errorHandling.js";
+import Caracteristicas from './Components/Caracteristicas/Caracteristicas.jsx'
+import AsignarCaracteristica from "./Components/AsignarCaracteristica/AsignarCaracteristica.jsx";
 
 function App() {
 
@@ -66,6 +68,8 @@ function App() {
         <Route path='/asignarCategoria' element={<AsignarCategoria />} />
         <Route path='/listarUsuarios' element={<ListarUsuarios />} />
         <Route path='/crearUsuario' element={<RegisterUser />} />
+        <Route path='/caracteristicas' element={<Caracteristicas />} />
+        <Route path='/asignarCaracteristica' element={<AsignarCaracteristica />} />
       </Routes>
 
     </>

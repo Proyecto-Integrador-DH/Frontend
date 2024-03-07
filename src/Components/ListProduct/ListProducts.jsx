@@ -3,6 +3,7 @@ import { fetchCambiarCategoria, fetchListarProductos } from '../../services/api'
 import style from './ListProducts.module.css';
 import { fetchCategorias } from '../../services/api';
 import { errorHandling } from '../../services/errorHandling';
+import AsignarCaracteristica from '../AsignarCaracteristica/AsignarCaracteristica';
 
 
 const ListProducts = () => {
@@ -10,6 +11,10 @@ const ListProducts = () => {
     const [categorias, setCategoria] = useState([]);
     const [categoriasSeleccionadas, setCategoriasSeleccionadas] = useState({});
     const [showOptions, setShowOptions] = useState({});
+    const [mostrarAsignarCaracteristica, setMostrarAsignarCaracteristica] = useState(false);
+
+    
+
 
     useEffect(() => {
         fetchListarProductos()
@@ -53,6 +58,12 @@ const ListProducts = () => {
 
         setCategoriasSeleccionadas(nuevaSeleccion);
     };
+
+
+    const guardarCaracteristicasSeleccionadas = (caracteristicas) => {
+        setMostrarAsignarCaracteristica(false);
+    };
+
 
     return (
         <div>
@@ -131,7 +142,8 @@ const ListProducts = () => {
                             </td>
                             <td>
                                 <button className={style.button} onClick={() => handleChangeCategoria(producto.Id, categoriasSeleccionadas)}>Actualizar</button>
-                                <button className={style.button} >Eliminar</button>
+                                <button className={style.button} >Eliminar</button> 
+                                <button className={style.button}onClick={() => setMostrarAsignarCaracteristica(true)}>Seleccionar Características</button>
 
                             </td>
 
@@ -139,6 +151,7 @@ const ListProducts = () => {
                     ))}
                 </tbody>
             </table>
+            {mostrarAsignarCaracteristica && <AsignarCaracteristica onSave={guardarCaracteristicasSeleccionadas} />}
         </div >
     );
 }

@@ -154,3 +154,78 @@ export const fetchCambiarCategoria = async (idProducto, idCategoria) => {
 
   return await response.text(); // Devuelve el texto plano en lugar de JSON
 }
+
+
+export const fetchCaracteristicas = async () => {
+  const url = `${baseUrl}/icono`;
+  const response = await fetch(url);
+  console.log("Caracteristicas: ", response);
+  if (!response.ok) {
+    throw new Error('Error en la solicitud: ' + response.status);
+  }
+  return await response.json();
+}
+
+const myHeaders = new Headers();
+myHeaders.append("Content-Type", "application/json");
+
+
+export const fetchCaracteristicaNueva = async (data) => {
+  const url = `${baseUrl}/icono/subir`;
+  console.log("datos caracteristicas ", data);
+  const raw = JSON.stringify(data);
+  const requestOptions = {
+    method: "POST",
+    headers: myHeaders,
+    body: raw,
+    redirect: "follow"
+  };
+  fetch(url, requestOptions)
+  .then((response) => response.text())
+  .then((result) => console.log(result))
+  .catch((error) => console.error(error));
+//   const response = await fetch(url, {
+//     method: 'POST',
+//     headers: {
+//       'Content-Type': 'application/json'
+//     },
+//     body:JSON.stringify(data),
+//   });
+//   if (!response.ok) {
+//     throw new Error('Error en la solicitud: ' + response.status);
+//   }
+//   return await response.text();
+ }
+
+export const fetchEditarCaracteristica = async (data) => {
+  const url = `${baseUrl}/icono`;
+  const raw = JSON.stringify(data);
+
+  console.log("datos caracteristicas ", data);
+
+  const requestOptions = {
+    method: "PUT",
+    headers: myHeaders,
+    body: raw,
+    redirect: "follow"
+  };
+  fetch(url, requestOptions)
+  .then((response) => response.text())
+  .then((result) => console.log(result))
+  .catch((error) => console.error(error));
+}
+
+export const fetchBorrarCaracteristica = async (id) => {
+  const url = `${baseUrl}/icono/${id}`;
+  const response = await fetch(url, {
+    method: 'DELETE',
+    headers: {
+      'Content-Type': 'application/json',
+    },
+    body: JSON.stringify(),
+  });
+  if(!response.ok){
+    throw new Error('Error en la solicitud: ' + response.status);
+  }
+  return await response.json();
+}

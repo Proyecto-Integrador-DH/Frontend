@@ -4,11 +4,13 @@ import flecha from "../assets/arrowRightflecha.png";
 import { useParams } from "react-router-dom";
 import { useNavigate } from "react-router-dom";
 import { fetchProduct } from "../services/api";
+import CardCaracteristica from "../Components/CardCaracteristica/CardCaracteristica.jsx";
 
 const Details = () => {
   const { id } = useParams();
   const navigate = useNavigate();
   const [detallesProducto, setDetallesProducto] = useState([]);
+  const [caracteristicasAsignadas, setCaracteristicasAsignadas] = useState([]);
 
   const defaultImage = "https://via.placeholder.com/150";
   const totalImage = 4;
@@ -50,9 +52,7 @@ const Details = () => {
     <>
       <Searcher />
       <div className="flex flex-col items-center my-10">
-        <p className="text-rosa font-bold tracking-widest text-2xl mb-5">
-          NUESTROS
-        </p>
+        <p className="text-rosa font-bold tracking-widest text-2xl mb-5">NUESTROS</p>
         <h1 className="text-3xl font-bold tracking-wide">
           Tours & experiencias
         </h1>
@@ -83,9 +83,7 @@ const Details = () => {
       <div className="flex justify-center gap-40">
         <div className="w-1/3 flex flex-col items-start my-20">
           <p className="text-rosa font-bold tracking-widest text-2xl mb-5">
-            <h1 className="text-3xl font-bold tracking-wide">
               {detallesProducto?.nombre}
-            </h1>
           </p>
         </div>
         <div className="w-1/3 flex my-20 pr-20 justify-end">
@@ -103,6 +101,10 @@ const Details = () => {
         <p>Fecha de salida: {formatDate(detallesProducto?.fecha)}</p>
         <p>Cupos disponibles: {detallesProducto?.cupo}</p>
         <p>{detallesProducto?.disponible}</p>
+
+        {/* Renderizar características seleccionadas */}
+        <h2>Características Seleccionadas</h2>
+          <CardCaracteristica />
       </div>
     </>
   );

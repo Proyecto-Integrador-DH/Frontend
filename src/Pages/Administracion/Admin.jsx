@@ -17,7 +17,7 @@ const Adminstrador = () => {
 
         <div className={AdminStyle.tarjetas}>
           <h2>Agregar un producto</h2>
-          <Link to='/registrarProducto' > <Button className={AdminStyle.boton}>Clik aqui </Button></Link>
+          <Link to='/registrarProducto' > <Button className={AdminStyle.boton}>Click aqui </Button></Link>
         </div>
 
 
@@ -34,6 +34,16 @@ const Adminstrador = () => {
         <div className={AdminStyle.tarjetas}>
           <h2>Listar Usuarios</h2>
           <Link to='/listarUsuarios'><Button className={AdminStyle.boton}>Click aqui</Button></Link>
+        </div>
+
+        <div className={AdminStyle.tarjetas}>
+          <h2>Administrar caracteristicas</h2>
+          <Link to='/caracteristicas'><Button className={AdminStyle.boton}>Click aqui</Button></Link>
+        </div>
+
+        <div className={AdminStyle.tarjetas}>
+          <h2>Asignar caracteristicas</h2>
+          <Link to='/asignarCaracteristica'><Button className={AdminStyle.boton}>Click aqui</Button></Link>
         </div>
 
       </div>
