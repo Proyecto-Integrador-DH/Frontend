@@ -69,7 +69,9 @@ export const fetchProduct = async (id) => {
 }
 
 export const fetchCrearUsuario = async (data) => {
-  const url = `${baseUrl}/usuario/nuevo`;
+  const url = `${baseUrl2}/usuario/nuevo`;
+
+  console.log("Data user", data);
 
   const response = await fetch(url, {
     method: "POST",
@@ -130,7 +132,7 @@ export const fetchListarUsuarios = async () => {
       'Authorization': localStorage.getItem('token'),
     },
   });
-
+  console.log("Usuario BD", response)
   if (!response.ok) {
     throw new Error('Error en la solicitud: ' + response.status);
   }
@@ -153,4 +155,42 @@ export const fetchCambiarCategoria = async (idProducto, idCategoria) => {
   }
 
   return await response.text(); // Devuelve el texto plano en lugar de JSON
+}
+
+export const fetchAsignarRol = async (data) => {
+  const url = `${baseUrl2}/usuario/asignarRol`;
+  console.log("datos traidos  ", data);
+  console.log("tOKEN", localStorage.getItem('token'));
+  const response = await fetch(url, {
+    method: 'POST',
+    headers: {
+      'Content-Type': 'application/json',
+      'Authorization': localStorage.getItem('token'),
+    },
+    body: JSON.stringify(data),
+  });
+  console.log("Error rol", response);
+  if (!response.ok) {
+    throw new Error('Error en la solicitud: ' + response.status);
+  }
+  return await response.text();
+}
+
+
+export const fetchQuitarRol = async (data) => {
+  const url = `${baseUrl2}/usuario/quitarRol`;
+  console.log("datos traidos  ", data);
+
+  const response = await fetch(url, {
+    method: 'POST',
+    headers: {
+      'Content-Type': 'application/json',
+      'Authorization': localStorage.getItem('token'),
+    },
+    body: JSON.stringify(data),
+  });
+  if (!response.ok) {
+    throw new Error('Error en la solicitud: ' + response.status);
+  }
+  return await response.text();
 }
