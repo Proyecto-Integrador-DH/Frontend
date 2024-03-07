@@ -47,7 +47,7 @@ function RegisterUser() {
         // Validar contraseña
         if (!pass.trim()) {
             {newErrors.pass = <span className={registerUserStyles.errorContainer}> 'La contraseña es obligatoria'</span>};
-        } else if (pass.trim().length < 9) {
+        } else if (pass.trim().length < 5) {
             {newErrors.pass = <span className={registerUserStyles.errorContainer}> 'La contraseña debe tener al menos 9 caracteres'</span>};
         }
 

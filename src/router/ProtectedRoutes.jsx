@@ -16,9 +16,18 @@ const ProtectedRoutes = () => {
       try {
         const decoded = jwtDecode(token);
 
-        if (decoded.roles[0].nombre === 'Administrador') {
+        if (decoded.roles[0].nombre === 'Administrador' || decoded.roles[1].nombre === 'Administrador') {
           setIsAuthenticated(true);
-        } else {
+        }
+        else if (decoded.roles == undefined || decoded.roles == null || decoded.roles == []) {
+          setError('Hay un error con su cuenta.');
+          setTitleError('Acceso denegado.');
+          setModalErrorVisible(true);
+          setTimeout(() => {
+            window.location.href = "/";
+          }, 1000);
+        }
+        else {
           setError('No tiene permisos para acceder a esta sección.');
           setTitleError('Acceso denegado.');
           setModalErrorVisible(true);

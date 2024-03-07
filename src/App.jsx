@@ -72,14 +72,14 @@ function App() {
         <Route path="/Login" element={<Login />} />
         <Route path="/products" element={<Products />} />
         <Route path="/" element={<HomePage />} />
-        <Route path="/registrarProducto" element={<RegisterProducts />} />
         <Route path="/details/:id" element={<Details />} />
         <Route element={<ProtectedRoutes/>}>
-           <Route path="/admin" element={<Admin />} />
+          <Route path="/listarProductos" element={<ListProducts />} />
+          <Route path="/registrarProducto" element={<RegisterProducts />} />  
+          <Route path="/admin" element={<Admin />} />
+          <Route path="/listarUsuarios" element={<ListarUsuarios />} />
+          <Route path="/asignarCategoria" element={<AsignarCategoria />} />
         </Route>
-        <Route path="/listarProductos" element={<ListProducts />} />
-        <Route path="/asignarCategoria" element={<AsignarCategoria />} />
-        <Route path="/listarUsuarios" element={<ListarUsuarios />} />
         <Route path='/crearUsuario' element={<RegisterUser />} />
       </Routes>
     </>
