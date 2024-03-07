@@ -69,7 +69,9 @@ export const fetchProduct = async (id) => {
 }
 
 export const fetchCrearUsuario = async (data) => {
-  const url = `${baseUrl}/usuario/nuevo`;
+  const url = `${baseUrl2}/usuario/nuevo`;
+
+  console.log("Data user", data);
 
   const response = await fetch(url, {
     method: "POST",
