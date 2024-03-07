@@ -130,7 +130,7 @@ export const fetchListarUsuarios = async () => {
       'Authorization': localStorage.getItem('token'),
     },
   });
-
+  console.log("Usuario BD", response)
   if (!response.ok) {
     throw new Error('Error en la solicitud: ' + response.status);
   }
@@ -158,7 +158,7 @@ export const fetchCambiarCategoria = async (idProducto, idCategoria) => {
 export const fetchAsignarRol = async (data) => {
   const url = `${baseUrl2}/usuario/asignarRol`;
   console.log("datos traidos  ", data);
-
+  console.log("tOKEN", localStorage.getItem('token'));
   const response = await fetch(url, {
     method: 'POST',
     headers: {
@@ -167,6 +167,7 @@ export const fetchAsignarRol = async (data) => {
     },
     body: JSON.stringify(data),
   });
+  console.log("Error rol", response);
   if (!response.ok) {
     throw new Error('Error en la solicitud: ' + response.status);
   }

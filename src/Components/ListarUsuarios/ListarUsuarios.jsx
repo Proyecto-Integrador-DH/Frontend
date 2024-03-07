@@ -2,15 +2,18 @@ import React, { useEffect, useState } from 'react'
 import { errorHandling } from '../../services/errorHandling';
 import { fetchAsignarRol, fetchListarUsuarios, fetchQuitarRol } from '../../services/api';
 import style from './ListarUsuarios.module.css';
+import ErrorComponent from '../error/ErrorAlert';
 
 const ListarUsuarios = () => {
-
-  const [usuarios, setUsuario] = useState([])
+  const [usuarios, setUsuarios] = useState([]);
+  const [error, setError] = useState(null);
+  const [titleError, setTitleError] = useState(null);
+  const [modalErrorVisible, setModalErrorVisible] = useState(false);
 
   useEffect(() => {
     fetchListarUsuarios()
       .then(data => {
-        setUsuario(data);
+        setUsuarios(data);
         console.log(data);
       })
       .catch(error => {
@@ -18,47 +21,68 @@ const ListarUsuarios = () => {
       });
   }, []);
 
+  const refrescarUsuarios = async () => {
+    try {
+      const data = await fetchListarUsuarios();
+      setUsuarios(data);
+      console.log('Lista de usuarios actualizada');
+    } catch (error) {
+      console.error('Error al actualizar la lista de usuarios:', error.message);
+      console.error('Error al actualizar la lista de usuarios. Por favor, inténtalo de nuevo.');
+    }
+  };
 
   const handleAsignarRol = async (usuarioId, rolId) => {
+    const id = Number(usuarioId);
     try {
-      // Llama a la función fetchAsignarRol con los datos del usuario y el rol
-      await fetchAsignarRol({ usuarioId, rolId });
+      const response = await fetchAsignarRol({ id, roles: [{ id: rolId }] });
       console.log('Rol asignado correctamente');
-      // Actualiza la lista de usuarios después de asignar el rol
-      const updatedUsers = await fetchListarUsuarios();
-      setUsuario(updatedUsers);
+      await refrescarUsuarios(); // Refrescar la lista de usuarios después de asignar el rol
     } catch (error) {
-      console.log('Error al asignar el rol:', error.message);
-      console.log('Error al asignar el rol. Por favor, inténtalo de nuevo.');
+      if(error = 400){
+        setModalErrorVisible(true);
+        setTitleError("Error");
+        setError("El usuario ya tiene el rol seleccionado");
+      }
+      console.error('Error al asignar el rol:', error.message);
+      console.error('Error al asignar el rol. Por favor, inténtalo de nuevo.');
     }
   };
 
   const handleQuitarRol = async (usuarioId, rolId) => {
+    const id = Number(usuarioId);
     try {
-      // Realizar la solicitud para quitar el rol al usuario
-      await fetchQuitarRol({ usuarioId, rolId });
+      await fetchQuitarRol({ id, roles: [{ id: rolId }] });
       console.log('Rol quitado correctamente');
-      // Actualizar la lista de usuarios después de quitar el rol
-      const updatedUsers = usuarios.map(usuario => {
-        if (usuario.id === usuarioId) {
-          // Si es el usuario al que se le quitó el rol, eliminar el rol de la lista
-          return {
-            ...usuario,
-            roles: usuario.roles.filter(rol => rol.id !== rolId)
-          };
-        }
-        return usuario;
-      });
-      setUsuario(updatedUsers);
+      await refrescarUsuarios(); // Refrescar la lista de usuarios después de quitar el rol
     } catch (error) {
+      if(error = 400){
+        setModalErrorVisible(true);
+        setTitleError("Error");
+        setError("El usuario no es administrador");
+      }
       console.error('Error al quitar el rol:', error.message);
       console.error('Error al quitar el rol. Por favor, inténtalo de nuevo.');
-    }
+    }
+  };
+
+  const closeModal = () => {
+    setModalErrorVisible(false);
+    errorHandling(error);
   };
 
   return (
     <div>
       <h2>Lista de Usuarios</h2>
+
+      {modalErrorVisible && (
+        <ErrorComponent
+          title={titleError}
+          message={error}
+          onClose={closeModal}
+        />
+      )}
+
       <table>
         <thead>
           <tr>
@@ -66,7 +90,7 @@ const ListarUsuarios = () => {
             <th>Nombre</th>
             <th>Apellido</th>
             <th>Correo</th>
-            <th>Rol</th>
+            <th>Roles</th>
             <th>Permisos</th>
           </tr>
         </thead>
@@ -77,21 +101,21 @@ const ListarUsuarios = () => {
               <td>{usuario.nombre}</td>
               <td>{usuario.apellido}</td>
               <td>{usuario.email}</td>
-              <td>{usuario.roles.length > 0 ? usuario.roles[0].nombre : 'Sin Rol'}</td>
+              <td>
+                {usuario.roles && usuario.roles.map(rol => (
+                  <span key={rol.id}>{rol.nombre}, </span>
+                ))}
+              </td>
               <td>
                 <button className={style.button} onClick={() => handleAsignarRol(usuario.id, 1)}>Asignar</button>
                 <button className={style.button} onClick={() => handleQuitarRol(usuario.id, 2)}>Quitar</button>
-
               </td>
-
             </tr>
           ))}
         </tbody>
       </table>
-
     </div>
+  );
+};
 
-  )
-}
-
-export default ListarUsuarios 
+export default ListarUsuarios;
