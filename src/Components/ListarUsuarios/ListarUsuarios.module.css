@@ -1,5 +1,5 @@
 table {
-    width: 100%;
+    width: 80%;
     border-collapse: collapse;
     border-spacing: 0;
     margin-bottom: 20px;
@@ -12,6 +12,7 @@ table {
     border-radius: 5px;
     overflow: hidden;
     margin-left: 10px;
+    margin: 0 auto;
 
   }
   
@@ -71,6 +72,8 @@ table {
 .tabla2{
   width: 20%;
 }
+
+
 
 
 
