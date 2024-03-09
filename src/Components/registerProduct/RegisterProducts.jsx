@@ -200,7 +200,7 @@ const RegisterProducts = () => {
                     onClick={() => setShowOptions(!showOptions)}
                   >
                     <span className="flex items-center text-capitalize">
-                      <span className="ml-3 block truncate">
+                      <span className="capitalize ml-3 block truncate">
                         {categoriaSeleccionada
                           ? categoriaSeleccionada.nombre
                           : "Selecciona una categoría"}
@@ -226,7 +226,7 @@ const RegisterProducts = () => {
 
                   {showOptions && (
                     <ul
-                      className="absolute z-10 mt-1 max-h-56 w-full overflow-auto rounded-md bg-white py-1 text-base shadow-lg ring-1 ring-black ring-opacity-5 focus:outline-none sm:text-sm"
+                      className="capitalize absolute z-10 mt-1 max-h-56 w-full overflow-auto rounded-md bg-white py-1 text-base shadow-lg ring-1 ring-black ring-opacity-5 focus:outline-none sm:text-sm"
                       role="listbox"
                       aria-labelledby="listbox-label"
                       aria-activedescendant="listbox-option-3"
