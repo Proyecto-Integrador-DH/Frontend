@@ -14,10 +14,14 @@ export const fetchCategorias = async () => {
 export const fetchProductoNuevo = async (data) => {
   const url = `${baseUrl}/producto/nuevo`;
 
+  console.log("token", localStorage.getItem('token'));
+
   const response = await fetch(url, {
     method: 'POST',
+
     headers: {
       'Content-Type': 'application/json',
+      'Authorization': localStorage.getItem('token'),
     },
     body: JSON.stringify(data),
   });
@@ -29,7 +33,7 @@ export const fetchProductoNuevo = async (data) => {
 
 export const fetchCargarImagen = async (data) => {
   const url = `${baseUrl}/imagen/cargar`;
-  console.log("datos login " , data);
+  console.log("datos login ", data);
 
   const response = await fetch(url, {
     method: 'POST',
@@ -65,7 +69,9 @@ export const fetchProduct = async (id) => {
 }
 
 export const fetchCrearUsuario = async (data) => {
-  const url = `${baseUrl}/usuario/nuevo`;
+  const url = `${baseUrl2}/usuario/nuevo`;
+
+  console.log("Data user", data);
 
   const response = await fetch(url, {
     method: "POST",
@@ -84,9 +90,9 @@ export const fetchCrearUsuario = async (data) => {
 
 export const fetchEmail = async (email) => {
   const url = `${baseUrl2}/usuario/email/${email}`;
-  console.log("email",email);
+  console.log("email", email);
   const response = await fetch(url, {
-    
+
     method: 'GET',
     headers: {
       'Content-Type': 'application/json',
@@ -101,7 +107,7 @@ export const fetchEmail = async (email) => {
 export const fetchLogin = async (data) => {
   const url = `${baseUrl2}/usuario/login`;
 
-  console.log("datos login " , data);
+  console.log("datos login ", data);
 
   const response = await fetch(url, {
     method: 'POST',
@@ -110,7 +116,79 @@ export const fetchLogin = async (data) => {
     },
     body: JSON.stringify(data),
   });
-  console.log("login",response);
+  console.log("login", response);
+  if (!response.ok) {
+    throw new Error('Error en la solicitud: ' + response.status);
+  }
+  return await response.text();
+}
+
+export const fetchListarUsuarios = async () => {
+  const url = `${baseUrl2}/usuario/usuarios`;
+  const response = await fetch(url, {
+    method: 'GET',
+    headers: {
+      'Content-Type': 'application/json',
+      'Authorization': localStorage.getItem('token'),
+    },
+  });
+  console.log("Usuario BD", response)
+  if (!response.ok) {
+    throw new Error('Error en la solicitud: ' + response.status);
+  }
+
+  return await response.json();
+}
+
+export const fetchCambiarCategoria = async (idProducto, idCategoria) => {
+  const url = `${baseUrl}/producto/addCategoria/${idProducto}/${idCategoria}`;
+  const response = await fetch(url, {
+    method: 'PUT',
+    headers: {
+      'Content-Type': 'application/json',
+      'Authorization': localStorage.getItem('token'),
+    },
+  });
+
+  if (!response.ok) {
+    throw new Error('Error en la solicitud: ' + response.status);
+  }
+
+  return await response.text(); // Devuelve el texto plano en lugar de JSON
+}
+
+export const fetchAsignarRol = async (data) => {
+  const url = `${baseUrl2}/usuario/asignarRol`;
+  console.log("datos traidos  ", data);
+  console.log("tOKEN", localStorage.getItem('token'));
+  const response = await fetch(url, {
+    method: 'POST',
+    headers: {
+      'Content-Type': 'application/json',
+      'Authorization': localStorage.getItem('token'),
+    },
+    body: JSON.stringify(data),
+  });
+  console.log("Error rol", response);
+  if (!response.ok) {
+    throw new Error('Error en la solicitud: ' + response.status);
+  }
+  return await response.text();
+}
+
+
+export const fetchQuitarRol = async (data) => {
+  const url = `${baseUrl2}/usuario/quitarRol`;
+  console.log("datos traidos  ", data);
+
+  const response = await fetch(url, {
+    method: 'POST',
+    headers: {
+      'Content-Type': 'application/json',
+      'Authorization': localStorage.getItem('token'),
+    },
+    body: JSON.stringify(data),
+  });
   if (!response.ok) {
     throw new Error('Error en la solicitud: ' + response.status);
   }

@@ -61,7 +61,7 @@ const Recommended = () => {
       <div className={RecommendedStyles.headerRecomendados}>
         <div className={RecommendedStyles.recommendedContainer}>
           <div className={RecommendedStyles.tittleContainer}>
-            <h2>Recomendados</h2>
+            <h2>RECOMENDADOS</h2>
             <h3>Explora nuestros planes</h3>
           </div>
         </div>

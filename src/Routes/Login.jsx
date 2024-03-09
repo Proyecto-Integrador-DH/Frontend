@@ -3,6 +3,7 @@ import Logo from "../assets/Logo03.png";
 import { fetchLogin } from "../services/api";
 import { errorHandling } from "../services/errorHandling";
 import ErrorComponent from "../Components/error/ErrorAlert";
+import { Link } from "react-router-dom";
 
 const Login = () => {
   const [email, setEmail] = useState("");
@@ -29,8 +30,9 @@ const Login = () => {
         setEmail("");
         setPassword("");
         localStorage.setItem("token", loginResponse);
-
-        window.location.href = "/";
+        setTimeout(() => {
+          window.location.href = "/";
+        }, 2000);
         return;
       } /* else  {
         console.log("Correo o contraseña incorrectos.");
@@ -135,12 +137,9 @@ const Login = () => {
 
           <p className="mt-10 text-center text-sm text-gray-500">
             No tienes una cuenta?{" "}
-            <a
-              href="#"
-              className="font-semibold leading-6 text-indigo-600 hover:text-indigo-500"
-            >
+            <Link to ="/crearUsuario" className="font-semibold leading-6 text-indigo-600 hover:text-indigo-500">
               Registrarse
-            </a>
+            </Link>
           </p>
         </div>
       </div>

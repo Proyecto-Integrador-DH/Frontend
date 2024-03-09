@@ -26,7 +26,6 @@ const AsignarCategoria = () => {
 					<tr>
 						<th>ID</th>
 						<th>Nombre del Producto</th>
-						<th>Acciones</th>
 					</tr>
 				</thead>
 				<tbody>

@@ -5,8 +5,9 @@ import Logo from '../../assets/Logo.png';
 import Inicio from '../../assets/Inicio.jpg';
 import Registro from '../../assets/registrarse.png';
 import { Link } from 'react-router-dom';
+import Avatar from '../avatar/Avatar.jsx';
 
-const Header = () => {
+const Header = ({user, onLogout}) => {
 
   const [scrollPosition, setScrollPosition] = useState(0);
 
@@ -50,10 +51,18 @@ const Header = () => {
             </button>
           </div>
           <div>
-            <Link to='/Login'> 
+            {user ? (
+              <Avatar user={user} onLogout={onLogout} />
+            ) : (
+              <>
+              <Link to='/Login'> 
             <Button className={HeaderStyle.login}>Iniciar sesión</Button>
             </Link>  
+            <Link to='/crearUsuario'> 
             <Button className={HeaderStyle.signup}>Crear Cuenta</Button>
+            </Link>
+              </>
+              )}
           </div>
 
         </div>
