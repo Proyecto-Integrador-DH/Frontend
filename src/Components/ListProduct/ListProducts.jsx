@@ -132,7 +132,7 @@ const ListProducts = () => {
                       }
                     >
                       <span className="flex items-center">
-                        <span className="ml-3 block truncate">
+                        <span className="capitalize ml-3 block truncate">
                           {categoriasSeleccionadas[producto.Id]
                             ? categoriasSeleccionadas[producto.Id]
                             : "Selecciona una categoría"}
