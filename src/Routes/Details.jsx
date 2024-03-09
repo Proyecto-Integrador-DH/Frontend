@@ -79,7 +79,7 @@ const Details = () => {
 
       <div className="container mx-auto px-4 mb-8">
         <div className="text-center my-8">
-          <h2 className="text-2xl font-bold text-rosa mb-2">Detalles del producto</h2>
+          <h2 className="text-2xl font-bold text-rosa mb-2">Detalles de la Experiencia</h2>
         </div>
         <div className="grid grid-cols-1 md:grid-cols-2 gap-8">
           <div>

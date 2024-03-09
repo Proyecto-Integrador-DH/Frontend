@@ -11,23 +11,23 @@ const Adminstrador = () => {
   return (
     <div>
 
-      <h2 className={AdminStyle.h2}> Panel de administracion</h2>
+      <h2 className={AdminStyle.h2}> Panel de administración</h2>
 
       <div className={AdminStyle.contarjetas}>
 
         <div className={AdminStyle.tarjetas}>
-          <h2>Agregar un producto</h2>
+          <h2>Agregar una experiencia</h2>
           <Link to='/registrarProducto' > <Button className={AdminStyle.boton}>Clik aqui </Button></Link>
         </div>
 
 
         <div className={AdminStyle.tarjetas}>
-          <h2>Lista de productos</h2>
+          <h2>Lista de experiencias</h2>
           <Link to='/listarProductos' ><Button className={AdminStyle.boton}>Click aqui</Button></Link>
         </div>
 
         <div className={AdminStyle.tarjetas}>
-          <h2>Lista de Categorias</h2>
+          <h2>Lista de Categorías</h2>
           <Link to='/asignarCategoria'><Button className={AdminStyle.boton}>Click aqui</Button></Link>
         </div>
 

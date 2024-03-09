@@ -2,7 +2,7 @@ import "./App.css";
 import { Route, Routes } from "react-router";
 import Products from "./Routes/Products.jsx";
 import HomePage from "./Pages/home/Home.jsx";
-import RegisterProducts from "./Components/registerProduct/RegisterProducts.jsx";
+import RegisterProducts from "./Components/registerProduct/RegisterProducts1.jsx";
 import Details from "./Routes/Details.jsx";
 import Header from "./Components/header/Header.jsx";
 import Login from "./Routes/Login.jsx";

@@ -56,7 +56,7 @@ const RegisterProducts = () => {
       if (productoResponse == 400) {
         console.log("Ya existe un producto con ese nombre.");
         setTitleError("Error");
-        setError("Ya existe un producto con ese nombre.");
+        setError("Ya existe una experiencia con ese nombre.");
         setModalErrorVisible(true);
         return;
       } else {
@@ -70,8 +70,8 @@ const RegisterProducts = () => {
         });
 
         setModalErrorVisible(true);
-        setTitleError("Producto registrado");
-        setError("El producto ha sido registrado con éxito.");
+        setTitleError("Experiencia registrada");
+        setError("La experiencia ha sido registrada con éxito.");
 
         setNombre("");
         setDescripcion("");
@@ -118,7 +118,7 @@ const RegisterProducts = () => {
 
   return (
     <div className={RpStyles.formContainer}>
-      <h2 className={RpStyles.title}> Registro de productos </h2>
+      <h2 className={RpStyles.title}> Registro de Experiencias </h2>
 
       {modalErrorVisible && (
         <ErrorComponent

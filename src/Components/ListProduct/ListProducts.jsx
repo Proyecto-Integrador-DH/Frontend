@@ -56,12 +56,12 @@ const ListProducts = () => {
 
     return (
         <div>
-            <h2>Lista de Productos</h2>
+            <h2>Lista de Experiencias</h2>
             <table>
                 <thead>
                     <tr>
                         <th>ID</th>
-                        <th>Nombre del Producto</th>
+                        <th>Nombre de la Experiencia</th>
                         <th>Categorias</th>
                         <th>Acciones</th>
                     </tr>
