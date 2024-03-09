@@ -1,16 +1,28 @@
-
-
 .searcherContainer {
     margin: 1rem;
     display: flex;
+    align-items: center; /* Alinear elementos verticalmente */
 }
 
 .searcherContainer input {
     border-radius: 2px;
     border: 2px none;
     box-shadow: 0px 2px 4px rgba(0, 0, 0, 0.2); /* Sombra en la parte inferior */
-    height: 39px;
-    width: 40%;
+    height: 60px; /* Ajustar la altura para que coincida con el botón */
+    flex: 1; /* Hacer que el campo de entrada ocupe todo el espacio disponible */
+    margin-right: 10px; /* Espacio entre el campo de entrada y el botón */
+}
+
+.searcherContainer button {
+    height: 60px; 
+    width: auto; /* Ancho automático para ajustarse al contenido */
+    font-size: 1em; 
+    background-color:  #ffe2fa; 
+    color: #ff4fe2; 
+}
+
+.searcherContainer button:hover {
+    background-color: #ff94ed;
 }
 
 
