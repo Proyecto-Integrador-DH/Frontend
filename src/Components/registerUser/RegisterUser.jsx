@@ -1,4 +1,5 @@
 import React, { useState } from "react";
+import Logo from "../../assets/Logo03.png";
 import { fetchCrearUsuario } from "../../services/api";
 import registerUserStyles from "./RegisterUser.module.css";
 import ErrorComponent from "../error/ErrorAlert";
@@ -160,7 +161,7 @@ function RegisterUser() {
   };
 
   return (
-    <div className={registerUserStyles.formContainer}>
+    <div>
       {modalErrorVisible && (
         <ErrorComponent
           title={titleError}
@@ -168,49 +169,118 @@ function RegisterUser() {
           onClose={closeModal}
         />
       )}
-      <form onSubmit={handleSubmit}>
-        <div>
-          <input
-            className={registerUserStyles.inputStyle}
-            type="text"
-            value={nombre}
-            onChange={(e) => setNombre(e.target.value)}
-            placeholder="Nombre"
-          />
-          {errors.nombre && <span className="error">{errors.nombre}</span>}
+
+      <div className="flex min-h-full flex-col justify-center px-6 py-12 lg:px-8">
+        <div className="sm:mx-auto sm:w-full sm:max-w-sm">
+        <img 
+          className="mx-auto h-10 w-auto"
+          src={Logo}
+          alt="Solo Aventuras"
+        />
+          <h2 className="mt-10 text-center text-2xl font-bold leading-9 tracking-tight text-gray-900">
+            Registro de usuario
+          </h2>
         </div>
-        <div>
-          <input
-            className={registerUserStyles.inputStyle}
-            type="text"
-            value={apellido}
-            onChange={(e) => setApellido(e.target.value)}
-            placeholder="Apellido"
-          />
-          {errors.apellido && <span className="error">{errors.apellido}</span>}
+
+        <div className="mt-10 sm:mx-auto sm:w-full sm:max-w-sm">
+          <form
+            onSubmit={handleSubmit}
+            className="space-y-6 w-full"
+            action="#"
+            method="POST"
+          >
+            <div>
+              <label className="block text-left text-sm font-medium leading-6 text-gray-900">
+                Nombre
+              </label>
+              <div className="mt-2">
+                <input
+                  id="nombre"
+                  name="nombre"
+                  type="text"
+                  autoComplete="name"
+                  value={nombre}
+                  onChange={(e) => setNombre(e.target.value)}
+                  required
+                  className="block w-full rounded-md border-0 py-1.5 text-gray-900 shadow-sm ring-1 ring-inset ring-gray-300 placeholder:text-gray-400 focus:ring-2 focus:ring-inset focus:ring-indigo-600 sm:text-sm sm:leading-6"
+                />
+              </div>
+              {errors.nombre && (
+                <span className="error">{errors.nombre}</span>
+              )}
+            </div>
+
+            <div>
+              <label className="block text-left text-sm font-medium leading-6 text-gray-900">
+                Apellido
+              </label>
+              <div className="mt-2">
+                <input
+                  id="apellido"
+                  name="apellido"
+                  type="text"
+                  autoComplete="family-name"
+                  value={apellido}
+                  onChange={(e) => setApellido(e.target.value)}
+                  required
+                  className="block w-full rounded-md border-0 py-1.5 text-gray-900 shadow-sm ring-1 ring-inset ring-gray-300 placeholder:text-gray-400 focus:ring-2 focus:ring-inset focus:ring-indigo-600 sm:text-sm sm:leading-6"
+                />
+              </div>
+              {errors.apellido && (
+                <span className="error">{errors.apellido}</span>
+              )}
+            </div>
+
+            <div>
+              <label className="block text-left text-sm font-medium leading-6 text-gray-900">
+                Correo electrónico
+              </label>
+              <div className="mt-2">
+                <input
+                  id="email"
+                  name="email"
+                  type="email"
+                  autoComplete="email"
+                  value={email}
+                  onChange={(e) => setEmail(e.target.value)}
+                  required
+                  className="block w-full rounded-md border-0 py-1.5 text-gray-900 shadow-sm ring-1 ring-inset ring-gray-300 placeholder:text-gray-400 focus:ring-2 focus:ring-inset focus:ring-indigo-600 sm:text-sm sm:leading-6"
+                />
+              </div>
+              {errors.email && <span className="error">{errors.email}</span>}
+            </div>
+
+            <div>
+              <label className="block text-left text-sm font-medium leading-6 text-gray-900">
+                Contraseña
+              </label>
+              <div className="mt-2">
+                <input
+                  id="pass"
+                  name="pass"
+                  type="password"
+                  autoComplete="new-password"
+                  value={pass}
+                  onChange={(e) => setPass(e.target.value)}
+                  required
+                  minLength={9}
+                  className="block w-full rounded-md border-0 py-1.5 text-gray-900 shadow-sm ring-1 ring-inset ring-gray-300 placeholder:text-gray-400 focus:ring-2 focus:ring-inset focus:ring-indigo-600 sm:text-sm sm:leading-6"
+                />
+              </div>
+              {errors.pass && <span className="error">{errors.pass}</span>}
+            </div>
+
+            <div>
+              <button
+                type="submit"
+                className="flex w-full justify-center rounded-md bg-rosa px-3 py-1.5 text-sm font-semibold leading-6 text-white shadow-sm hover:bg-indigo-500 focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-indigo-600"
+              >
+                Registrarse
+              </button>
+            </div>
+          </form>
         </div>
-        <div>
-          <input
-            className={registerUserStyles.inputStyle}
-            type="email"
-            value={email}
-            onChange={(e) => setEmail(e.target.value)}
-            placeholder="Email"
-          />
-          {errors.email && <span className="error">{errors.email}</span>}
-        </div>
-        <div>
-          <input
-            className={registerUserStyles.inputStyle}
-            type="password"
-            value={pass}
-            onChange={(e) => setPass(e.target.value)}
-            placeholder="Contraseña"
-          />
-          {errors.pass && <span className="error">{errors.pass}</span>}
-        </div>
-        <button type="submit">Registrarse</button>
-      </form>
+      </div>
     </div>
   );
 }
