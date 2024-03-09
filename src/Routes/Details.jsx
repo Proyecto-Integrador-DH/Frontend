@@ -1,9 +1,10 @@
 import React, { useEffect, useState } from "react";
-import Searcher from "../Components/searcher/Searcher";
-import flecha from "../assets/arrowRightflecha.png";
 import { useParams } from "react-router-dom";
 import { useNavigate } from "react-router-dom";
 import { fetchProduct } from "../services/api";
+import Searcher from "../Components/searcher/Searcher";
+import flecha from "../assets/arrowRightflecha.png";
+import "./details.css"; // Importa el archivo CSS para estilos personalizados
 
 const Details = () => {
   const { id } = useParams();
@@ -23,8 +24,7 @@ const Details = () => {
   };
 
   const missingImagesCount = Math.max(
-    totalImage - (detallesProducto?.imagenes?.length ?? 0), // Usamos el operador de fusión nula (??) para manejar el caso de que detallesProducto?.imagenes sea nulo
-    0
+    totalImage - (detallesProducto?.imagenes?.length ?? 0), 0
   );
   const missingImagesArray = new Array(missingImagesCount).fill(defaultImage);
 
@@ -32,12 +32,9 @@ const Details = () => {
     ?.slice(1, 5)
     .concat(missingImagesArray);
 
-  console.log("imagenes", allImages);
-
   useEffect(() => {
     fetchDetallesProductos();
   }, []);
-
 
   // Función para formatear la fecha
   const formatDate = (dateString) => {
@@ -80,29 +77,29 @@ const Details = () => {
         </div>
       </div>
 
-      <div className="flex justify-center gap-40">
-        <div className="w-1/3 flex flex-col items-start my-20">
-          <p className="text-rosa font-bold tracking-widest text-2xl mb-5">
-            <h1 className="text-3xl font-bold tracking-wide">
-              {detallesProducto?.nombre}
-            </h1>
-          </p>
+      <div className="container mx-auto px-4 mb-8">
+        <div className="text-center my-8">
+          <h2 className="text-2xl font-bold text-rosa mb-2">Detalles del producto</h2>
         </div>
-        <div className="w-1/3 flex my-20 pr-20 justify-end">
-          <button onClick={() => navigate(-1)} className="flex pt-5">
-            <img className=" w-10 h-10" src={flecha} alt="" />
-            <p className="pt-2 text-gray-300 font-medium">Volver</p>
-          </button>
+        <div className="grid grid-cols-1 md:grid-cols-2 gap-8">
+          <div>
+            <h2 className="text-3xl font-bold text-rosa mb-4">{detallesProducto?.nombre}</h2>
+            <p>{detallesProducto?.descripcion}</p>
+          </div>
+          <div className="flex flex-col justify-between">
+            <div>
+              <p>Fecha de salida: {formatDate(detallesProducto?.fecha)}</p>
+              <p>Cupos disponibles: {detallesProducto?.cupo}</p>
+              <p>{detallesProducto?.disponible}</p>
+            </div>
+            <div className="flex justify-end">
+              <button onClick={() => navigate(-1)} className="flex items-center">
+                <img src={flecha} alt="Volver" className="w-6 h-6 mr-2" />
+                <span className="text-gray-400">Volver</span>
+              </button>
+            </div>
+          </div>
         </div>
-      </div>
-
-      <div className="pl-40 pr-56">
-        {/* Muestra la descripción del producto seleccionado */}
-        <p>{detallesProducto?.descripcion}</p>
-        {/* Mostrar la fecha formateada */}
-        <p>Fecha de salida: {formatDate(detallesProducto?.fecha)}</p>
-        <p>Cupos disponibles: {detallesProducto?.cupo}</p>
-        <p>{detallesProducto?.disponible}</p>
       </div>
     </>
   );
