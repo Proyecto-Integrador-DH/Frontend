@@ -58,6 +58,16 @@ export const fetchListarProductos = async () => {
   return await response.json();
 }
 
+export const fetchListarProductosRecom = async () => {
+  const url = `${baseUrl}/producto/productos`;
+  const response = await fetch(url);
+  console.log("Productos: ", response);
+  if (!response.ok) {
+    throw new Error('Error en la solicitud: ' + response.status);
+  }
+  return await response.json();
+}
+
 export const fetchProduct = async (id) => {
   const url = `${baseUrl}/producto/${id}`;
   const response = await fetch(url);

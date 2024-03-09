@@ -4,7 +4,7 @@ import "slick-carousel/slick/slick.css";
 import "slick-carousel/slick/slick-theme.css";
 import RecommendedStyles from "./Recommended.module.css";
 import VerMas from "../botonVerMas/BotonVerMas";
-import { fetchListarProductos } from "../../services/api";
+import { fetchListarProductosRecom } from "../../services/api";
 import { Link } from "react-router-dom";
 import { useParams } from "react-router-dom";
 
@@ -18,7 +18,7 @@ const Recommended = () => {
 
   const fetchApiData = async () => {
     try {
-      const data = await fetchListarProductos();
+      const data = await fetchListarProductosRecom();
 
       if (Array.isArray(data)) {
         setProductosApi(data);
