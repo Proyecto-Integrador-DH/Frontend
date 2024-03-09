@@ -61,7 +61,9 @@ const ListarUsuarios = () => {
     const id = Number(usuarioId);
     try {
       await fetchQuitarRol({ id, roles: [{ id: rolId }] });
-      console.log("Rol quitado correctamente");
+      setModalErrorVisible(true);
+      setTitleError("Rol actualizado");
+      setError("El rol se quitó correctamente");
       await refrescarUsuarios(); // Refrescar la lista de usuarios después de quitar el rol
     } catch (error) {
       if ((error = 400)) {
@@ -81,7 +83,7 @@ const ListarUsuarios = () => {
 
   return (
     <div>
-      <h2>Lista de Usuarios</h2>
+      <h2 className="text-3xl font-bold mb-6">Lista de Usuarios</h2>
 
       {modalErrorVisible && (
         <ErrorComponent
@@ -98,8 +100,8 @@ const ListarUsuarios = () => {
             <th>Nombre</th>
             <th>Apellido</th>
             <th>Correo</th>
-            <th>Roles</th>
-            <th>Permisos</th>
+            <th className="text-center">Roles</th>
+            <th className="text-center">Permisos</th>
           </tr>
         </thead>
         <tbody>
@@ -109,13 +111,16 @@ const ListarUsuarios = () => {
               <td>{usuario.nombre}</td>
               <td>{usuario.apellido}</td>
               <td>{usuario.email}</td>
-              <td>
+              <td className="text-center">
                 {usuario.roles &&
                   usuario.roles.map((rol) => (
-                    <span key={rol.id}>{rol.nombre}, </span>
+                    <span key={rol.id}>
+                      {rol.nombre}
+                      <br />
+                    </span>
                   ))}
               </td>
-              <td>
+              <td className="text-center">
                 <button
                   className={style.button}
                   onClick={() => handleAsignarRol(usuario.id, 1)}

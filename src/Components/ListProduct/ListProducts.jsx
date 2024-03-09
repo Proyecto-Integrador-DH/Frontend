@@ -106,8 +106,8 @@ const ListProducts = () => {
               <th>ID</th>
               <th>Nombre de la Experiencia</th>
               <th>Categoría</th>
-              <th>Cambiar categoría</th>
-              <th>Acciones</th>
+              <th className="text-center">Cambiar categoría</th>
+              <th className="text-center">Acciones</th>
             </tr>
           </thead>
           <tbody>
@@ -117,10 +117,10 @@ const ListProducts = () => {
                 <td>{producto.nombre}</td>
                 <td className="capitalize">{producto.categoria.nombre}</td>
                 <td>
-                  <div className="relative mt-2">
+                  <div className="relative mt-2 text-center">
                     <button
                       type="button"
-                      className="relative w-full cursor-default rounded-md bg-white py-1.5 pl-3 pr-10 text-left text-gray-900 shadow-sm ring-1 ring-inset ring-gray-300 focus:outline-none focus:ring-2 focus:ring-indigo-500 sm:text-sm sm:leading-6"
+                      className="relative w-55 cursor-default rounded-md bg-white py-1.5 pl-3 pr-10 text-left text-gray-900 shadow-sm ring-1 ring-inset ring-gray-300 focus:outline-none focus:ring-2 focus:ring-indigo-500 sm:text-sm sm:leading-6"
                       aria-haspopup="listbox"
                       aria-expanded={showOptions[producto.Id]}
                       aria-labelledby="listbox-label"
@@ -203,7 +203,7 @@ const ListProducts = () => {
                     )}
                   </div>
                 </td>
-                <td>
+                <td className="text-center">
                   <button
                     className={style.button}
                     onClick={() =>

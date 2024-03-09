@@ -23,7 +23,7 @@ const AsignarCategoria = () => {
           <thead>
             <tr>
               <th>ID</th>
-              <th>Nombre de la experiencia</th>
+              <th>Nombre de la categoría</th>
             </tr>
           </thead>
           <tbody>
