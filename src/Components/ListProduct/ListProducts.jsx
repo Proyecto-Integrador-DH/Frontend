@@ -2,6 +2,7 @@ import React, { useState, useEffect } from "react";
 import {
   fetchCambiarCategoria,
   fetchListarProductos,
+  fetchDeleteProducto,
 } from "../../services/api";
 import style from "./ListProducts.module.css";
 import { fetchCategorias } from "../../services/api";
@@ -82,6 +83,21 @@ const ListProducts = () => {
     console.log(nuevaSeleccion);
 
     setCategoriasSeleccionadas(nuevaSeleccion);
+  };
+
+  const handleDeleteProducto = async (id) => {
+    try {
+      await fetchDeleteProducto(Number(id));
+      await refrescarProductos();
+      setModalErrorVisible(true);
+      setTitleError("Producto Eliminado");
+      setError("El producto se ha eliminado correctamente.");
+    } catch (error) {
+      console.error("Error al eliminar el producto:", error.message);
+      setModalErrorVisible(true);
+      setTitleError("Error");
+      setError("Error al eliminar el producto. Por favor, inténtalo de nuevo.");
+    }
   };
 
   const closeModal = () => {
@@ -215,7 +231,12 @@ const ListProducts = () => {
                   >
                     Actualizar
                   </button>
-                  <button className={style.button}>Eliminar</button>
+                  <button
+                    className={style.button}
+                    onClick={() => handleDeleteProducto(producto.Id)}
+                  >
+                    Eliminar
+                  </button>
                 </td>
               </tr>
             ))}

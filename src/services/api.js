@@ -1,5 +1,6 @@
 const baseUrl = 'http://localhost:8081';
 const baseUrl2 = 'http://localhost:8080';
+const token = localStorage.getItem('token');
 
 export const fetchCategorias = async () => {
   const url = `${baseUrl}/categoria/all`;
@@ -14,14 +15,12 @@ export const fetchCategorias = async () => {
 export const fetchProductoNuevo = async (data) => {
   const url = `${baseUrl}/producto/nuevo`;
 
-  console.log("token", localStorage.getItem('token'));
-
   const response = await fetch(url, {
     method: 'POST',
 
     headers: {
       'Content-Type': 'application/json',
-      'Authorization': localStorage.getItem('token'),
+      'Authorization': token,
     },
     body: JSON.stringify(data),
   });
@@ -30,6 +29,26 @@ export const fetchProductoNuevo = async (data) => {
   }
   return await response.text();
 };
+
+export const fetchDeleteProducto = async (id) => {
+  const url = `${baseUrl}/producto/deleteProducto/${id}`
+  try {
+    const response = await fetch(url, {
+      method: 'DELETE',
+      headers: {
+        'Authorization': token
+      }
+    });
+
+    if (!response.ok) {
+      throw new Error('Error al eliminar el producto');
+    }
+    const data = await response.json();
+    console.log(data); 
+  } catch (error) {
+    console.error('Error:', error); 
+  }
+}
 
 export const fetchCargarImagen = async (data) => {
   const url = `${baseUrl}/imagen/cargar`;
@@ -117,8 +136,6 @@ export const fetchEmail = async (email) => {
 export const fetchLogin = async (data) => {
   const url = `${baseUrl2}/usuario/login`;
 
-  console.log("datos login ", data);
-
   const response = await fetch(url, {
     method: 'POST',
     headers: {
@@ -139,7 +156,7 @@ export const fetchListarUsuarios = async () => {
     method: 'GET',
     headers: {
       'Content-Type': 'application/json',
-      'Authorization': localStorage.getItem('token'),
+      'Authorization': token,
     },
   });
   console.log("Usuario BD", response)
@@ -156,7 +173,7 @@ export const fetchCambiarCategoria = async (idProducto, idCategoria) => {
     method: 'PUT',
     headers: {
       'Content-Type': 'application/json',
-      'Authorization': localStorage.getItem('token'),
+      'Authorization': token,
     },
   });
 
@@ -164,18 +181,16 @@ export const fetchCambiarCategoria = async (idProducto, idCategoria) => {
     throw new Error('Error en la solicitud: ' + response.status);
   }
 
-  return await response.text(); // Devuelve el texto plano en lugar de JSON
+  return await response.text(); 
 }
 
 export const fetchAsignarRol = async (data) => {
   const url = `${baseUrl2}/usuario/asignarRol`;
-  console.log("datos traidos  ", data);
-  console.log("tOKEN", localStorage.getItem('token'));
   const response = await fetch(url, {
     method: 'POST',
     headers: {
       'Content-Type': 'application/json',
-      'Authorization': localStorage.getItem('token'),
+      'Authorization': token,
     },
     body: JSON.stringify(data),
   });
@@ -189,13 +204,12 @@ export const fetchAsignarRol = async (data) => {
 
 export const fetchQuitarRol = async (data) => {
   const url = `${baseUrl2}/usuario/quitarRol`;
-  console.log("datos traidos  ", data);
 
   const response = await fetch(url, {
     method: 'POST',
     headers: {
       'Content-Type': 'application/json',
-      'Authorization': localStorage.getItem('token'),
+      'Authorization': token,
     },
     body: JSON.stringify(data),
   });
