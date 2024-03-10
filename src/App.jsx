@@ -17,6 +17,7 @@ import { jwtDecode } from "jwt-decode";
 import { fetchEmail } from "./services/api.js";
 import { errorHandling } from "./services/errorHandling.js";
 import ProtectedRoutes from "./router/ProtectedRoutes.jsx";
+import ProductList from "./Components/ListProduct/ProductList.jsx";
 
 
 function App() {
@@ -81,6 +82,7 @@ function App() {
           <Route path="/asignarCategoria" element={<AsignarCategoria />} />
         </Route>
         <Route path='/crearUsuario' element={<RegisterUser />} />
+        <Route path="/listarProductos/:categoryId" element={<ProductList />} />
       </Routes>
     </>
   );

@@ -12,6 +12,35 @@ export const fetchCategorias = async () => {
   return await response.json();
 };
 
+export const fetchCategoria = async (id) => {
+  const url = `${baseUrl}/categoria/${id}`;
+  const response = await fetch(url);
+  if (!response.ok) {
+    throw new Error('Error en la solicitud: ' + response.status);
+  }
+  return await response.json();
+
+}
+
+export const fetchCategoryProducts = async (id) => {
+  console.log("ID", id);
+  const url = `${baseUrl}/categoria/categoryProducts/${id}`;
+  console.log("URL", url);
+  try {
+    const response = await fetch(url);
+    if (!response.ok) {
+      throw new Error('Hubo un problema al obtener los productos de la categoría.');
+    }
+    const data = await response.json();
+    console.log("Productos de la categoría seleccionada", data);
+    return data;
+  } catch (error) {
+    console.error(error);
+    throw error;
+  }
+};
+
+
 export const fetchProductoNuevo = async (data) => {
   const url = `${baseUrl}/producto/nuevo`;
 
