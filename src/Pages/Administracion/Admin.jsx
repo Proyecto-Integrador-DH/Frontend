@@ -19,6 +19,10 @@ const Adminstrador = () => {
             <h2>Lista de experiencias</h2>
             <Link to='/listarProductos'><Button className={AdminStyle.boton}>Clic aquí</Button></Link>
           </div>
+          <div className={AdminStyle.tarjetas}>
+            <h2>Gestionar Agenda</h2>
+            <Link to='/agenda'><Button className={AdminStyle.boton}>Clic aquí</Button></Link>
+          </div>
         </div>
         <div className={AdminStyle.tarjetasContainer}>
           <div className={AdminStyle.tarjetas}>
@@ -26,8 +30,12 @@ const Adminstrador = () => {
             <Link to='/asignarCategoria'><Button className={AdminStyle.boton}>Clic aquí</Button></Link>
           </div>
           <div className={AdminStyle.tarjetas}>
-            <h2>Listar Usuarios</h2>
+            <h2>Gestionar Usuarios</h2>
             <Link to='/listarUsuarios'><Button className={AdminStyle.boton}>Clic aquí</Button></Link>
+          </div>
+          <div className={AdminStyle.tarjetas}>
+            <h2>Gestionar Reservas</h2>
+            <Link to='/'><Button className={AdminStyle.boton}>Clic aquí</Button></Link>
           </div>
         </div>
       </div>

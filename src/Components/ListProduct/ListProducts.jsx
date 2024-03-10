@@ -1,4 +1,5 @@
 import React, { useState, useEffect } from "react";
+import { Link } from "react-router-dom";
 import {
   fetchCambiarCategoria,
   fetchListarProductos,
@@ -124,6 +125,7 @@ const ListProducts = () => {
               <th>Categoría</th>
               <th className="text-center">Cambiar categoría</th>
               <th className="text-center">Acciones</th>
+              <th>Agenda</th>
             </tr>
           </thead>
           <tbody>
@@ -237,6 +239,16 @@ const ListProducts = () => {
                   >
                     Eliminar
                   </button>
+                </td>
+                <td>
+                  <div className="flex text-center">
+                    <Link
+                      to={`/agenda/${producto.Id}`}
+                      className="text-blue-500 hover:underline"
+                    >
+                      Ver más
+                    </Link>
+                  </div>
                 </td>
               </tr>
             ))}

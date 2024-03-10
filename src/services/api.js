@@ -247,3 +247,40 @@ export const fetchQuitarRol = async (data) => {
   }
   return await response.text();
 }
+
+export const fetchAgendarExperiencia = async (data) => {
+  const url = `${baseUrl}/agenda/nueva`;
+  console.log("Data agenda", data);
+  const response = await fetch(url, {
+    method: 'POST',
+    headers: {
+      'Content-Type': 'application/json',
+      'Authorization': token,
+    },
+    body: JSON.stringify(data),
+  });
+  if (!response.ok) {
+    throw new Error('Error en la solicitud: ' + response.status);
+  }
+  return await response.json();
+}
+
+export const fetchListarAgenda = async () => {
+  const url = `${baseUrl}/agenda/all`;
+  const response = await fetch(url);
+  console.log("Agendas: ", response);
+  if (!response.ok) {
+    throw new Error('Error en la solicitud: ' + response.status);
+  }
+  return await response.json();
+}
+
+export const fetchListarAgendaProducto = async (id) => {
+  const url = `${baseUrl}/agenda/producto/${id}`;
+  const response = await fetch(url);
+  console.log("Agendas: ", response);
+  if (!response.ok) {
+    throw new Error('Error en la solicitud: ' + response.status);
+  }
+  return await response.json();
+}

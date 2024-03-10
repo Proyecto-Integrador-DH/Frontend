@@ -18,6 +18,8 @@ import { fetchEmail } from "./services/api.js";
 import { errorHandling } from "./services/errorHandling.js";
 import ProtectedRoutes from "./router/ProtectedRoutes.jsx";
 import ProductList from "./Components/ListProduct/ProductList.jsx";
+import Agenda from "./Components/Agenda/Agenda.jsx";
+import AgendaProducto from "./Components/Agenda/AgendaProducto.jsx";
 
 
 function App() {
@@ -59,13 +61,6 @@ function App() {
     }
 
 
-
-
-
-
-
-
-
   return (
     <>
       <Header user={user} onLogout={handleLogout} />
@@ -83,6 +78,8 @@ function App() {
         </Route>
         <Route path='/crearUsuario' element={<RegisterUser />} />
         <Route path="/listarProductos/:categoryId" element={<ProductList />} />
+        <Route path="/agenda" element={<Agenda />} />
+        <Route path="/agenda/:id" element={<AgendaProducto />} />
       </Routes>
     </>
   );
