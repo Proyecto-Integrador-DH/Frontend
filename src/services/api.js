@@ -284,3 +284,19 @@ export const fetchListarAgendaProducto = async (id) => {
   }
   return await response.json();
 }
+
+export const fetchNuevaReserva = async (data) => {
+  const url = `${baseUrl}/reserva/nueva`;
+  console.log("Data reserva", data);
+  const response = await fetch(url, {
+    method: 'POST',
+    headers: {
+      'Content-Type': 'application/json',
+    },
+    body: JSON.stringify(data),
+  });
+  if (!response.ok) {
+    throw new Error('Error en la solicitud: ' + response.status);
+  }
+  return await response.json();
+}

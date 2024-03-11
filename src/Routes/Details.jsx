@@ -36,13 +36,6 @@ const Details = () => {
     fetchDetallesProductos();
   }, []);
 
-  // Función para formatear la fecha
-  const formatDate = (dateString) => {
-    const fecha = new Date(dateString);
-    const opcionesDeFormato = { year: 'numeric', month: 'long', day: '2-digit' };
-    return fecha.toLocaleDateString('es-ES', opcionesDeFormato);
-  };
-
   return (
     <>
       <Searcher />
@@ -88,8 +81,8 @@ const Details = () => {
           </div>
           <div className="flex flex-col justify-between">
             <div>
-              <p>Fecha de salida: {formatDate(detallesProducto?.fecha)}</p>
-              <p>Cupos disponibles: {detallesProducto?.cupo}</p>
+              <p>Fecha de salida: {}</p>
+              <p>Cupos disponibles: {}</p>
               <p>{detallesProducto?.disponible}</p>
             </div>
             <div className="flex justify-end">

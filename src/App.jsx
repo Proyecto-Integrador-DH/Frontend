@@ -20,7 +20,7 @@ import ProtectedRoutes from "./router/ProtectedRoutes.jsx";
 import ProductList from "./Components/ListProduct/ProductList.jsx";
 import Agenda from "./Components/Agenda/Agenda.jsx";
 import AgendaProducto from "./Components/Agenda/AgendaProducto.jsx";
-
+import Reserva from "./Components/Reserva/Reserva.jsx";
 
 function App() {
   const [user, setUser] = useState(null);
@@ -28,7 +28,7 @@ function App() {
 
   useEffect(() => {
     const obtenerEmail = () => {
-      if(localStorage.getItem("token")) {
+      if (localStorage.getItem("token")) {
         const token = localStorage.getItem("token");
         const decoded = jwtDecode(token);
         console.log("Decoded", decoded);
@@ -48,18 +48,17 @@ function App() {
       .catch((error) => {
         console.error(errorHandling(error));
       });
-    }, [email]);
-    
-    console.log("Info de usuario", user);
-    localStorage.setItem("user", JSON.stringify(user));
+  }, [email]);
 
-    const handleLogout = () => {
-      localStorage.removeItem("token");
-      localStorage.removeItem("user");
-      setUser(null);
-      window.location.href = "/";
-    }
+  console.log("Info de usuario", user);
+  localStorage.setItem("user", JSON.stringify(user));
 
+  const handleLogout = () => {
+    localStorage.removeItem("token");
+    localStorage.removeItem("user");
+    setUser(null);
+    window.location.href = "/";
+  };
 
   return (
     <>
@@ -69,17 +68,18 @@ function App() {
         <Route path="/products" element={<Products />} />
         <Route path="/" element={<HomePage />} />
         <Route path="/details/:id" element={<Details />} />
-        <Route element={<ProtectedRoutes/>}>
+        <Route element={<ProtectedRoutes />}>
           <Route path="/listarProductos" element={<ListProducts />} />
-          <Route path="/registrarProducto" element={<RegisterProducts />} />  
+          <Route path="/registrarProducto" element={<RegisterProducts />} />
           <Route path="/admin" element={<Admin />} />
           <Route path="/listarUsuarios" element={<ListarUsuarios />} />
           <Route path="/asignarCategoria" element={<AsignarCategoria />} />
+          <Route path="/agenda" element={<Agenda />} />
+          <Route path="/agenda/:id" element={<AgendaProducto />} />
         </Route>
-        <Route path='/crearUsuario' element={<RegisterUser />} />
+        <Route path="/crearUsuario" element={<RegisterUser />} />
         <Route path="/listarProductos/:categoryId" element={<ProductList />} />
-        <Route path="/agenda" element={<Agenda />} />
-        <Route path="/agenda/:id" element={<AgendaProducto />} />
+        <Route path="/reserva" element={<Reserva />} />
       </Routes>
     </>
   );
