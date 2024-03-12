@@ -300,3 +300,18 @@ export const fetchNuevaReserva = async (data) => {
   }
   return await response.json();
 }
+
+export const fetchSearch = async (id, fechaIda, fechaVuelta) => {
+  const categoryId = Number(id);
+  const url = `${baseUrl}/agenda/categoria/${categoryId}/fechas?fechaIda=${fechaIda}&fechaVuelta=${fechaVuelta}`;
+  const response = await fetch(url, {
+    method: 'GET',
+    headers: {
+      'Content-Type': 'application/json',
+    },
+  });
+  if (!response.ok) {
+    throw new Error('Error en la solicitud: ' + response.status);
+  }
+  return await response.json();
+};
