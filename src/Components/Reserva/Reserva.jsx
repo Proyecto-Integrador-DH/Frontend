@@ -86,7 +86,7 @@ const Reserva = () => {
             <option value="">Seleccione una agenda</option>
             {agendas.map((agenda) => (
               <option key={agenda.id} value={agenda.id}>
-                {agenda.producto.nombre} - {FormatDate(agenda.fecha)}
+                {agenda.producto.nombre} : {FormatDate(agenda.fechaIda)} a {FormatDate(agenda.fechaVuelta)}
               </option>
             ))}
           </select>

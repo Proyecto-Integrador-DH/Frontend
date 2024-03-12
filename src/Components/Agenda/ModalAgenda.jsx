@@ -4,7 +4,8 @@ import { fetchAgendarExperiencia } from "../../services/api";
 
 const ModalAgenda = ({ isOpen, onClose, onSubmit }) => {
   const [producto, setProducto] = useState({});
-  const [fecha, setFecha] = useState("");
+  const [fechaIda, setFechaIda] = useState("");
+  const [fechaVuelta, setFechaVuelta] = useState("");
   const [cupos, setCupos] = useState("");
   const [estado, setEstado] = useState(false);
   const [experiencias, setExperiencias] = useState([]);
@@ -23,8 +24,12 @@ const ModalAgenda = ({ isOpen, onClose, onSubmit }) => {
     setProducto(selectedProduct);
   };
 
-  const handleFechaChange = (e) => {
-    setFecha(e.target.value);
+  const handleFechaIdaChange = (e) => {
+    setFechaIda(e.target.value);
+  };
+
+  const handleFechaVueltaChange = (e) => {
+    setFechaVuelta(e.target.value);
   };
 
   const handleCupoChange = (e) => {
@@ -38,11 +43,12 @@ const ModalAgenda = ({ isOpen, onClose, onSubmit }) => {
   const handleSubmit = async (e) => {
     e.preventDefault();
     try {
-      const data = { producto, fecha, cupos, estado };
+      const data = { producto, fechaIda, fechaVuelta, cupos, estado };
       await fetchAgendarExperiencia(data);
       onSubmit(data);
       setCupos("");
-      setFecha("");
+      setFechaIda("");
+      setFechaVuelta("");
       setProducto({});
       onClose();
     } catch (error) {
@@ -84,18 +90,34 @@ const ModalAgenda = ({ isOpen, onClose, onSubmit }) => {
           </div>
           <div className="mb-4">
             <label
-              htmlFor="fecha"
+              htmlFor="fechaIda"
               className="block text-left text-sm font-medium leading-6 text-gray-900"
             >
-              Fecha:
+              Fecha Ida:
             </label>
             <input
               type="date"
-              id="fecha"
+              id="fechaIda"
               className="w-full border rounded p-2"
               required
-              value={fecha}
-              onChange={handleFechaChange}
+              value={fechaIda}
+              onChange={handleFechaIdaChange}
+            />
+          </div>
+          <div className="mb-4">
+            <label
+              htmlFor="fechaVuelta"
+              className="block text-left text-sm font-medium leading-6 text-gray-900"
+            >
+              Fecha Vuelta:
+            </label>
+            <input
+              type="date"
+              id="fechaVuelta"
+              className="w-full border rounded p-2"
+              required
+              value={fechaVuelta}
+              onChange={handleFechaVueltaChange}
             />
           </div>
           <div className="mb-4">
