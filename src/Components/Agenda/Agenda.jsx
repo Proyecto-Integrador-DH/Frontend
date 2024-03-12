@@ -11,16 +11,16 @@ const Agenda = () => {
 
   useEffect(() => {
     fetchData();
-  }, []);
+  }, [isModalOpen]);
 
   const fetchData = async () => {
     try {
-        const response = await fetchListarAgenda();
-        setAgendas(response);
+      const response = await fetchListarAgenda();
+      setAgendas(response);
     } catch (error) {
-        console.error('Error al obtener la lista de agendas', error);
+      console.error('Error al obtener la lista de agendas', error);
     }
-}
+  }
 
   const handleModalOpen = () => {
     setIsModalOpen(true);

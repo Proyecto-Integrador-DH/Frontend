@@ -1,8 +1,14 @@
 import React, { useEffect, useState } from "react";
 import { fetchListarProductos } from "../../services/api";
 import { fetchAgendarExperiencia } from "../../services/api";
+import Logo from "../../assets/Logo03.png";
 
-const ModalAgenda = ({ isOpen, onClose, onSubmit }) => {
+const ModalAgenda = ({
+  isOpen,
+  onClose,
+  onSubmit,
+  producto: initialProduct,
+}) => {
   const [producto, setProducto] = useState({});
   const [fechaIda, setFechaIda] = useState("");
   const [fechaVuelta, setFechaVuelta] = useState("");
@@ -13,8 +19,11 @@ const ModalAgenda = ({ isOpen, onClose, onSubmit }) => {
   useEffect(() => {
     fetchListarProductos().then((response) => {
       setExperiencias(response);
+      if (initialProduct) {
+        setProducto(initialProduct);
+      }
     });
-  }, []);
+  }, [initialProduct]);
 
   const handleProductoChange = (e) => {
     const selectedProductId = e.target.value;
@@ -25,11 +34,13 @@ const ModalAgenda = ({ isOpen, onClose, onSubmit }) => {
   };
 
   const handleFechaIdaChange = (e) => {
-    setFechaIda(e.target.value);
+    const fechaIda = e.target.value;
+    setFechaIda(fechaIda);
   };
 
   const handleFechaVueltaChange = (e) => {
-    setFechaVuelta(e.target.value);
+    const fechaVuelta = e.target.value;
+    setFechaVuelta(fechaVuelta);
   };
 
   const handleCupoChange = (e) => {
@@ -45,16 +56,15 @@ const ModalAgenda = ({ isOpen, onClose, onSubmit }) => {
     try {
       const data = { producto, fechaIda, fechaVuelta, cupos, estado };
       await fetchAgendarExperiencia(data);
-      onSubmit(data);
       setCupos("");
       setFechaIda("");
       setFechaVuelta("");
-      setProducto({});
       onClose();
     } catch (error) {
       console.error("Error al agendar la experiencia:", error);
     }
   };
+  
 
   if (!isOpen) {
     return null;
@@ -63,31 +73,50 @@ const ModalAgenda = ({ isOpen, onClose, onSubmit }) => {
   return (
     <div className="fixed top-0 left-0 w-full h-full bg-gray-700 bg-opacity-50 flex items-center justify-center z-50">
       <div className="bg-white p-8 rounded-lg">
+        <img className="mx-auto h-10 w-auto" src={Logo} alt="Solo Aventuras" />
         <h2 className="m-10 text-center text-2xl font-bold leading-9 tracking-tight text-gray-900">
           Agregar Agenda
         </h2>
         <form onSubmit={handleSubmit}>
-          <div className="mb-4">
-            <label
-              htmlFor="producto"
-              className="block text-left text-sm font-medium leading-6 text-gray-900"
-            >
-              Experiencia:
-            </label>
-            <select
-              id="producto"
-              className="w-full border rounded p-2"
-              value={producto.Id || ""}
-              onChange={handleProductoChange}
-            >
-              <option value="">Seleccionar experiencia</option>
-              {experiencias.map((experiencia) => (
-                <option key={experiencia.Id} value={experiencia.Id}>
-                  {experiencia.nombre}
-                </option>
-              ))}
-            </select>
-          </div>
+          {initialProduct ? (
+            <div className="mb-4">
+              <label
+                htmlFor="producto"
+                className="block text-left text-sm font-medium leading-6 text-gray-900"
+              >
+                Experiencia:
+              </label>
+              <input
+                type="text"
+                id="producto"
+                className="w-full border rounded p-2"
+                value={initialProduct.nombre}
+                readOnly
+              />
+            </div>
+          ) : (
+            <div className="mb-4">
+              <label
+                htmlFor="producto"
+                className="block text-left text-sm font-medium leading-6 text-gray-900"
+              >
+                Experiencia:
+              </label>
+              <select
+                id="producto"
+                className="w-full border rounded p-2"
+                value={producto.Id || ""}
+                onChange={handleProductoChange}
+              >
+                <option value="">Seleccionar experiencia</option>
+                {experiencias.map((experiencia) => (
+                  <option key={experiencia.Id} value={experiencia.Id}>
+                    {experiencia.nombre}
+                  </option>
+                ))}
+              </select>
+            </div>
+          )}
           <div className="mb-4">
             <label
               htmlFor="fechaIda"

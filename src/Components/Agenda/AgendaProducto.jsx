@@ -1,7 +1,7 @@
 import React, { useState, useEffect } from "react";
 import { useParams } from "react-router-dom";
 import ModalAgenda from "./ModalAgenda";
-import { fetchListarAgendaProducto, fetchProduct } from "../../services/api";
+import { fetchListarAgendaProducto, fetchProduct, fetchAgendarExperiencia } from "../../services/api";
 import FormatDate from "../../utils/FormatDate";
 
 const AgendaProducto = () => {
@@ -14,14 +14,14 @@ const AgendaProducto = () => {
   useEffect(() => {
     fetchData();
     fetchProducto();
-  }, []);
+  }, [isModalOpen]);
 
   const fetchData = async () => {
     try {
       const response = await fetchListarAgendaProducto(Number(id));
       console.log("Agendas: ", response);
       setAgendas(response);
-      setError(null); // Resetear el error si se recibe una respuesta exitosa
+      setError(null);
     } catch (error) {
       console.error("Error al obtener la lista de agendas", error);
       setAgendas([]);
@@ -32,6 +32,7 @@ const AgendaProducto = () => {
   const fetchProducto = async () => {
     try {
       const response = await fetchProduct(Number(id));
+      console.log("Agenda producto: ", response);
       setProducto(response);
     } catch (error) {
       console.error("Error al obtener la lista de productos", error);
@@ -46,18 +47,26 @@ const AgendaProducto = () => {
     setIsModalOpen(false);
   };
 
-  const handleModalSubmit = (data) => {
-    fetchData();
-    setIsModalOpen(false);
+  const handleModalSubmit = async (data) => {
+    try {
+      const dataWithProduct = { ...data, producto: producto };
+      await fetchAgendarExperiencia(dataWithProduct);
+      fetchData();
+      setIsModalOpen(false);
+    } catch (error) {
+      console.error("Error al agregar la agenda", error);
+    }
   };
 
   return (
     <div className="overflow-hidden">
-      <h2 className="text-3xl font-bold mb-6">
-        Agenda de la Experiencia
-        <br />
-        <span className="text-rosa">{producto.nombre}</span>
-      </h2>
+      {producto.nombre && ( // Condición para verificar si producto.nombre está disponible
+        <h2 className="text-3xl font-bold mb-6">
+          Agenda de la Experiencia
+          <br />
+          <span className="text-rosa">{producto.nombre}</span>
+        </h2>
+      )}
       {error ? (
         <p className="text-red-500 font-bold">{error}</p>
       ) : (
@@ -102,6 +111,7 @@ const AgendaProducto = () => {
           isOpen={isModalOpen}
           onClose={handleModalClose}
           onSubmit={handleModalSubmit}
+          producto={producto}
         />
       </div>
     </div>
