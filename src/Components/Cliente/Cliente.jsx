@@ -1,9 +1,9 @@
-import React, { useState } from "react";
-import { fetchCrearCliente } from "../../services/api"; 
+import React, { useState, useEffect } from "react";
+import { fetchCrearCliente } from "../../services/api";
 
-const CrearClienteForm = ({user}) => {
+const CrearClienteForm = ({ user }) => {
   const [cliente, setCliente] = useState({
-    usuario_id: user ? user.id : "",
+    usuario_id: "",
     tipoDocumento: "",
     numeroDocumento: "",
     telefono: "",
@@ -12,17 +12,25 @@ const CrearClienteForm = ({user}) => {
     pais: "",
   });
 
+  useEffect(() => {
+    if (user) {
+      setCliente((prevCliente) => ({ ...prevCliente, usuario_id: user.id }));
+    }
+  }, [user]);
+
   const handleClienteChange = (e) => {
     setCliente({ ...cliente, [e.target.name]: e.target.value });
   };
 
   const handleSubmit = async (e) => {
     e.preventDefault();
-    try {      
-      const data = await fetchCrearCliente(cliente);
-      console.log("Cliente creado exitosamente:", data);
+    try {
+      if (cliente.usuario_id != "") {
+        const data = await fetchCrearCliente(cliente);
+        console.log("Cliente creado", data);
+      }
       setCliente({
-        usuario_id:"",
+        usuario_id: "",
         tipoDocumento: "",
         numeroDocumento: "",
         telefono: "",
@@ -86,7 +94,7 @@ const CrearClienteForm = ({user}) => {
         placeholder="País"
         required
       />
-      <button type="submit">Actualizar Información</button>
+      <button type="submit">Completar Información</button>
     </form>
   );
 };

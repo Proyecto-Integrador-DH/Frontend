@@ -14,7 +14,7 @@ import RegisterUser from "./Components/registerUser/RegisterUser.jsx";
 import { useState } from "react";
 import { useEffect } from "react";
 import { jwtDecode } from "jwt-decode";
-import { fetchEmail } from "./services/api.js";
+import { fetchEmail, fetchObtenerClienteByUsuario } from "./services/api.js";
 import { errorHandling } from "./services/errorHandling.js";
 import ProtectedRoutes from "./router/ProtectedRoutes.jsx";
 import ProductList from "./Components/ListProduct/ProductList.jsx";
@@ -26,6 +26,7 @@ import CrearClienteForm from "./Components/Cliente/Cliente.jsx";
 function App() {
   const [user, setUser] = useState(null);
   const [email, setEmail] = useState("");
+  const [cliente, setCliente] = useState(null);
 
   useEffect(() => {
     const obtenerEmail = () => {
@@ -45,6 +46,16 @@ function App() {
       .then((data) => {
         setUser(data);
         console.log("Info de usuario", data);
+        if (data) {
+          fetchObtenerClienteByUsuario(Number(data.id))
+            .then((clienteData) => {
+              setCliente(clienteData);
+              console.log("Cliente", clienteData);
+            })
+            .catch((error) => {
+              console.error(errorHandling(error));
+            });
+        }
       })
       .catch((error) => {
         console.error(errorHandling(error));
@@ -80,8 +91,8 @@ function App() {
         </Route>
         <Route path="/crearUsuario" element={<RegisterUser />} />
         <Route path="/listarProductos/:categoryId" element={<ProductList />} />
-        <Route path="/reserva" element={<Reserva />} />
-        <Route path="/cliente" element={<CrearClienteForm user={user}/>}/>
+        <Route path="/reserva" element={<Reserva cliente={cliente} />} />
+        <Route path="/cliente" element={<CrearClienteForm user={user} />} />
       </Routes>
     </>
   );

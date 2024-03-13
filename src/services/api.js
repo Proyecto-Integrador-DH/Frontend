@@ -329,3 +329,18 @@ export const fetchCrearCliente = async (cliente) => {
   }
   return await response.json();
 };
+
+export const fetchObtenerClienteByUsuario = async (id) => {
+  const url = `${baseUrl}/cliente/buscar/${id}`;
+  const response = await fetch(url, {
+    method: "GET",
+    headers: {
+      "Content-Type": "application/json",
+      Authorization: token,
+    },
+  });
+  if (!response.ok) {
+    throw new Error("Error en la solicitud: " + response.status);
+  }
+  return await response.json();
+}
