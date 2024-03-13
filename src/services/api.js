@@ -344,3 +344,20 @@ export const fetchObtenerClienteByUsuario = async (id) => {
   }
   return await response.json();
 }
+
+export const fetchAddFavoritos = async (favorito) => {
+  const url = `${baseUrl}/favoritos/save`;
+  console.log("Favorito", favorito);
+  const response = await fetch(url, {
+    method: "POST",
+    headers: {
+      "Content-Type": "application/json",
+      Authorization: token,
+    },
+    body: JSON.stringify(favorito),
+  });
+  if (!response.ok) {
+    throw new Error("Error en la solicitud: " + response.status);
+  }
+  return await response.json();
+}

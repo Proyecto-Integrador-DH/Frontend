@@ -1,13 +1,14 @@
 import React, { useEffect, useState } from "react";
 import { useParams } from "react-router-dom";
-import { useNavigate } from "react-router-dom";
-import { fetchProduct } from "../services/api";
+import { useNavigate, Link } from "react-router-dom";
+import { fetchProduct, fetchAddFavoritos } from "../services/api";
 import Searcher from "../Components/searcher/Searcher";
 import flecha from "../assets/arrowRightflecha.png";
-import "./details.css"; // Importa el archivo CSS para estilos personalizados
+import "./details.css";
 
-const Details = () => {
+const Details = ({ cliente }) => {
   const { id } = useParams();
+  const [clienteId, setClienteId] = useState(null);
   const navigate = useNavigate();
   const [detallesProducto, setDetallesProducto] = useState([]);
 
@@ -31,6 +32,22 @@ const Details = () => {
   const allImages = detallesProducto?.imagenes
     ?.slice(1, 5)
     .concat(missingImagesArray);
+
+
+  const handleAddToFavorites = async () => {
+    try {
+      setClienteId(Number(cliente?.id));
+      const productoId = id;
+      const favorito = {
+        cliente: { id: clienteId },
+        producto: { Id: productoId },
+      };
+      await fetchAddFavoritos(favorito);
+      console.log("Producto agregado a favoritos");
+    } catch (error) {
+      console.error("Error al agregar a favoritos:", error);
+    }
+  };
 
   useEffect(() => {
     fetchDetallesProductos();
@@ -80,11 +97,13 @@ const Details = () => {
             <p>{detallesProducto?.descripcion}</p>
           </div>
           <div className="flex flex-col justify-between">
-            <div>
-              <p>Fecha de salida: {}</p>
-              <p>Cupos disponibles: {}</p>
-              <p>{detallesProducto?.disponible}</p>
+          <div className="flex justify-end">
+              <Link to="#" onClick={handleAddToFavorites}>
+                <img src={flecha} alt="Agregar a Favoritos" className="w-6 h-6 mr-2" />
+                <span className="text-gray-400">Agregar a Favoritos</span>
+              </Link>
             </div>
+            
             <div className="flex justify-end">
               <button onClick={() => navigate(-1)} className="flex items-center">
                 <img src={flecha} alt="Volver" className="w-6 h-6 mr-2" />
