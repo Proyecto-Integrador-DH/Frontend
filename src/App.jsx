@@ -21,6 +21,7 @@ import ProductList from "./Components/ListProduct/ProductList.jsx";
 import Agenda from "./Components/Agenda/Agenda.jsx";
 import AgendaProducto from "./Components/Agenda/AgendaProducto.jsx";
 import Reserva from "./Components/Reserva/Reserva.jsx";
+import CrearClienteForm from "./Components/Cliente/Cliente.jsx";
 
 function App() {
   const [user, setUser] = useState(null);
@@ -80,6 +81,7 @@ function App() {
         <Route path="/crearUsuario" element={<RegisterUser />} />
         <Route path="/listarProductos/:categoryId" element={<ProductList />} />
         <Route path="/reserva" element={<Reserva />} />
+        <Route path="/cliente" element={<CrearClienteForm user={user}/>}/>
       </Routes>
     </>
   );
