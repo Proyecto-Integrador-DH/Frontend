@@ -36,35 +36,30 @@ function App() {
         const decoded = jwtDecode(token);
         console.log("Decoded", decoded);
         setEmail(decoded.sub);
+  
+        fetchEmail(decoded.sub)
+          .then((data) => {
+            setUser(data);
+            console.log("Info de usuario", data);
+            if (data) {
+              fetchObtenerClienteByUsuario(Number(data.id))
+                .then((clienteData) => {
+                  setCliente(clienteData);
+                  console.log("Cliente", clienteData);
+                })
+                .catch((error) => {
+                  console.error(errorHandling(error));
+                });
+            }
+          })
+          .catch((error) => {
+            console.error(errorHandling(error));
+          });
       }
     };
-
+  
     obtenerEmail();
   }, []);
-
-  useEffect(() => {
-    fetchEmail(email)
-      .then((data) => {
-        setUser(data);
-        console.log("Info de usuario", data);
-        if (data) {
-          fetchObtenerClienteByUsuario(Number(data.id))
-            .then((clienteData) => {
-              setCliente(clienteData);
-              console.log("Cliente", clienteData);
-            })
-            .catch((error) => {
-              console.error(errorHandling(error));
-            });
-        }
-      })
-      .catch((error) => {
-        console.error(errorHandling(error));
-      });
-  }, [email]);
-
-  console.log("Info de usuario", user);
-  localStorage.setItem("user", JSON.stringify(user));
 
   const handleLogout = () => {
     localStorage.removeItem("token");
@@ -80,7 +75,7 @@ function App() {
         <Route path="/Login" element={<Login />} />
         <Route path="/products" element={<Products />} />
         <Route path="/" element={<HomePage />} />
-        <Route path="/details/:id" element={<Details cliente={cliente} />} />
+        <Route path="/details/:id" element={<Details clienteId={cliente?.id} />} />
         <Route element={<ProtectedRoutes />}>
           <Route path="/listarProductos" element={<ListProducts />} />
           <Route path="/registrarProducto" element={<RegisterProducts />} />

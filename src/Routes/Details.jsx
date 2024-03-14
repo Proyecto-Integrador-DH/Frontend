@@ -8,9 +8,8 @@ import "./details.css";
 import { FaRegHeart, FaHeart } from 'react-icons/fa';
 
 
-const Details = ({ cliente }) => {
+const Details = ({ clienteId }) => {
   const { id } = useParams();
-  const [clienteId, setClienteId] = useState(null);
   const navigate = useNavigate();
   const [detallesProducto, setDetallesProducto] = useState([]);
   const [isFavorite, setIsFavorite] = useState(false);
@@ -37,20 +36,20 @@ const Details = ({ cliente }) => {
     .concat(missingImagesArray);
 
 
-  const handleAddToFavorites = async () => {
-    try {
-      setClienteId(Number(cliente?.id));
-      const productoId = id;
-      const favorito = {
-        cliente: { id: clienteId },
-        producto: { Id: productoId },
-      };
-      await fetchAddFavoritos(favorito);
-      console.log("Producto agregado a favoritos");
-    } catch (error) {
-      console.error("Error al agregar a favoritos:", error);
-    }
-  };
+    const handleAddToFavorites = async () => {
+      try {
+        const productoId = id;
+        const favorito = {
+          cliente: { id: clienteId },
+          producto: { Id: productoId },
+        };
+        await fetchAddFavoritos(favorito);
+        console.log("Producto agregado a favoritos");
+        setIsFavorite(true);
+      } catch (error) {
+        console.error("Error al agregar a favoritos:", error);
+      }
+    };
 
   useEffect(() => {
     fetchDetallesProductos();
@@ -106,14 +105,7 @@ const Details = ({ cliente }) => {
             <h2 className="text-3xl font-bold text-rosa mb-4">{detallesProducto?.nombre}</h2>
             <p>{detallesProducto?.descripcion}</p>
           </div>
-          <div className="flex flex-col justify-between">
-          <div className="flex justify-end">
-              <Link to="#" onClick={handleAddToFavorites}>
-                <img src={flecha} alt="Agregar a Favoritos" className="w-6 h-6 mr-2" />
-                <span className="text-gray-400">Agregar a Favoritos</span>
-              </Link>
-            </div>
-            
+          <div className="flex flex-col justify-between">            
             <div className="flex justify-end">
               <button onClick={() => navigate(-1)} className="flex items-center">
                 <img src={flecha} alt="Volver" className="w-6 h-6 mr-2" />
