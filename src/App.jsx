@@ -22,6 +22,7 @@ import Agenda from "./Components/Agenda/Agenda.jsx";
 import AgendaProducto from "./Components/Agenda/AgendaProducto.jsx";
 import Reserva from "./Components/Reserva/Reserva.jsx";
 import CrearClienteForm from "./Components/Cliente/Cliente.jsx";
+import PanelUsuario from "./Pages/PanelUsuario/PanelUsuario.jsx"
 
 function App() {
   const [user, setUser] = useState(null);
@@ -93,6 +94,8 @@ function App() {
         <Route path="/listarProductos/:categoryId" element={<ProductList />} />
         <Route path="/reserva" element={<Reserva cliente={cliente} />} />
         <Route path="/cliente" element={<CrearClienteForm user={user} />} />
+        <Route path="/panelUsuario" element={<PanelUsuario />} />
+
       </Routes>
     </>
   );

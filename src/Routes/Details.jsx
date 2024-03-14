@@ -5,12 +5,15 @@ import { fetchProduct, fetchAddFavoritos } from "../services/api";
 import Searcher from "../Components/searcher/Searcher";
 import flecha from "../assets/arrowRightflecha.png";
 import "./details.css";
+import { FaRegHeart, FaHeart } from 'react-icons/fa';
+
 
 const Details = ({ cliente }) => {
   const { id } = useParams();
   const [clienteId, setClienteId] = useState(null);
   const navigate = useNavigate();
   const [detallesProducto, setDetallesProducto] = useState([]);
+  const [isFavorite, setIsFavorite] = useState(false);
 
   const defaultImage = "https://via.placeholder.com/150";
   const totalImage = 4;
@@ -66,6 +69,13 @@ const Details = ({ cliente }) => {
       </div>
 
       <div className="imageContainer">
+      <div className="favoriteIcon" onClick={handleAddToFavorites}>
+          {isFavorite ? (
+            <FaHeart color="red" size={32} />
+          ) : (
+            <FaRegHeart size={32} />
+          )}
+        </div>
         {/* Imagen principal grande a la izquierda */}
         <div className="imagenIzquierda">
           {detallesProducto?.imagenes?.length > 0 ? (
