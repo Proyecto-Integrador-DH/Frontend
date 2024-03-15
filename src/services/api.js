@@ -361,3 +361,35 @@ export const fetchAddFavoritos = async (favorito) => {
   }
   return await response.json();
 }
+
+export const fetchRemoveFavoritos = async (favorito) => {
+  const url = `${baseUrl}/favoritos/delete`;
+  console.log("Favorito", favorito);
+  const response = await fetch(url, {
+    method: "DELETE",
+    headers: {
+      "Content-Type": "application/json",
+      Authorization: token,
+    },
+    body: JSON.stringify(favorito),
+  });
+  if (!response.ok) {
+    throw new Error("Error en la solicitud: " + response.status);
+  }
+  return await response.text();
+}
+
+export const fetchCheckFavoritos = async (clienteId, id) => {
+  const url = `${baseUrl}/favoritos/cliente/${clienteId}/favorito/${id}`;
+  const response = await fetch(url, {
+    method: "GET",
+    headers: {
+      "Content-Type": "application/json",
+      Authorization: token,
+    },
+  });
+  if (!response.ok) {
+    throw new Error("Error en la solicitud: " + response.status);
+  }
+  return await response.json();
+}
