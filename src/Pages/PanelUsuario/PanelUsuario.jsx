@@ -13,7 +13,7 @@ const PanelUsuario = () => {
                 <div className={AdminStyle.tarjetasContainer}>
                     <div className={AdminStyle.tarjetas}>
                         <h2>Listar Reservas</h2>
-                        <Link to=''><Button className={AdminStyle.boton}>Clic aquí</Button></Link>
+                        <Link to='/listReserva'><Button className={AdminStyle.boton}>Clic aquí</Button></Link>
                     </div>
                     <div className={AdminStyle.tarjetas}>
                         <h2>Lista de favoritos</h2>

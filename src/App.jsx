@@ -23,6 +23,8 @@ import AgendaProducto from "./Components/Agenda/AgendaProducto.jsx";
 import Reserva from "./Components/Reserva/Reserva.jsx";
 import CrearClienteForm from "./Components/Cliente/Cliente.jsx";
 import PanelUsuario from "./Pages/PanelUsuario/PanelUsuario.jsx"
+import ListFavorite from "./Components/ListFavorite/ListFavorite.jsx";
+import ListReserva from "./Components/ListReserva/ListReserva.jsx";
 
 function App() {
   const [user, setUser] = useState(null);
@@ -90,6 +92,10 @@ function App() {
         <Route path="/reserva" element={<Reserva cliente={cliente} />} />
         <Route path="/cliente" element={<CrearClienteForm user={user} />} />
         <Route path="/panelUsuario" element={<PanelUsuario />} />
+        <Route path="/listFavorite" element={<ListFavorite />} />
+        <Route path="/listReserva" element={<ListReserva />} />
+
+
 
       </Routes>
     </>
