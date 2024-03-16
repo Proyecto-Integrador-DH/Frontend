@@ -393,3 +393,19 @@ export const fetchCheckFavoritos = async (clienteId, id) => {
   }
   return await response.json();
 }
+
+export const fetchReservasCliente = async (id) => {
+  const url = `${baseUrl}/reserva/cliente/${id}`;
+  console.log("ID reserva", id);
+  const response = await fetch(url, {
+    method: "GET",
+    headers: {
+      "Content-Type": "application/json",
+      Authorization: token,
+    },
+  });
+  if (!response.ok) {
+    throw new Error("Error en la solicitud: " + response.status);
+  }
+  return await response.json();
+}

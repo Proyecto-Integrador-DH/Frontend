@@ -1,5 +1,5 @@
 import React, { useEffect, useState } from "react";
-import { fetchListarAgenda, fetchNuevaReserva } from "../../services/api";
+import { fetchListarAgenda, fetchNuevaReserva, fetchReservasCliente } from "../../services/api";
 import FormatDate from "../../utils/FormatDate";
 import ErrorComponent from "../error/ErrorAlert";
 
