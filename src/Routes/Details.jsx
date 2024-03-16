@@ -4,12 +4,16 @@ import { useNavigate } from "react-router-dom";
 import { fetchProduct } from "../services/api";
 import Searcher from "../Components/searcher/Searcher";
 import flecha from "../assets/arrowRightflecha.png";
+import Calendar from "../Components/calendar/Calendar";
 import "./details.css"; // Importa el archivo CSS para estilos personalizados
+
 
 const Details = () => {
   const { id } = useParams();
   const navigate = useNavigate();
   const [detallesProducto, setDetallesProducto] = useState([]);
+  const fechaInicio = new Date("2024-03-17");
+  const fechaFin = new Date("2024-03-21");
 
   const defaultImage = "https://via.placeholder.com/150";
   const totalImage = 4;
@@ -40,6 +44,7 @@ const Details = () => {
   const formatDate = (dateString) => {
     const fecha = new Date(dateString);
     const opcionesDeFormato = { year: 'numeric', month: 'long', day: '2-digit' };
+
     return fecha.toLocaleDateString('es-ES', opcionesDeFormato);
   };
 
@@ -92,15 +97,23 @@ const Details = () => {
               <p>Cupos disponibles: {detallesProducto?.cupo}</p>
               <p>{detallesProducto?.disponible}</p>
             </div>
+            <div>
+        
+            </div>
             <div className="flex justify-end">
               <button onClick={() => navigate(-1)} className="flex items-center">
                 <img src={flecha} alt="Volver" className="w-6 h-6 mr-2" />
                 <span className="text-gray-400">Volver</span>
               </button>
             </div>
+
+           {/* <Calendar fechaInicio={fechaInicio} fechaFin={fechaFin} /> */}
+            <Calendar fechaInicio={new Date(detallesProducto.fechaInicio)} fechaFin={new Date(detallesProducto.fechaFin)} />
+            
           </div>
         </div>
-      </div>
+
+      </div >
     </>
   );
 };

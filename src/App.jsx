@@ -20,6 +20,8 @@ import ProtectedRoutes from "./router/ProtectedRoutes.jsx";
 import ProductList from "./Components/ListProduct/ProductList.jsx";
 import Agenda from "./Components/Agenda/Agenda.jsx";
 import AgendaProducto from "./Components/Agenda/AgendaProducto.jsx";
+import Calendar from "./Components/calendar/Calendar.jsx";
+
 
 
 function App() {
@@ -80,6 +82,7 @@ function App() {
         <Route path="/listarProductos/:categoryId" element={<ProductList />} />
         <Route path="/agenda" element={<Agenda />} />
         <Route path="/agenda/:id" element={<AgendaProducto />} />
+        <Route path="/calendar" element={<Calendar />} />
       </Routes>
     </>
   );
