@@ -409,3 +409,19 @@ export const fetchReservasCliente = async (id) => {
   }
   return await response.json();
 }
+
+export const fetchListarFavoritosCliente = async (id) => {
+  const url = `${baseUrl}/favoritos/cliente/${id}`;
+  console.log("ID cliente", id);
+  const response = await fetch(url, {
+    method: "GET",
+    headers: {
+      "Content-Type": "application/json",
+      Authorization: token,
+    },
+  });
+  if (!response.ok) {
+    throw new Error("Error en la solicitud: " + response.status);
+  }
+  return await response.json();
+};

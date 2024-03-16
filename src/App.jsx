@@ -23,6 +23,7 @@ import AgendaProducto from "./Components/Agenda/AgendaProducto.jsx";
 import Reserva from "./Components/Reserva/Reserva.jsx";
 import CrearClienteForm from "./Components/Cliente/Cliente.jsx";
 import PanelUsuario from "./Pages/PanelUsuario/PanelUsuario.jsx"
+import ListFavorite from "./Components/ListFavorite/ListFavorite.jsx";
 
 function App() {
   const [user, setUser] = useState(null);
@@ -36,7 +37,7 @@ function App() {
         const decoded = jwtDecode(token);
         console.log("Decoded", decoded);
         setEmail(decoded.sub);
-  
+
         fetchEmail(decoded.sub)
           .then((data) => {
             setUser(data);
@@ -90,7 +91,7 @@ function App() {
         <Route path="/reserva" element={<Reserva cliente={cliente} />} />
         <Route path="/cliente" element={<CrearClienteForm user={user} />} />
         <Route path="/panelUsuario" element={<PanelUsuario />} />
-
+        <Route path="/listarFavoritos" element={<ListFavorite clienteId={cliente?.id} />} />
       </Routes>
     </>
   );

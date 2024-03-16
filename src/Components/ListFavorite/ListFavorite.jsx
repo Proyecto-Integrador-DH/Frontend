@@ -2,8 +2,22 @@ import React, { useState, useEffect } from "react";
 import { Link } from "react-router-dom";
 import style from "./Listfavorite.module.css";
 import Footer from "../footer/Footer";
+import { fetchListarFavoritosCliente } from "../../services/api";
 
-const ListFavorite = () => {
+const ListFavorite = ({clienteId}) => {
+  const [favoritos, setFavoritos] = useState([]);
+
+  useEffect(() => {
+    fetchListarFavoritosCliente(clienteId)
+      .then((data) => {
+        console.log("Favoritos", data);
+        setFavoritos(data);
+      })
+      .catch((error) => {
+        console.error(error);
+      });
+  });
+
 
 
   return (
