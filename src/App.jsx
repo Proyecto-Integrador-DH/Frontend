@@ -87,7 +87,7 @@ function App() {
           <Route path="/agenda/:id" element={<AgendaProducto />} />
         </Route>
         <Route path="/crearUsuario" element={<RegisterUser />} />
-        <Route path="/listarProductos/:categoryId" element={<ProductList />} />
+        <Route path="/listarProductos/:categoryId" element={<ProductList clienteId={cliente?.id} />} />
         <Route path="/reserva" element={<Reserva cliente={cliente} />} />
         <Route path="/cliente" element={<CrearClienteForm user={user} />} />
         <Route path="/panelUsuario" element={<PanelUsuario />} />

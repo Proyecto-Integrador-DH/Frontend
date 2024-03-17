@@ -3,14 +3,12 @@ import { useParams } from "react-router-dom";
 import { useNavigate, Link } from "react-router-dom";
 import {
   fetchProduct,
-  fetchAddFavoritos,
-  fetchRemoveFavoritos,
   fetchCheckFavoritos,
 } from "../services/api";
 import Searcher from "../Components/searcher/Searcher";
 import flecha from "../assets/arrowRightflecha.png";
 import "./details.css";
-import { FaRegHeart, FaHeart } from "react-icons/fa";
+import FavoriteButton from "../Components/Favorite/Favorite";
 
 const Details = ({ clienteId }) => {
   const { id } = useParams();
@@ -45,27 +43,6 @@ const Details = ({ clienteId }) => {
     ?.slice(1, 5)
     .concat(missingImagesArray);
 
-  const handleToggleFavorite = async () => {
-    try {
-      const productoId = id;
-      const favorito = {
-        cliente: { id: clienteId },
-        producto: { Id: productoId },
-      };
-
-      if (isFavorite) {
-        await fetchRemoveFavoritos(favorito);
-        console.log("Producto eliminado de favoritos");
-      } else {
-        await fetchAddFavoritos(favorito);
-        console.log("Producto agregado a favoritos");
-      }
-      setIsFavorite(!isFavorite);
-    } catch (error) {
-      console.error("Error al modificar favoritos:", error);
-    }
-  };
-
   useEffect(() => {
     fetchDetallesProductos();
   }, []);
@@ -81,15 +58,10 @@ const Details = ({ clienteId }) => {
           Tours & experiencias
         </h1>
       </div>
-
-      <div className="imageContainer">
-        <div className="favoriteIcon" onClick={handleToggleFavorite}>
-          {isFavorite ? (
-            <FaHeart color="red" size={32} />
-          ) : (
-            <FaRegHeart size={32} />
-          )}
-        </div>
+      <div className="imageContainer relative">
+      <div className="absolute right-40 top-0">
+        <FavoriteButton clienteId={clienteId} productoId={id} className="text-red-500"/>
+      </div>
         {/* Imagen principal grande a la izquierda */}
         <div className="imagenIzquierda">
           {detallesProducto?.imagenes?.length > 0 ? (
@@ -122,7 +94,7 @@ const Details = ({ clienteId }) => {
             <h2 className="text-3xl font-bold text-rosa mb-4">
               {detallesProducto?.nombre}
             </h2>
-            <p>{detallesProducto?.descripcion}</p>
+            <p className="text-justify">{detallesProducto?.descripcion}</p>
           </div>
           <div className="flex flex-col justify-between">
             <div className="flex justify-end">

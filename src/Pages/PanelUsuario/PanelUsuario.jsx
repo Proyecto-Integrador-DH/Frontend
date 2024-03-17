@@ -17,7 +17,7 @@ const PanelUsuario = () => {
                     </div>
                     <div className={AdminStyle.tarjetas}>
                         <h2>Lista de favoritos</h2>
-                        <Link to='/listFavorite'><Button className={AdminStyle.boton}>Clic aquí</Button></Link>
+                        <Link to='/listarFavoritos'><Button className={AdminStyle.boton}>Clic aquí</Button></Link>
                     </div>
                     <div className={AdminStyle.tarjetas}>
                         <h2>Actualizar Datos</h2>
