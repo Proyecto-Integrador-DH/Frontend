@@ -1,5 +1,7 @@
 import React, { useState, useEffect } from "react";
-import { fetchCategorias, fetchSearch } from "../../services/api";
+import { useNavigate } from "react-router-dom";
+import { fetchCategorias } from "../../services/api";
+import SearchResults from "./ListSearcher";
 
 function SearchForm() {
   const [categoryId, setCategoryId] = useState("");
@@ -7,6 +9,7 @@ function SearchForm() {
   const [endDate, setEndDate] = useState("");
   const [categories, setCategories] = useState([]);
   const [suggestedCategories, setSuggestedCategories] = useState([]);
+  const history = useNavigate(); 
 
   useEffect(() => {
     fetchCategories();
@@ -33,37 +36,29 @@ function SearchForm() {
     setSuggestedCategories(suggested);
   };
 
-  const handleSubmit = async (e) => {
-    e.preventDefault();
-    const selectedCategory = categories.find(
-      (category) => category.nombre.toLowerCase().includes(categoryId.toLowerCase()) 
-    );
-    if (selectedCategory) {
-      const categoryId = selectedCategory.id;
-      console.log("Category ID:", categoryId);
-      const onSearch = async (categoryId, startDate, endDate) => {
-        console.log("Search criterio:", categoryId, startDate, endDate);
-        try {
-          const response = await fetchSearch(categoryId, startDate, endDate);
-          console.log("Search results:", response);
-        } catch (error) {
-          console.error("Error fetching search results:", error);
-        }
-      };
-      await onSearch(categoryId, startDate, endDate);
-    } else {
-      console.log("No se encontró una categoría con ese nombre:", categoryId);
-    }
+  const handleSuggestionClick = (category) => {
+    setCategoryId(category.id); // Aquí establecemos el ID en lugar del nombre
+    setSuggestedCategories([]);
+  };
+
+  const handleSearchClick = () => {
+    history(`/search?categoryId=${categoryId}&startDate=${startDate}&endDate=${endDate}`);
   };
 
   return (
-    <form onSubmit={handleSubmit}>
+    <form>
       <label>
         Category:
         <input type="text" value={categoryId} onChange={handleCategoryChange} />
         <ul>
           {suggestedCategories.map((category) => (
-            <li key={category.id}>{category.name}</li>
+            <li
+              key={category.id}
+              className="capitalize"
+              onClick={() => handleSuggestionClick(category)}
+            >
+              {category.nombre}
+            </li>
           ))}
         </ul>
       </label>
@@ -83,7 +78,9 @@ function SearchForm() {
           onChange={(e) => setEndDate(e.target.value)}
         />
       </label>
-      <button type="submit">Search</button>
+      <div className="flex justify-end">
+        <button onClick={handleSearchClick}>Search</button>
+      </div>
     </form>
   );
 }

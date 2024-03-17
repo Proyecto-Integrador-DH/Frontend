@@ -57,7 +57,7 @@ const ProductList = ({ clienteId }) => {
             />
             <div className="relative">
               <h3 className="text-lg font-bold mb-2">{producto.nombre}</h3>
-              <div className="absolute top-0 right-0 mr-5">
+              <div className="absolute top-0 right-0 m-5">
                 <FavoriteButton
                   clienteId={clienteId}
                   productoId={producto.Id}

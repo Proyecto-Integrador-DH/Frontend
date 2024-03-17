@@ -24,6 +24,7 @@ import Reserva from "./Components/Reserva/Reserva.jsx";
 import CrearClienteForm from "./Components/Cliente/Cliente.jsx";
 import PanelUsuario from "./Pages/PanelUsuario/PanelUsuario.jsx"
 import ListFavorite from "./Components/ListFavorite/ListFavorite.jsx";
+import SearchResults from "./Components/searcher/ListSearcher.jsx";
 
 function App() {
   const [user, setUser] = useState(null);
@@ -92,6 +93,7 @@ function App() {
         <Route path="/cliente" element={<CrearClienteForm user={user} />} />
         <Route path="/panelUsuario" element={<PanelUsuario />} />
         <Route path="/listarFavoritos" element={<ListFavorite clienteId={cliente?.id} />} />
+        <Route path="/search" element={<SearchResults/>} />
       </Routes>
     </>
   );
