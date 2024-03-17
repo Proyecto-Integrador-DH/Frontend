@@ -10,6 +10,7 @@ function SearchForm() {
   const [categories, setCategories] = useState([]);
   const [suggestedCategories, setSuggestedCategories] = useState([]);
   const history = useNavigate(); 
+  let typingTimer;
 
   useEffect(() => {
     fetchCategories();
@@ -27,6 +28,13 @@ function SearchForm() {
   const handleCategoryChange = (e) => {
     const value = e.target.value;
     setCategoryId(value);
+    clearTimeout(typingTimer);
+    typingTimer = setTimeout(() => {
+      filterCategories(value);
+    }, 300); // Espera 300 milisegundos después de que el usuario deje de escribir
+  };
+
+  const filterCategories = (value) => {
     const suggested = categories.filter(
       (category) =>
         category.nombre &&
@@ -37,7 +45,7 @@ function SearchForm() {
   };
 
   const handleSuggestionClick = (category) => {
-    setCategoryId(category.id); // Aquí establecemos el ID en lugar del nombre
+    setCategoryId(category.id);
     setSuggestedCategories([]);
   };
 
