@@ -5,7 +5,6 @@ import {
   fetchProduct,
   fetchCheckFavoritos,
 } from "../services/api";
-import Searcher from "../Components/searcher/Searcher";
 import flecha from "../assets/arrowRightflecha.png";
 import "./details.css";
 import FavoriteButton from "../Components/Favorite/Favorite";
@@ -49,7 +48,6 @@ const Details = ({ clienteId }) => {
 
   return (
     <>
-      <Searcher />
       <div className="flex flex-col items-center my-10">
         <p className="text-rosa font-bold tracking-widest text-2xl mb-5">
           NUESTROS
