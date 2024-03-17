@@ -31,6 +31,7 @@ const FavoriteButton = ({ clienteId, productoId }) => {
       if (isFavorite) {
         await fetchRemoveFavoritos(favorito);
         console.log("Producto eliminado de favoritos");
+        document.dispatchEvent(new Event("favoriteRemoved"));
       } else {
         await fetchAddFavoritos(favorito);
         console.log("Producto agregado a favoritos");
