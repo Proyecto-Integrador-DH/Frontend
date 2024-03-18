@@ -1,10 +1,11 @@
 import React, { useEffect, useState } from "react";
-import { fetchListarAgenda, fetchNuevaReserva } from "../../services/api";
+import { fetchListarAgenda, fetchNuevaReserva, fetchReservasCliente } from "../../services/api";
 import FormatDate from "../../utils/FormatDate";
 import ErrorComponent from "../error/ErrorAlert";
 
-const Reserva = () => {
+const Reserva = ({ cliente }) => {
   const [formData, setFormData] = useState({
+    cliente: "",
     agenda: "",
     cantidad: "",
     estado: true,
@@ -17,7 +18,6 @@ const Reserva = () => {
   useEffect(() => {
     fetchListarAgenda()
       .then((data) => {
-        console.log("Agendas", data);
         setAgendas(data);
       })
       .catch((error) => {
@@ -37,6 +37,7 @@ const Reserva = () => {
     if (formData.agenda) {
       const formDataCopy = {
         ...formData,
+        cliente: { id: cliente.id }, 
         agenda: { id: parseInt(formData.agenda) },
       };
       fetchNuevaReserva(formDataCopy)
@@ -86,7 +87,8 @@ const Reserva = () => {
             <option value="">Seleccione una agenda</option>
             {agendas.map((agenda) => (
               <option key={agenda.id} value={agenda.id}>
-                {agenda.producto.nombre} : {FormatDate(agenda.fechaIda)} a {FormatDate(agenda.fechaVuelta)}
+                {agenda.producto.nombre} : {FormatDate(agenda.fechaIda)} a{" "}
+                {FormatDate(agenda.fechaVuelta)}
               </option>
             ))}
           </select>

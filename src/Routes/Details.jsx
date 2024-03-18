@@ -1,15 +1,19 @@
 import React, { useEffect, useState } from "react";
 import { useParams } from "react-router-dom";
-import { useNavigate } from "react-router-dom";
-import { fetchProduct } from "../services/api";
-import Searcher from "../Components/searcher/Searcher";
+import { useNavigate, Link } from "react-router-dom";
+import {
+  fetchProduct,
+  fetchCheckFavoritos,
+} from "../services/api";
 import flecha from "../assets/arrowRightflecha.png";
-import "./details.css"; // Importa el archivo CSS para estilos personalizados
+import "./details.css";
+import FavoriteButton from "../Components/Favorite/Favorite";
 
-const Details = () => {
+const Details = ({ clienteId }) => {
   const { id } = useParams();
   const navigate = useNavigate();
   const [detallesProducto, setDetallesProducto] = useState([]);
+  const [isFavorite, setIsFavorite] = useState(false);
 
   const defaultImage = "https://via.placeholder.com/150";
   const totalImage = 4;
@@ -18,13 +22,19 @@ const Details = () => {
     try {
       const data = await fetchProduct(id);
       setDetallesProducto(data);
+      if (clienteId) {
+        const isFav = await fetchCheckFavoritos(clienteId, id);
+        console.log("isFav", isFav);
+        setIsFavorite(isFav);
+      }
     } catch (error) {
       console.error("Error al obtener datos:", error);
     }
   };
 
   const missingImagesCount = Math.max(
-    totalImage - (detallesProducto?.imagenes?.length ?? 0), 0
+    totalImage - (detallesProducto?.imagenes?.length ?? 0),
+    0
   );
   const missingImagesArray = new Array(missingImagesCount).fill(defaultImage);
 
@@ -38,7 +48,6 @@ const Details = () => {
 
   return (
     <>
-      <Searcher />
       <div className="flex flex-col items-center my-10">
         <p className="text-rosa font-bold tracking-widest text-2xl mb-5">
           NUESTROS
@@ -47,8 +56,10 @@ const Details = () => {
           Tours & experiencias
         </h1>
       </div>
-
-      <div className="imageContainer">
+      <div className="imageContainer relative">
+      <div className="absolute right-40 top-0">
+        <FavoriteButton clienteId={clienteId} productoId={id} className="text-red-500"/>
+      </div>
         {/* Imagen principal grande a la izquierda */}
         <div className="imagenIzquierda">
           {detallesProducto?.imagenes?.length > 0 ? (
@@ -72,21 +83,23 @@ const Details = () => {
 
       <div className="container mx-auto px-4 mb-8">
         <div className="text-center my-8">
-          <h2 className="text-2xl font-bold text-rosa mb-2">Detalles de la Experiencia</h2>
+          <h2 className="text-2xl font-bold text-rosa mb-2">
+            Detalles de la Experiencia
+          </h2>
         </div>
         <div className="grid grid-cols-1 md:grid-cols-2 gap-8">
           <div>
-            <h2 className="text-3xl font-bold text-rosa mb-4">{detallesProducto?.nombre}</h2>
-            <p>{detallesProducto?.descripcion}</p>
+            <h2 className="text-3xl font-bold text-rosa mb-4">
+              {detallesProducto?.nombre}
+            </h2>
+            <p className="text-justify">{detallesProducto?.descripcion}</p>
           </div>
           <div className="flex flex-col justify-between">
-            <div>
-              <p>Fecha de salida: {}</p>
-              <p>Cupos disponibles: {}</p>
-              <p>{detallesProducto?.disponible}</p>
-            </div>
             <div className="flex justify-end">
-              <button onClick={() => navigate(-1)} className="flex items-center">
+              <button
+                onClick={() => navigate(-1)}
+                className="flex items-center"
+              >
                 <img src={flecha} alt="Volver" className="w-6 h-6 mr-2" />
                 <span className="text-gray-400">Volver</span>
               </button>
