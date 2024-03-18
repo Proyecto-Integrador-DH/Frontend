@@ -2,8 +2,9 @@ import React, { useEffect, useState } from "react";
 import { fetchCategoryProducts, fetchCategoria } from "../../services/api";
 import { errorHandling } from "../../services/errorHandling";
 import { useParams, Link } from "react-router-dom";
+import FavoriteButton from "../Favorite/Favorite";
 
-const ProductList = () => {
+const ProductList = ({ clienteId }) => {
   const [productos, setProductos] = useState([]);
   const [categoria, setCategoria] = useState(null);
   const { categoryId } = useParams();
@@ -46,42 +47,35 @@ const ProductList = () => {
           <br /> {categoria && categoria.nombre}
         </span>
       </h2>
-      <div className="overflow-x-auto">
-        <table className="whitespace-nowrap table-auto">
-          <thead>
-            <tr>
-              <th>Nombre de la Experiencia</th>
-              <th></th>
-              <th>Descripción</th>
-              <th>Ver detalle</th>
-            </tr>
-          </thead>
-          <tbody>
-            {productos.map((producto) => (
-              <tr key={producto.Id}>
-                <td>{producto.nombre}</td>
-                <td>
-                  <img
-                    src={producto.imagenes[0].url}
-                    className="object-cover h-30 w-70 rounded"
-                  />
-                </td>
-                <td className="whitespace-normal text-justify">
-                  {producto.descripcion}
-                </td>
-                <td>
-                  <div className="flex justify-end">
-                  <Link to={`/details/${producto.Id}`}
-                      className="text-blue-500 hover:underline"
-                    >
-                      Ver más
-                    </Link>
-                  </div>
-                </td>
-              </tr>
-            ))}
-          </tbody>
-        </table>
+      <div className="grid grid-cols-2 gap-6 m-5">
+        {productos.map((producto) => (
+          <div key={producto.Id} className="border rounded p-4">
+            <img
+              src={producto.imagenes[0].url}
+              className="object-cover h-40 w-full mb-4"
+              alt={producto.nombre}
+            />
+            <div className="relative">
+              <h3 className="text-lg font-bold mb-2">{producto.nombre}</h3>
+              <div className="absolute top-0 right-0 m-5">
+                <FavoriteButton
+                  clienteId={clienteId}
+                  productoId={producto.Id}
+                />
+              </div>
+            </div>
+
+            <p className="text-sm mb-4 text-justify">{producto.descripcion}</p>
+            <div className="flex justify-end">
+              <Link
+                to={`/details/${producto.Id}`}
+                className="text-blue-500 hover:underline"
+              >
+                Ver más
+              </Link>
+            </div>
+          </div>
+        ))}
       </div>
     </div>
   );

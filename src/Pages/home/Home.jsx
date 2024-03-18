@@ -4,12 +4,14 @@ import Category from "../../Components/category/Category";
 import Banner from "../../Components/banner/Banner";
 import Recommended from "../../Components/recommended/Recommended";
 import Footer from "../../Components/footer/Footer";
+import SearchForm from "../../Components/searcher/SearcherForm";
 
 const HomePage = () => {
   return (
     <div>
 
-      <Searcher />
+      {/*<Searcher />*/}
+      <SearchForm />
       
       <Banner />
 

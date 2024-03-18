@@ -1,0 +1,83 @@
+/* Estilos para los botones */
+.boton {
+    background: #d934c0;
+    background-image: -webkit-linear-gradient(top, #d934c0, #502bb8);
+    background-image: -moz-linear-gradient(top, #d934c0, #502bb8);
+    background-image: -ms-linear-gradient(top, #d934c0, #502bb8);
+    background-image: -o-linear-gradient(top, #d934c0, #502bb8);
+    background-image: linear-gradient(to bottom, #d934c0, #502bb8);
+    -webkit-border-radius: 19;
+    -moz-border-radius: 19;
+    border-radius: 19px;
+    font-family: Arial;
+    color: #0c0b0c;
+    font-size: 15px;
+    padding: 14px 22px 14px 22px;
+    border: solid #c9d7e0 2px;
+    text-decoration: none;
+  }
+  .boton:hover {
+    background: #98c4e0;
+    background-image: -webkit-linear-gradient(top, #98c4e0, #cb62e0);
+    background-image: -moz-linear-gradient(top, #98c4e0, #cb62e0);
+    background-image: -ms-linear-gradient(top, #98c4e0, #cb62e0);
+    background-image: -o-linear-gradient(top, #98c4e0, #cb62e0);
+    background-image: linear-gradient(to bottom, #98c4e0, #cb62e0);
+    text-decoration: none;
+  }
+  .h2 {
+    font-size: 30px;
+    font-weight: bold;
+    color: #140202;
+    margin-bottom: 100px;
+    margin-top: 50px;
+  }
+  
+  .h3 {
+    display: none;
+  }
+  
+  .contenedor {
+    display: flex;
+    justify-content: center;
+    gap: 100px;
+  }
+  
+  /* Estilos para el contenedor de cada par de tarjetas */
+  .tarjetasContainer {
+    display: flex;
+    
+  }
+  
+  /* Estilos para las tarjetas */
+  .tarjetas {
+    margin-right: 80px;
+    background-color: #f9f9f9;
+    padding: 30px;
+    border-radius: 16px;
+    box-shadow: 0 8px 16px rgba(0, 0, 0, 0.1);
+    border: 2px solid #e0e0e0;
+    transition: transform 0.3s ease;
+    width: 300px; /* Ancho fijo para cada tarjeta */
+    margin-bottom: 20px; /* Espacio entre las tarjetas */
+  }
+  
+  .tarjetas:hover {
+    transform: translateY(-5px);
+  }
+  
+  @media screen and (max-width: 425px) {
+    .contenedor {
+      display: none !important;
+    }
+    .h3 {
+      display: inline;
+      font-size: 20px;
+      font-weight: bold;
+      color: #140202;
+      margin-bottom: 50px;
+      margin-top: 50px;
+      text-align: center;
+    }
+  }
+  

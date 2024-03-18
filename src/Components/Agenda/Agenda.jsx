@@ -2,6 +2,7 @@ import React, { useState, useEffect } from "react";
 import { useParams } from "react-router-dom";
 import ModalAgenda from "./ModalAgenda";
 import { fetchListarAgenda } from "../../services/api";
+import FormatDate from "../../utils/FormatDate";
 
 const Agenda = () => {
   const { id } = useParams();
@@ -10,16 +11,16 @@ const Agenda = () => {
 
   useEffect(() => {
     fetchData();
-  }, []);
+  }, [isModalOpen]);
 
   const fetchData = async () => {
     try {
-        const response = await fetchListarAgenda();
-        setAgendas(response);
+      const response = await fetchListarAgenda();
+      setAgendas(response);
     } catch (error) {
-        console.error('Error al obtener la lista de agendas', error);
+      console.error('Error al obtener la lista de agendas', error);
     }
-}
+  }
 
   const handleModalOpen = () => {
     setIsModalOpen(true);
@@ -51,7 +52,7 @@ const Agenda = () => {
             {agendas.map((agenda) => (
               <tr key={agenda.id}>
                 <td>{agenda.producto.nombre}</td>
-                <td>{agenda.fecha}</td>
+                <td>{FormatDate(agenda.fechaIda)} a {FormatDate(agenda.fechaVuelta)}</td>
                 <td>{agenda.cupos}</td>
                 <td>
                   <button className="flex justify-center rounded-md bg-rosa px-3 py-1.5 text-m font-semibold leading-6 text-white shadow-sm hover:bg-indigo-500 focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-indigo-600">
