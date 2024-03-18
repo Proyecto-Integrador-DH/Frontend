@@ -178,7 +178,6 @@ fetchPrueba().then(result => {
             </div>
 
             <Calendar fechaInicio={fechaSalida} fechaFin={fechaVuelta} /> 
-           {/* <Calendar fechaInicio={new Date(detallesProducto.fechaInicio)} fechaFin={new Date(detallesProducto.fechaFin)} />*/}
             
           </div>
           
