@@ -6,26 +6,20 @@ import {
   fetchCheckFavoritos,
 } from "../services/api";
 import flecha from "../assets/arrowRightflecha.png";
-<<<<<<< HEAD
 import Calendar from "../Components/calendar/Calendar";
 import "./details.css"; // Importa el archivo CSS para estilos personalizados
 import { fetchListarAgendaProducto } from "../services/api";
-=======
 import "./details.css";
 import FavoriteButton from "../Components/Favorite/Favorite";
->>>>>>> a97622b0b520319e5c50d2afdab12bc3a8688667
 
 const Details = ({ clienteId }) => {
   const { id } = useParams();
   const navigate = useNavigate();
   const [detallesProducto, setDetallesProducto] = useState([]);
-<<<<<<< HEAD
   //const fechaInicio = new Date("2024-03-25");
   //const fechaFin = new Date("2024-03-31");
-=======
   const [isFavorite, setIsFavorite] = useState(false);
 
->>>>>>> a97622b0b520319e5c50d2afdab12bc3a8688667
   const defaultImage = "https://via.placeholder.com/150";
   const totalImage = 4;
 
@@ -105,7 +99,6 @@ fetchPrueba().then(result => {
     
   }, []);
 
-<<<<<<< HEAD
   // Función para formatear la fecha
   const formatDate = (dateString) => {
     const fecha = new Date(dateString);
@@ -115,8 +108,6 @@ fetchPrueba().then(result => {
   };
   
 
-=======
->>>>>>> a97622b0b520319e5c50d2afdab12bc3a8688667
   return (
     <>
       <div className="flex flex-col items-center my-10">
@@ -167,7 +158,6 @@ fetchPrueba().then(result => {
             <p className="text-justify">{detallesProducto?.descripcion}</p>
           </div>
           <div className="flex flex-col justify-between">
-<<<<<<< HEAD
             <div>
               <p>Fecha de salida: {formatDate(fechaSalida)}</p>
               <p>Fecha de regreso: {formatDate(fechaVuelta)}</p>
@@ -177,8 +167,6 @@ fetchPrueba().then(result => {
             <div>
         
             </div>
-=======
->>>>>>> a97622b0b520319e5c50d2afdab12bc3a8688667
             <div className="flex justify-end">
               <button
                 onClick={() => navigate(-1)}

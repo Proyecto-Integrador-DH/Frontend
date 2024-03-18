@@ -20,17 +20,14 @@ import ProtectedRoutes from "./router/ProtectedRoutes.jsx";
 import ProductList from "./Components/ListProduct/ProductList.jsx";
 import Agenda from "./Components/Agenda/Agenda.jsx";
 import AgendaProducto from "./Components/Agenda/AgendaProducto.jsx";
-<<<<<<< HEAD
-import Calendar from "./Components/calendar/Calendar.jsx";
+// import Calendar from "./Components/calendar/Calendar.jsx";
 
 
-=======
 import Reserva from "./Components/Reserva/Reserva.jsx";
 import CrearClienteForm from "./Components/Cliente/Cliente.jsx";
 import PanelUsuario from "./Pages/PanelUsuario/PanelUsuario.jsx"
 import ListFavorite from "./Components/ListFavorite/ListFavorite.jsx";
 import SearchResults from "./Components/searcher/ListSearcher.jsx";
->>>>>>> a97622b0b520319e5c50d2afdab12bc3a8688667
 
 function App() {
   const [user, setUser] = useState(null);
@@ -65,7 +62,7 @@ function App() {
           });
       }
     };
-  
+
     obtenerEmail();
   }, []);
 
@@ -93,21 +90,13 @@ function App() {
           <Route path="/agenda" element={<Agenda />} />
           <Route path="/agenda/:id" element={<AgendaProducto />} />
         </Route>
-<<<<<<< HEAD
-        <Route path='/crearUsuario' element={<RegisterUser />} />
-        <Route path="/listarProductos/:categoryId" element={<ProductList />} />
-        <Route path="/agenda" element={<Agenda />} />
-        <Route path="/agenda/:id" element={<AgendaProducto />} />
-        <Route path="/calendar" element={<Calendar />} />
-=======
         <Route path="/crearUsuario" element={<RegisterUser />} />
         <Route path="/listarProductos/:categoryId" element={<ProductList clienteId={cliente?.id} />} />
         <Route path="/reserva" element={<Reserva cliente={cliente} />} />
         <Route path="/cliente" element={<CrearClienteForm user={user} />} />
         <Route path="/panelUsuario" element={<PanelUsuario />} />
         <Route path="/listarFavoritos" element={<ListFavorite clienteId={cliente?.id} />} />
-        <Route path="/search" element={<SearchResults/>} />
->>>>>>> a97622b0b520319e5c50d2afdab12bc3a8688667
+        <Route path="/search" element={<SearchResults />} />
       </Routes>
     </>
   );
