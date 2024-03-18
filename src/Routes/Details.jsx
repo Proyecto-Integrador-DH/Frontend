@@ -6,17 +6,63 @@ import Searcher from "../Components/searcher/Searcher";
 import flecha from "../assets/arrowRightflecha.png";
 import Calendar from "../Components/calendar/Calendar";
 import "./details.css"; // Importa el archivo CSS para estilos personalizados
-
+import { fetchListarAgendaProducto } from "../services/api";
 
 const Details = () => {
   const { id } = useParams();
   const navigate = useNavigate();
   const [detallesProducto, setDetallesProducto] = useState([]);
-  const fechaInicio = new Date("2024-03-17");
-  const fechaFin = new Date("2024-03-21");
-
+  //const fechaInicio = new Date("2024-03-25");
+  //const fechaFin = new Date("2024-03-31");
   const defaultImage = "https://via.placeholder.com/150";
   const totalImage = 4;
+
+  //
+  const [fechaSalida, setFechaSalida] = useState(null);
+  const [fechaVuelta, setFechaVuelta] = useState(null);
+
+  useEffect(() => {
+    const fetchDetallesProductos = async () => {
+      try {
+        const data = await fetchProduct(id);
+        setDetallesProducto(data);
+      } catch (error) {
+        console.error("Error al obtener detalles del producto:", error);
+      }
+    };
+
+    const fetchAgendaProducto = async () => {
+      try {
+        const agendaData = await fetchListarAgendaProducto(id);
+        // Suponiendo que la agenda solo tiene una entrada
+        const agenda = agendaData[0];
+        setFechaSalida(new Date(agenda.fechaIda));
+        setFechaVuelta(new Date(agenda.fechaVuelta));
+      } catch (error) {
+        console.error("Error al obtener detalles de la agenda del producto:", error);
+      }
+    };
+
+    fetchDetallesProductos();
+    fetchAgendaProducto();
+  }, [id]);
+
+  //
+
+  const fetchPrueba = async () => {
+    try {
+      const data = await fetchListarAgenda(id );
+    
+      return data;
+    } catch (error) {
+      console.error("Error al obtener datos:", error);
+    }
+  };
+
+fetchPrueba().then(result => {
+  // Accede al resultado dentro de este bloque
+  console.log("Hola", id);
+});
 
   const fetchDetallesProductos = async () => {
     try {
@@ -38,6 +84,7 @@ const Details = () => {
 
   useEffect(() => {
     fetchDetallesProductos();
+    
   }, []);
 
   // Función para formatear la fecha
@@ -47,6 +94,7 @@ const Details = () => {
 
     return fecha.toLocaleDateString('es-ES', opcionesDeFormato);
   };
+  
 
   return (
     <>
@@ -80,6 +128,7 @@ const Details = () => {
               <img key={index} src={imagen.url} alt={`Imagen ${index + 1}`} />
             ))}
         </div>
+        
       </div>
 
       <div className="container mx-auto px-4 mb-8">
@@ -93,7 +142,8 @@ const Details = () => {
           </div>
           <div className="flex flex-col justify-between">
             <div>
-              <p>Fecha de salida: {formatDate(detallesProducto?.fecha)}</p>
+              <p>Fecha de salida: {formatDate(fechaSalida)}</p>
+              <p>Fecha de regreso: {formatDate(fechaVuelta)}</p>
               <p>Cupos disponibles: {detallesProducto?.cupo}</p>
               <p>{detallesProducto?.disponible}</p>
             </div>
@@ -107,10 +157,15 @@ const Details = () => {
               </button>
             </div>
 
-           {/* <Calendar fechaInicio={fechaInicio} fechaFin={fechaFin} /> */}
-            <Calendar fechaInicio={new Date(detallesProducto.fechaInicio)} fechaFin={new Date(detallesProducto.fechaFin)} />
+            <Calendar fechaInicio={fechaSalida} fechaFin={fechaVuelta} /> 
+           {/* <Calendar fechaInicio={new Date(detallesProducto.fechaInicio)} fechaFin={new Date(detallesProducto.fechaFin)} />*/}
             
           </div>
+          
+        
+
+          
+
         </div>
 
       </div >
