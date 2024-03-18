@@ -6,6 +6,7 @@ import Inicio from '../../assets/Inicio.jpg';
 import Registro from '../../assets/registrarse.png';
 import { Link } from 'react-router-dom';
 import Avatar from '../avatar/Avatar.jsx';
+import MenuHamburguesa from '../menuHambuguesa/MenuHamburguesa.jsx';
 
 const Header = ({user, onLogout}) => {
 
@@ -24,11 +25,7 @@ const Header = ({user, onLogout}) => {
   }, []);
 
 
-  const [menuVisible, setMenuVisible] = useState(false);
 
-  const toggleMenu = () => {
-    setMenuVisible(!menuVisible);
-  };
 
 
   return (
@@ -41,23 +38,28 @@ const Header = ({user, onLogout}) => {
 
 
         
-        <div className='mt-1'>
-          <div className='avatar'>
-            {user ? (
-              <Avatar user={user} onLogout={onLogout} />
-            ) : (
-              <>
-              <Link to='/Login'> 
-            <Button className={HeaderStyle.login}>Iniciar sesión</Button>
-            </Link>  
-            <Link to='/crearUsuario'> 
-            <Button className={HeaderStyle.signup}>Crear Cuenta</Button>
-            </Link>
-              </>
-              )}
-          </div>
-
+        <div className="mt-1">
+        <div className="avatar">
+          {user ? (
+            <Avatar user={user} onLogout={onLogout} />
+          ) : (
+            <>
+              {/* Renderizar el componente MenuHamburguesa solo en resoluciones móviles */}
+              <div className="hidden md:block">
+                <Link to="/Login">
+                  <Button className={HeaderStyle.login}>Iniciar sesión</Button>
+                </Link>
+                <Link to="/crearUsuario">
+                  <Button className={HeaderStyle.signup}>Crear Cuenta</Button>
+                </Link>
+              </div>
+              <div className="md:hidden">
+                <MenuHamburguesa user={user} onLogout={onLogout} />
+              </div>
+            </>
+          )}
         </div>
+      </div>
     </div>
 
   );
