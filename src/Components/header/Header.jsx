@@ -42,15 +42,7 @@ const Header = ({user, onLogout}) => {
 
         
         <div className='mt-1'>
-          <div className='flex'>
-            <button id="boton-hamburguesa" className={HeaderStyle.botonHamburguesa} onClick={toggleMenu}>
-              <img src= {Inicio} alt="logo"/>
-            </button>
-            <button id="boton-hamburguesa" className={HeaderStyle.botonHamburguesa} onClick={toggleMenu}>
-              <img src= {Registro} alt="logo"/>
-            </button>
-          </div>
-          <div>
+          <div className='avatar'>
             {user ? (
               <Avatar user={user} onLogout={onLogout} />
             ) : (

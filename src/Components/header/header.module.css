@@ -1,11 +1,3 @@
-.botonHamburguesa{
-   display: none;
-   width: 40px;
-   border-radius: 10px;
-   border: none;
-   cursor: pointer;
-
-}
 
 
 .bloque {
@@ -85,6 +77,10 @@
    .signup{
       display: none;
    }
+
+   .avatar{
+      margin-left: 5rem;
+   }
    
 }
 
@@ -92,10 +88,6 @@
 /* Pantallas muy pequeñas (móviles en portrait de menos de 576px) */
 
 @media (max-width: 575.98px) { 
-
-   .botonHamburguesa{
-      display: flex;
-   }
 
    .botonesHome{
       display:none;
@@ -107,6 +99,10 @@
 
    .signup{
       display: none;
+   }
+
+   .avatar{
+      margin-left: 5rem;
    }
    
 }
