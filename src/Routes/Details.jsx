@@ -61,7 +61,7 @@ const Details = ({ clienteId }) => {
 
   const fetchPrueba = async () => {
     try {
-      const data = await fetchListarAgenda(id );
+      const data = await fetchListarAgendaProducto(id );
     
       return data;
     } catch (error) {
