@@ -1,10 +1,7 @@
 import React, { useEffect, useState } from "react";
 import { useParams } from "react-router-dom";
 import { useNavigate, Link } from "react-router-dom";
-import {
-  fetchProduct,
-  fetchCheckFavoritos,
-} from "../services/api";
+import { fetchProduct, fetchCheckFavoritos } from "../services/api";
 import flecha from "../assets/arrowRightflecha.png";
 import Calendar from "../Components/calendar/Calendar";
 import "./details.css"; // Importa el archivo CSS para estilos personalizados
@@ -71,9 +68,13 @@ const Details = ({ clienteId }) => {
         </h1>
       </div>
       <div className="imageContainer relative">
-      <div className="absolute right-40 top-0">
-        <FavoriteButton clienteId={clienteId} productoId={id} className="text-red-500"/>
-      </div>
+        <div className="absolute right-40 top-0">
+          <FavoriteButton
+            clienteId={clienteId}
+            productoId={id}
+            className="text-red-500"
+          />
+        </div>
         {/* Imagen principal grande a la izquierda */}
         <div className="imagenIzquierda">
           {detallesProducto?.imagenes?.length > 0 ? (
@@ -93,7 +94,6 @@ const Details = ({ clienteId }) => {
               <img key={index} src={imagen.url} alt={`Imagen ${index + 1}`} />
             ))}
         </div>
-        
       </div>
 
       <div className="container mx-auto px-4 mb-8">
@@ -110,9 +110,7 @@ const Details = ({ clienteId }) => {
             <p className="text-justify">{detallesProducto?.descripcion}</p>
           </div>
           <div className="flex flex-col justify-between">
-            <div>
-        
-            </div>
+            <div><Calendar productoId={id} /></div>
             <div className="flex justify-end">
               <button
                 onClick={() => navigate(-1)}
@@ -123,38 +121,32 @@ const Details = ({ clienteId }) => {
               </button>
             </div>
 
-            <Calendar productoId={id} /> 
-            
           </div>
-          
-        
-
-          
-
         </div>
 
-        <h2 className="text-2xl font-bold text-rosa mt-4 mb-2">La experiencia incluye</h2>
-          <CardCaracteristica />
+        <h2 className="text-2xl font-bold text-rosa mt-4 mb-2">
+          La experiencia incluye
+        </h2>
+        <CardCaracteristica />
       </div>
       <div className="mb-10">
-              <p className="text-base mb-2">Antes de reservar, consulta nuestros</p>
-              <button
-                className="botonPoliticas"
-                onClick={abrirPoliticas}>Términos y Condiciones
-              </button>
-              {mostrarPoliticas && (
-              <div>
-                   <div className="modal-overlay" onClick={cerrarPoliticas}>
-                   <span className="close" onClick={cerrarPoliticas}>
-                     &times;
-                   </span>
-                   <Politicas />
-                 {/* <div className="modal-content" onClick={(e) => e.stopPropagation()}>
+        <p className="text-base mb-2">Antes de reservar, consulta nuestros</p>
+        <button className="botonPoliticas" onClick={abrirPoliticas}>
+          Términos y Condiciones
+        </button>
+        {mostrarPoliticas && (
+          <div>
+            <div className="modal-overlay" onClick={cerrarPoliticas}>
+              <span className="close" onClick={cerrarPoliticas}>
+                &times;
+              </span>
+              <Politicas />
+              {/* <div className="modal-content" onClick={(e) => e.stopPropagation()}>
                  </div> */}
-               </div> 
-              </div>
-              )}
-            </div >
+            </div>
+          </div>
+        )}
+      </div>
     </>
   );
 };

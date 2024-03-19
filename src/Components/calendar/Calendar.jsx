@@ -2,7 +2,7 @@ import React, { useState, useEffect, useRef } from "react";
 import DatePicker from "react-datepicker";
 import "react-datepicker/dist/react-datepicker.css";
 import { fetchListarAgendaProducto } from "../../services/api";
-import { isValid, isAfter, isSameDay, format } from "date-fns";
+import { isValid, isAfter, format } from "date-fns";
 
 const Agenda = ({ productoId }) => {
   const [startDate, setStartDate] = useState(new Date());
@@ -45,6 +45,7 @@ const Agenda = ({ productoId }) => {
       setAgenda(filteredAgenda);
     } catch (error) {
       console.error("Error al obtener la agenda:", error);
+      // Aquí podrías agregar alguna notificación para el usuario sobre el error.
     }
   };
 
@@ -61,42 +62,61 @@ const Agenda = ({ productoId }) => {
     }
   };
 
-  const renderCustomHeader = ({ cupos }) => {
+  const toggleCalendar = () => {
+    setShowCalendar((prevShowCalendar) => !prevShowCalendar);
+  };
+
+  const CustomInput = ({ value, onClick }) => (
+    <button
+      className="flex items-center justify-center rounded-md bg-pink-500 hover:bg-pink-600 focus:outline-none focus:ring-2 focus:ring-pink-600 focus:ring-opacity-50 text-white px-4 py-2 transition-colors duration-300 ease-in-out"
+      onClick={onClick}
+    >
+      {format(value, "dd-MM-yyyy")}
+    </button>
+  );
+
+  const MyContainer = ({ className, children }) => {
     return (
-      <div>
-        <span>Cupos disponibles: {cupos}</span>
+      <div
+        className={className}
+        style={{ padding: "16px", background: "#FFF8FE", color: "black" }}
+      >
+        <div style={{ background: "#FFF8FE" }}></div>
+        <div style={{ position: "relative" }}>{children}</div>
       </div>
     );
   };
 
-  const handleDateChange = (date) => {
-    setStartDate(date);
-    setEndDate(null);
-  };
-
   return (
     <div className="mb-2 mr-2">
-      <label className="block" ref={calendarRef}>
-        <DatePicker
-          showIcon
-          selected={startDate}
-          startDate={startDate}
-          endDate={endDate}
-          monthsShown={2}
-          open={showCalendar}
-          onClickOutside={() => setShowCalendar(false)}
-          onFocus={() => setShowCalendar(true)}
-          dateFormat={"dd/MM/yyyy"}
-          includeDates={agenda.flatMap((item) => [item.fechaIda, item.fechaVuelta])}
-          renderCustomHeader={({ date }) => {
-            const item = agenda.find((agendaItem) => isSameDay(agendaItem.fechaIda, date));
-            if (item) return renderCustomHeader(item);
-            return null;
-          }}
-          onChange={handleDateChange}
-          inline
-        />
-      </label>
+      <button
+        onClick={toggleCalendar}
+        className="bg-purple-400 hover:bg-purple-600 focus:outline-none focus:ring-2 focus:ring-purple-600 focus:ring-opacity-50 text-white rounded-md px-4 py-2 transition-colors duration-300 ease-in-out"
+      >
+        Ver Disponibilidad
+      </button>
+      {showCalendar && (
+        <label className="block mt-2" ref={calendarRef}>
+          <DatePicker
+            showIcon
+            selected={startDate}
+            startDate={startDate}
+            endDate={endDate}
+            monthsShown={2}
+            onClickOutside={() => setShowCalendar(false)}
+            onFocus={() => setShowCalendar(true)}
+            dateFormat={"dd/MM/yyyy"}
+            includeDates={agenda.flatMap((item) => [
+              item.fechaIda,
+              item.fechaVuelta,
+            ])}
+            customInput={<CustomInput />}
+            inline
+            open={showCalendar}
+            calendarContainer={MyContainer}
+          />
+        </label>
+      )}
     </div>
   );
 };
