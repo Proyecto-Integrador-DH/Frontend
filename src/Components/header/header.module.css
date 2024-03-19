@@ -57,9 +57,13 @@
       justify-content:space-between;
       align-items: center;
    }
+
+   .logo {
+      margin-right: 20px;
+   }
    
    .bloque img{
-      width: 100%;
+      width: 80%;
    }
 
    .botonHamburguesa{
@@ -88,6 +92,11 @@
 /* Pantallas muy pequeñas (móviles en portrait de menos de 576px) */
 
 @media (max-width: 575.98px) { 
+
+   .logo img{
+      width: 25vw;
+      height: 25vh;
+   }
 
    .botonesHome{
       display:none;

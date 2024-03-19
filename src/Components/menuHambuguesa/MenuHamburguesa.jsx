@@ -9,14 +9,14 @@ const MenuHamburguesa = ({ user, onLogout }) => {
   };
 
   return (
-    <div className="relative">
+    <div className="relative mr-5">
       {/* Botón del menú hamburguesa */}
       <button
         onClick={toggleMenu}
         className="flex items-center px-3 py-2 border rounded text-gray-700 border-gray-700 hover:text-gray-900 hover:border-gray-900"
       >
         <svg
-          className="fill-current h-3 w-3"
+          className="fill-current h-5 w-5"
           viewBox="0 0 20 20"
           xmlns="http://www.w3.org/2000/svg"
         >

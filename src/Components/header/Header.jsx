@@ -30,7 +30,7 @@ const Header = ({user, onLogout}) => {
 
   return (
    <div id="navbar" className={`${HeaderStyle.bloque} ${scrollPosition > 0 ? 'bg-white' :  'bg-transparent'}`}> 
-        <div>
+        <div className='logo'>
             <Link to='/'>
             <img src= {Logo} alt="logo"/>
             </Link>

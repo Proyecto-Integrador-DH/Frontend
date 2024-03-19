@@ -29,7 +29,7 @@ const Avatar = ({user, onLogout}) => {
         <div>
           <button
             type="button"
-            className="relative flex rounded-full mt-3 mr-20  bg-gray-800 text-sm focus:outline-none focus:ring-2 focus:ring-white focus:ring-offset-2 focus:ring-offset-gray-800"
+            className="relative flex rounded-full mt-3 mr-20 bg-gray-800 text-sm focus:outline-none focus:ring-2 focus:ring-white focus:ring-offset-2 focus:ring-offset-gray-800 md: mr-5"
             id="user-menu-button"
             aria-expanded={estado}
             aria-haspopup="true"
