@@ -16,9 +16,9 @@ const AsignarCategoria = () => {
   }, []);
 
   return (
-    <div className="overflow-hidden">
+    <div className="w-[90vw] mx-auto">
       <h2 className="text-3xl font-bold mb-6">Lista de categorias</h2>
-      <div className="overflow-x-auto">
+      <div className="">
         <table className="max-w-m whitespace-nowrap table-auto">
           <thead>
             <tr>

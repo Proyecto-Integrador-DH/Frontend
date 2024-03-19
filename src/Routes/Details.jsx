@@ -8,12 +8,16 @@ import {
 import flecha from "../assets/arrowRightflecha.png";
 import "./details.css";
 import FavoriteButton from "../Components/Favorite/Favorite";
+import CardCaracteristica from "../Components/CardCaracteristica/CardCaracteristica.jsx";
+import Politicas from "../Components/Politica/Politicas.jsx";
+import { faL } from "@fortawesome/free-solid-svg-icons";
 
 const Details = ({ clienteId }) => {
   const { id } = useParams();
   const navigate = useNavigate();
   const [detallesProducto, setDetallesProducto] = useState([]);
   const [isFavorite, setIsFavorite] = useState(false);
+  const [mostrarPoliticas, setMostrarPoliticas] = useState(false);
 
   const defaultImage = "https://via.placeholder.com/150";
   const totalImage = 4;
@@ -45,6 +49,14 @@ const Details = ({ clienteId }) => {
   useEffect(() => {
     fetchDetallesProductos();
   }, []);
+
+  const abrirPoliticas = () => {
+    setMostrarPoliticas(true);
+  };
+
+  const cerrarPoliticas = () => {
+    setMostrarPoliticas(false);
+  };
 
   return (
     <>
@@ -106,7 +118,28 @@ const Details = ({ clienteId }) => {
             </div>
           </div>
         </div>
+        <h2 className="text-2xl font-bold text-rosa mt-4 mb-2">La experiencia incluye</h2>
+          <CardCaracteristica />
       </div>
+      <div className="mb-10">
+              <p className="text-base mb-2">Antes de reservar, consulta nuestros</p>
+              <button
+                className="botonPoliticas"
+                onClick={abrirPoliticas}>Términos y Condiciones
+              </button>
+              {mostrarPoliticas && (
+              <div>
+                   <div className="modal-overlay" onClick={cerrarPoliticas}>
+                   <span className="close" onClick={cerrarPoliticas}>
+                     &times;
+                   </span>
+                   <Politicas />
+                 {/* <div className="modal-content" onClick={(e) => e.stopPropagation()}>
+                 </div> */}
+               </div> 
+              </div>
+              )}
+            </div>
     </>
   );
 };

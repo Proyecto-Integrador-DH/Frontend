@@ -48,14 +48,28 @@ table {
   .button {
     padding: 10px 20px;
     background-color: #db8ae6;
-    color: #7f399b;
+    color: #f6f6f7;
     border: none;
     border-radius: 5px;
     cursor: pointer;
     margin-left: 10px;
   }
+  .button1 {
+    padding: 10px 20px;
+    background-color: #db8ae6;
+    color: #f6f6f7;
+    border: none;
+    border-radius: 5px;
+    cursor: pointer;
+    margin-left: 10px;
+    font-size: 0.8rem;
+    font-weight: 500;
+  }
   
   .button:hover {
+    background-color: #c4a3d8;
+  }
+  .button1:hover {
     background-color: #c4a3d8;
   }
   .contenedor {

@@ -30,6 +30,10 @@ const Adminstrador = () => {
             <Link to='/asignarCategoria'><Button className={AdminStyle.boton}>Clic aquí</Button></Link>
           </div>
           <div className={AdminStyle.tarjetas}>
+          <h2>Administrar caracteristicas</h2>
+          <Link to='/caracteristicas'><Button className={AdminStyle.boton}>Click aqui</Button></Link>
+        </div>
+          <div className={AdminStyle.tarjetas}>
             <h2>Gestionar Usuarios</h2>
             <Link to='/listarUsuarios'><Button className={AdminStyle.boton}>Clic aquí</Button></Link>
           </div>

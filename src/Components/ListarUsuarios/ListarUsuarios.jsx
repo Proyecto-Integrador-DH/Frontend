@@ -82,7 +82,7 @@ const ListarUsuarios = () => {
   };
 
   return (
-    <div>
+    <div className="w-[95vw] mx-auto">
       <h2 className="text-3xl font-bold mb-6">Lista de Usuarios</h2>
 
       {modalErrorVisible && (
@@ -93,24 +93,24 @@ const ListarUsuarios = () => {
         />
       )}
 
-      <table>
+      <table className="w-[95vw] mx-auto">
         <thead>
           <tr>
-            <th>ID</th>
-            <th>Nombre</th>
-            <th>Apellido</th>
-            <th>Correo</th>
-            <th className="text-center">Roles</th>
-            <th className="text-center">Permisos</th>
+            <th className="px-6 py-3text-sm font-semibold tracking-wide text-center">ID</th>
+            <th className="px-6 py-3text-sm font-semibold tracking-wide text-center">Nombre</th>
+            <th className="px-6 py-3text-sm font-semibold tracking-wide text-center">Apellido</th>
+            <th className="px-6 py-3text-sm font-semibold tracking-wide text-center">Correo</th>
+            <th className="px-6 py-3text-sm font-semibold tracking-wide text-center">Roles</th>
+            <th className="px-6 py-3text-sm font-semibold tracking-wide text-center">Permisos</th>
           </tr>
         </thead>
         <tbody>
           {usuarios.map((usuario) => (
             <tr key={usuario.id}>
-              <td>{usuario.id}</td>
-              <td>{usuario.nombre}</td>
-              <td>{usuario.apellido}</td>
-              <td>{usuario.email}</td>
+              <td className="text-md text-center">{usuario.id}</td>
+              <td className="text-md text-center">{usuario.nombre}</td>
+              <td className="text-md text-center">{usuario.apellido}</td>
+              <td className="text-md text-center">{usuario.email}</td>
               <td className="text-center">
                 {usuario.roles &&
                   usuario.roles.map((rol) => (
