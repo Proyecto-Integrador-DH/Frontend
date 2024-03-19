@@ -22,7 +22,7 @@ const Avatar = ({user, onLogout}) => {
 
   }
   const color = generarColor();
-
+  console.log("usuario: ", user);
   return (
     <div>
       <div className="relative ml-3">
@@ -70,18 +70,27 @@ const Avatar = ({user, onLogout}) => {
             {user.email}
           </a>
 
-         {/*  <a
-            href="#"
-            className="block px-4 py-2 text-sm text-gray-700"
-            role="menuitem"
-            tabIndex="-1"
-            id="user-menu-item-1"
-          >
-            Panel de Administracion
-          </a> */}
-           <Link to={"/admin"} className="block px-4 py-2 text-sm text-gray-700" role="menuitem" tabIndex="-1" id="user-menu-item-2"> 
-            Panel de administracion
-            </Link>
+          {user.roles && user.roles.some(role => role.nombre === 'Administrador') ? (
+              <Link
+                to={"/admin"}
+                className="block px-4 py-2 text-sm text-gray-700"
+                role="menuitem"
+                tabIndex="-1"
+                id="user-menu-item-2"
+              >
+                Panel de administración
+              </Link>
+            ) : (
+              <Link
+                to={"/PanelUsuario"}
+                className="block px-4 py-2 text-sm text-gray-700"
+                role="menuitem"
+                tabIndex="-1"
+                id="user-menu-item-2"
+              >
+                Panel de usuario
+              </Link>
+            )}
            <a
             onClick={onLogout}
             href="#"
