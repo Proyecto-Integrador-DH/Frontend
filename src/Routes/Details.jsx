@@ -6,6 +6,9 @@ import {
   fetchCheckFavoritos,
 } from "../services/api";
 import flecha from "../assets/arrowRightflecha.png";
+import Calendar from "../Components/calendar/Calendar";
+import "./details.css"; // Importa el archivo CSS para estilos personalizados
+import { fetchListarAgendaProducto } from "../services/api";
 import "./details.css";
 import FavoriteButton from "../Components/Favorite/Favorite";
 import CardCaracteristica from "../Components/CardCaracteristica/CardCaracteristica.jsx";
@@ -16,11 +19,60 @@ const Details = ({ clienteId }) => {
   const { id } = useParams();
   const navigate = useNavigate();
   const [detallesProducto, setDetallesProducto] = useState([]);
+  //const fechaInicio = new Date("2024-03-25");
+  //const fechaFin = new Date("2024-03-31");
   const [isFavorite, setIsFavorite] = useState(false);
   const [mostrarPoliticas, setMostrarPoliticas] = useState(false);
 
   const defaultImage = "https://via.placeholder.com/150";
   const totalImage = 4;
+
+  //
+  const [fechaSalida, setFechaSalida] = useState(null);
+  const [fechaVuelta, setFechaVuelta] = useState(null);
+
+  useEffect(() => {
+    const fetchDetallesProductos = async () => {
+      try {
+        const data = await fetchProduct(id);
+        setDetallesProducto(data);
+      } catch (error) {
+        console.error("Error al obtener detalles del producto:", error);
+      }
+    };
+
+    const fetchAgendaProducto = async () => {
+      try {
+        const agendaData = await fetchListarAgendaProducto(id);
+        // Suponiendo que la agenda solo tiene una entrada
+        const agenda = agendaData[0];
+        setFechaSalida(new Date(agenda.fechaIda));
+        setFechaVuelta(new Date(agenda.fechaVuelta));
+      } catch (error) {
+        console.error("Error al obtener detalles de la agenda del producto:", error);
+      }
+    };
+
+    fetchDetallesProductos();
+    fetchAgendaProducto();
+  }, [id]);
+
+  //
+
+  const fetchPrueba = async () => {
+    try {
+      const data = await fetchListarAgenda(id );
+    
+      return data;
+    } catch (error) {
+      console.error("Error al obtener datos:", error);
+    }
+  };
+
+fetchPrueba().then(result => {
+  // Accede al resultado dentro de este bloque
+  console.log("Hola", id);
+});
 
   const fetchDetallesProductos = async () => {
     try {
@@ -48,7 +100,17 @@ const Details = ({ clienteId }) => {
 
   useEffect(() => {
     fetchDetallesProductos();
+    
   }, []);
+
+  // Función para formatear la fecha
+  const formatDate = (dateString) => {
+    const fecha = new Date(dateString);
+    const opcionesDeFormato = { year: 'numeric', month: 'long', day: '2-digit' };
+
+    return fecha.toLocaleDateString('es-ES', opcionesDeFormato);
+  };
+  
 
   const abrirPoliticas = () => {
     setMostrarPoliticas(true);
@@ -91,6 +153,7 @@ const Details = ({ clienteId }) => {
               <img key={index} src={imagen.url} alt={`Imagen ${index + 1}`} />
             ))}
         </div>
+        
       </div>
 
       <div className="container mx-auto px-4 mb-8">
@@ -107,6 +170,15 @@ const Details = ({ clienteId }) => {
             <p className="text-justify">{detallesProducto?.descripcion}</p>
           </div>
           <div className="flex flex-col justify-between">
+            <div>
+              <p>Fecha de salida: {formatDate(fechaSalida)}</p>
+              <p>Fecha de regreso: {formatDate(fechaVuelta)}</p>
+              <p>Cupos disponibles: {detallesProducto?.cupo}</p>
+              <p>{detallesProducto?.disponible}</p>
+            </div>
+            <div>
+        
+            </div>
             <div className="flex justify-end">
               <button
                 onClick={() => navigate(-1)}
@@ -116,8 +188,17 @@ const Details = ({ clienteId }) => {
                 <span className="text-gray-400">Volver</span>
               </button>
             </div>
+
+            <Calendar fechaInicio={fechaSalida} fechaFin={fechaVuelta} /> 
+            
           </div>
+          
+        
+
+          
+
         </div>
+
         <h2 className="text-2xl font-bold text-rosa mt-4 mb-2">La experiencia incluye</h2>
           <CardCaracteristica />
       </div>
@@ -139,7 +220,7 @@ const Details = ({ clienteId }) => {
                </div> 
               </div>
               )}
-            </div>
+            </div >
     </>
   );
 };
