@@ -3,6 +3,7 @@ import DatePicker from "react-datepicker";
 import "react-datepicker/dist/react-datepicker.css";
 import { fetchListarAgendaProducto } from "../../services/api";
 import { isValid, isAfter, format, isSameDay } from "date-fns";
+import ErrorComponent from "../error/ErrorAlert";
 
 const Agenda = ({ productoId }) => {
   const [startDate, setStartDate] = useState(new Date());
@@ -12,6 +13,9 @@ const Agenda = ({ productoId }) => {
   const calendarRef = useRef(null);
   const [cuposDisponibles, setCuposDisponibles] = useState(null);
   const [hoveredDate, setHoveredDate] = useState(null);
+  const [error, setError] = useState(null);
+  const [titleError, setTitleError] = useState(null);
+  const [modalErrorVisible, setModalErrorVisible] = useState(false);
 
   useEffect(() => {
     fetchAgendaExperiencia();
@@ -46,6 +50,9 @@ const Agenda = ({ productoId }) => {
       setAgenda(filteredAgenda);
     } catch (error) {
       console.error("Error al obtener la agenda:", error);
+      setTitleError("Error");
+      setError("Error al obtener agenda de la experiencia. Intente nuevamente más tarde.");
+      setModalErrorVisible(true);
     }
   };
 
@@ -95,8 +102,19 @@ const Agenda = ({ productoId }) => {
     setStartDate(date);
   };
 
+  const closeModal = () => {
+    setModalErrorVisible(false);
+  };
+
   return (
     <div className="mb-2 mr-2">
+      {modalErrorVisible && (
+        <ErrorComponent
+          title={titleError}
+          message={error}
+          onClose={closeModal}
+        />
+      )}
       <button
         onClick={toggleCalendar}
         className="bg-purple-400 hover:bg-purple-600 focus:outline-none focus:ring-2 focus:ring-purple-600 focus:ring-opacity-50 text-white rounded-md px-4 py-2 transition-colors duration-300 ease-in-out"
