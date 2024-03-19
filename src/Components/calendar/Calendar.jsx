@@ -2,7 +2,7 @@ import React, { useState, useEffect, useRef } from "react";
 import DatePicker from "react-datepicker";
 import "react-datepicker/dist/react-datepicker.css";
 import { fetchListarAgendaProducto } from "../../services/api";
-import { isValid, isAfter, format } from "date-fns";
+import { isValid, isAfter, format, isSameDay } from "date-fns";
 
 const Agenda = ({ productoId }) => {
   const [startDate, setStartDate] = useState(new Date());
@@ -10,6 +10,7 @@ const Agenda = ({ productoId }) => {
   const [agenda, setAgenda] = useState([]);
   const [showCalendar, setShowCalendar] = useState(false);
   const calendarRef = useRef(null);
+  const [cuposDisponibles, setCuposDisponibles] = useState(null);
   const [hoveredDate, setHoveredDate] = useState(null);
 
   useEffect(() => {
@@ -45,7 +46,6 @@ const Agenda = ({ productoId }) => {
       setAgenda(filteredAgenda);
     } catch (error) {
       console.error("Error al obtener la agenda:", error);
-      // Aquí podrías agregar alguna notificación para el usuario sobre el error.
     }
   };
 
@@ -87,6 +87,15 @@ const Agenda = ({ productoId }) => {
     );
   };
 
+  const handleDateChange = (date) => {
+    const cuposDisponibles = agenda.find(
+      (item) =>
+        isSameDay(item.fechaIda, date) || isSameDay(item.fechaVuelta, date)
+    );
+    setCuposDisponibles(cuposDisponibles ? cuposDisponibles.cupos : null);
+    setStartDate(date);
+  };
+
   return (
     <div className="mb-2 mr-2">
       <button
@@ -110,11 +119,17 @@ const Agenda = ({ productoId }) => {
               item.fechaIda,
               item.fechaVuelta,
             ])}
-            customInput={<CustomInput />}
             inline
+            customInput={<CustomInput />}
             open={showCalendar}
             calendarContainer={MyContainer}
-          />
+            forceShowMonthNavigation
+            onChange={handleDateChange}
+          >
+            {cuposDisponibles !== null && (
+              <p>Cupos disponibles: {cuposDisponibles}</p>
+            )}
+          </DatePicker>
         </label>
       )}
     </div>

@@ -76,6 +76,12 @@
     color: white;
 }
 
+.highlighted {
+    background-color: #FFC0CB; 
+    color: #FFF; 
+    border-radius: 50%; 
+  }
+
   
 
   
