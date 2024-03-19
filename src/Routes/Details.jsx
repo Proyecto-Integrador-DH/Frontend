@@ -19,60 +19,14 @@ const Details = ({ clienteId }) => {
   const { id } = useParams();
   const navigate = useNavigate();
   const [detallesProducto, setDetallesProducto] = useState([]);
-  //const fechaInicio = new Date("2024-03-25");
-  //const fechaFin = new Date("2024-03-31");
   const [isFavorite, setIsFavorite] = useState(false);
   const [mostrarPoliticas, setMostrarPoliticas] = useState(false);
-
   const defaultImage = "https://via.placeholder.com/150";
   const totalImage = 4;
 
-  //
-  const [fechaSalida, setFechaSalida] = useState(null);
-  const [fechaVuelta, setFechaVuelta] = useState(null);
-
   useEffect(() => {
-    const fetchDetallesProductos = async () => {
-      try {
-        const data = await fetchProduct(id);
-        setDetallesProducto(data);
-      } catch (error) {
-        console.error("Error al obtener detalles del producto:", error);
-      }
-    };
-
-    const fetchAgendaProducto = async () => {
-      try {
-        const agendaData = await fetchListarAgendaProducto(id);
-        // Suponiendo que la agenda solo tiene una entrada
-        const agenda = agendaData[0];
-        setFechaSalida(new Date(agenda.fechaIda));
-        setFechaVuelta(new Date(agenda.fechaVuelta));
-      } catch (error) {
-        console.error("Error al obtener detalles de la agenda del producto:", error);
-      }
-    };
-
     fetchDetallesProductos();
-    fetchAgendaProducto();
   }, [id]);
-
-  //
-
-  const fetchPrueba = async () => {
-    try {
-      const data = await fetchListarAgendaProducto(id );
-    
-      return data;
-    } catch (error) {
-      console.error("Error al obtener datos:", error);
-    }
-  };
-
-fetchPrueba().then(result => {
-  // Accede al resultado dentro de este bloque
-  console.log("Hola", id);
-});
 
   const fetchDetallesProductos = async () => {
     try {
@@ -97,20 +51,6 @@ fetchPrueba().then(result => {
   const allImages = detallesProducto?.imagenes
     ?.slice(1, 5)
     .concat(missingImagesArray);
-
-  useEffect(() => {
-    fetchDetallesProductos();
-    
-  }, []);
-
-  // Función para formatear la fecha
-  const formatDate = (dateString) => {
-    const fecha = new Date(dateString);
-    const opcionesDeFormato = { year: 'numeric', month: 'long', day: '2-digit' };
-
-    return fecha.toLocaleDateString('es-ES', opcionesDeFormato);
-  };
-  
 
   const abrirPoliticas = () => {
     setMostrarPoliticas(true);
@@ -171,12 +111,6 @@ fetchPrueba().then(result => {
           </div>
           <div className="flex flex-col justify-between">
             <div>
-              <p>Fecha de salida: {formatDate(fechaSalida)}</p>
-              <p>Fecha de regreso: {formatDate(fechaVuelta)}</p>
-              <p>Cupos disponibles: {detallesProducto?.cupo}</p>
-              <p>{detallesProducto?.disponible}</p>
-            </div>
-            <div>
         
             </div>
             <div className="flex justify-end">
@@ -189,7 +123,7 @@ fetchPrueba().then(result => {
               </button>
             </div>
 
-            <Calendar fechaInicio={fechaSalida} fechaFin={fechaVuelta} /> 
+            <Calendar productoId={id} /> 
             
           </div>
           

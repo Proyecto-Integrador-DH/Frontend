@@ -1,91 +1,102 @@
-import React, { useState, useEffect } from "react";
+import React, { useState, useEffect, useRef } from "react";
 import DatePicker from "react-datepicker";
 import "react-datepicker/dist/react-datepicker.css";
-import Modal from "./ModalCalendar";
-import CalendarStyles from "./Calendar.module.css";
+import { fetchListarAgendaProducto } from "../../services/api";
+import { isValid, isAfter, isSameDay, format } from "date-fns";
 
-const Agenda = ({ fechaInicio, fechaFin }) => {
-  const [isModalOpen, setIsModalOpen] = useState(false);
-  const [startDate, setStartDate] = useState(null);
+const Agenda = ({ productoId }) => {
+  const [startDate, setStartDate] = useState(new Date());
   const [endDate, setEndDate] = useState(null);
-  const [reservedDates, setReservedDates] = useState([]);
+  const [agenda, setAgenda] = useState([]);
+  const [showCalendar, setShowCalendar] = useState(false);
+  const calendarRef = useRef(null);
+  const [hoveredDate, setHoveredDate] = useState(null);
 
   useEffect(() => {
-    fetchReservedDates();
+    fetchAgendaExperiencia();
+  }, [productoId]);
+
+  const fetchAgendaExperiencia = async () => {
+    try {
+      const response = await fetchListarAgendaProducto(Number(productoId));
+      const fechas = response.map((item) => ({
+        fechaIda: new Date(item.fechaIda),
+        fechaVuelta: new Date(item.fechaVuelta),
+        cupos: item.cupos,
+      }));
+      const fechaHoy = new Date();
+      const agendaFechas = fechas.filter(
+        (experiencia) =>
+          isValid(experiencia.fechaIda) &&
+          isAfter(experiencia.fechaIda, fechaHoy) &&
+          experiencia.cupos > 0
+      );
+      const filteredAgenda = [];
+      const seenDates = new Set();
+      agendaFechas.forEach((experiencia) => {
+        const key = experiencia.fechaIda.getTime();
+        if (!seenDates.has(key)) {
+          filteredAgenda.push(experiencia);
+          seenDates.add(key);
+        }
+      });
+
+      console.log("Agenda", filteredAgenda);
+      setAgenda(filteredAgenda);
+    } catch (error) {
+      console.error("Error al obtener la agenda:", error);
+    }
+  };
+
+  useEffect(() => {
+    document.addEventListener("mousedown", handleClickOutside);
+    return () => {
+      document.removeEventListener("mousedown", handleClickOutside);
+    };
   }, []);
 
-  const fetchReservedDates = async () => {
-    // Simulamos la obtención de las fechas reservadas desde el servidor
-    // Por ahora, simplemente usamos un conjunto de fechas fijas
-    const dates = [new Date(), new Date()];
-    setReservedDates(dates);
-  };
-
-  const handleDateChange = (dates) => {
-    if (Array.isArray(dates) && dates.length === 2) {
-      setStartDate(dates[0]);
-      setEndDate(dates[1]);
+  const handleClickOutside = (event) => {
+    if (calendarRef.current && !calendarRef.current.contains(event.target)) {
+      setShowCalendar(false);
     }
   };
 
-  const handleOpenModal = () => {
-    setIsModalOpen(true);
+  const renderCustomHeader = ({ cupos }) => {
+    return (
+      <div>
+        <span>Cupos disponibles: {cupos}</span>
+      </div>
+    );
   };
 
-  const handleCloseModal = () => {
-    setIsModalOpen(false);
-  };
-
-  const handleReservation = async () => {
-    try {
-      // Simulación de la reserva (mock)
-      const reservation = { startDate, endDate };
-      console.log("Reserva realizada:", reservation);
-
-      // Agregar las fechas reservadas recién seleccionadas a la lista de fechas reservadas
-      const newReservedDates = [...reservedDates];
-      for (let d = new Date(startDate); d <= new Date(endDate); d.setDate(d.getDate() + 1)) {
-        newReservedDates.push(new Date(d));
-      }
-      setReservedDates(newReservedDates);
-
-      // Limpiar los campos de fecha después de la reserva
-      setStartDate(null);
-      setEndDate(null);
-
-      // Cerrar el modal después de la reserva
-      handleCloseModal();
-    } catch (error) {
-      console.error("Error al realizar la reserva:", error);
-    }
+  const handleDateChange = (date) => {
+    setStartDate(date);
+    setEndDate(null);
   };
 
   return (
-    <div>
-      <button className={CalendarStyles.reservarButton} onClick={handleOpenModal}>Reservar</button>
-      <Modal className={CalendarStyles.calendarContainer} isOpen={isModalOpen} onClose={handleCloseModal}>
-        <h2>Seleccionar rango de fechas:</h2>
-        <div className={CalendarStyles.calendarInput}>
-          <DatePicker
-            className={CalendarStyles.dateBox}
-            selected={startDate}
-            onChange={handleDateChange}
-            startDate={startDate}
-            endDate={endDate}
-            selectsRange
-            placeholderText="Seleccione un rango de fechas"
-            excludeDates={reservedDates} // Excluye fechas reservadas del calendario
-            monthsShown={2}
-            inline
-            minDate={fechaInicio} // Establece la fecha mínima seleccionable
-            maxDate={fechaFin} // Establece la fecha máxima seleccionable
-          />
-        </div>
-        <div className={CalendarStyles.buttonsCalendar}>
-          <button onClick={handleReservation}>Reservar</button>
-          <button onClick={handleCloseModal}>Cerrar sin reservar</button>
-        </div>
-      </Modal>
+    <div className="mb-2 mr-2">
+      <label className="block" ref={calendarRef}>
+        <DatePicker
+          showIcon
+          selected={startDate}
+          startDate={startDate}
+          endDate={endDate}
+          monthsShown={2}
+          open={showCalendar}
+          onClickOutside={() => setShowCalendar(false)}
+          onFocus={() => setShowCalendar(true)}
+          dateFormat={"dd/MM/yyyy"}
+          includeDates={agenda.flatMap((item) => [item.fechaIda, item.fechaVuelta])}
+          renderCustomHeader={({ date }) => {
+            const item = agenda.find((agendaItem) => isSameDay(agendaItem.fechaIda, date));
+            if (item) return renderCustomHeader(item);
+            return null;
+          }}
+          onChange={handleDateChange}
+          inline
+        />
+      </label>
     </div>
   );
 };
