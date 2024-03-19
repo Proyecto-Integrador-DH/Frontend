@@ -104,7 +104,7 @@ const ModalAgenda = ({
               </label>
               <select
                 id="producto"
-                className="w-full border rounded p-2"
+                className="w-full rounded-xl p-2 border-purple-600"
                 value={producto.Id || ""}
                 onChange={handleProductoChange}
               >
@@ -127,7 +127,7 @@ const ModalAgenda = ({
             <input
               type="date"
               id="fechaIda"
-              className="w-full border rounded p-2"
+              className="w-full rounded-xl p-2 border-purple-600"
               required
               value={fechaIda}
               onChange={handleFechaIdaChange}
@@ -143,7 +143,7 @@ const ModalAgenda = ({
             <input
               type="date"
               id="fechaVuelta"
-              className="w-full border rounded p-2"
+              className="w-full rounded-xl p-2 border-purple-600"
               required
               value={fechaVuelta}
               onChange={handleFechaVueltaChange}
@@ -159,7 +159,7 @@ const ModalAgenda = ({
             <input
               type="number"
               id="cupos"
-              className="w-full border rounded p-2"
+              className="w-full rounded-xl p-2 border-purple-600"
               required
               value={cupos}
               onChange={handleCupoChange}
@@ -175,7 +175,7 @@ const ModalAgenda = ({
             <input
               type="checkbox"
               id="estado"
-              className="mr-2"
+              className="object-left rounded border-purple-900 checked:bg-purple-900"
               checked={estado}
               onChange={handleEstadoChange}
             />
@@ -183,14 +183,14 @@ const ModalAgenda = ({
           <div className="flex justify-end">
             <button
               type="submit"
-              className="m-12 flex w-full justify-center rounded-md bg-rosa px-3 py-1.5 text-sm font-semibold leading-6 text-white shadow-sm hover:bg-indigo-500 focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-indigo-600"
+              className="m-12 flex w-full justify-center rounded-md bg-fuchsia-400 px-3 py-1.5 text-sm font-semibold leading-6 text-white shadow-sm hover:bg-purple-500 focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-indigo-600"
             >
               Guardar
             </button>
             <button
               type="button"
               onClick={onClose}
-              className="m-12 flex w-full justify-center rounded-md bg-grey px-3 py-1.5 text-sm font-semibold leading-6 text-black shadow-sm hover:bg-indigo-500 focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-indigo-600"
+              className="m-12 flex w-full justify-center rounded-md bg-slate-300 px-3 py-1.5 text-sm font-semibold leading-6 text-black shadow-sm hover:bg-indigo-500 focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-indigo-600"
             >
               Cancelar
             </button>

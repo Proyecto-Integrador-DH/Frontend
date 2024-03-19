@@ -1,22 +1,29 @@
 import React, { useEffect, useState } from "react";
 import { useParams } from "react-router-dom";
 import { useNavigate, Link } from "react-router-dom";
-import {
-  fetchProduct,
-  fetchCheckFavoritos,
-} from "../services/api";
+import { fetchProduct, fetchCheckFavoritos } from "../services/api";
 import flecha from "../assets/arrowRightflecha.png";
+import Calendar from "../Components/calendar/Calendar";
+import "./details.css"; // Importa el archivo CSS para estilos personalizados
+import { fetchListarAgendaProducto } from "../services/api";
 import "./details.css";
 import FavoriteButton from "../Components/Favorite/Favorite";
+import CardCaracteristica from "../Components/CardCaracteristica/CardCaracteristica.jsx";
+import Politicas from "../Components/Politica/Politicas.jsx";
+import { faL } from "@fortawesome/free-solid-svg-icons";
 
 const Details = ({ clienteId }) => {
   const { id } = useParams();
   const navigate = useNavigate();
   const [detallesProducto, setDetallesProducto] = useState([]);
   const [isFavorite, setIsFavorite] = useState(false);
-
+  const [mostrarPoliticas, setMostrarPoliticas] = useState(false);
   const defaultImage = "https://via.placeholder.com/150";
   const totalImage = 4;
+
+  useEffect(() => {
+    fetchDetallesProductos();
+  }, [id]);
 
   const fetchDetallesProductos = async () => {
     try {
@@ -42,9 +49,13 @@ const Details = ({ clienteId }) => {
     ?.slice(1, 5)
     .concat(missingImagesArray);
 
-  useEffect(() => {
-    fetchDetallesProductos();
-  }, []);
+  const abrirPoliticas = () => {
+    setMostrarPoliticas(true);
+  };
+
+  const cerrarPoliticas = () => {
+    setMostrarPoliticas(false);
+  };
 
   return (
     <>
@@ -57,9 +68,13 @@ const Details = ({ clienteId }) => {
         </h1>
       </div>
       <div className="imageContainer relative">
-      <div className="absolute right-40 top-0">
-        <FavoriteButton clienteId={clienteId} productoId={id} className="text-red-500"/>
-      </div>
+        <div className="absolute right-40 top-0">
+          <FavoriteButton
+            clienteId={clienteId}
+            productoId={id}
+            className="text-red-500"
+          />
+        </div>
         {/* Imagen principal grande a la izquierda */}
         <div className="imagenIzquierda">
           {detallesProducto?.imagenes?.length > 0 ? (
@@ -95,6 +110,7 @@ const Details = ({ clienteId }) => {
             <p className="text-justify">{detallesProducto?.descripcion}</p>
           </div>
           <div className="flex flex-col justify-between">
+            <div><Calendar productoId={id} /></div>
             <div className="flex justify-end">
               <button
                 onClick={() => navigate(-1)}
@@ -104,8 +120,32 @@ const Details = ({ clienteId }) => {
                 <span className="text-gray-400">Volver</span>
               </button>
             </div>
+
           </div>
         </div>
+
+        <h2 className="text-2xl font-bold text-rosa mt-4 mb-2">
+          La experiencia incluye
+        </h2>
+        <CardCaracteristica />
+      </div>
+      <div className="mb-10">
+        <p className="text-base mb-2">Antes de reservar, consulta nuestros</p>
+        <button className="botonPoliticas" onClick={abrirPoliticas}>
+          Términos y Condiciones
+        </button>
+        {mostrarPoliticas && (
+          <div>
+            <div className="modal-overlay" onClick={cerrarPoliticas}>
+              <span className="close" onClick={cerrarPoliticas}>
+                &times;
+              </span>
+              <Politicas />
+              {/* <div className="modal-content" onClick={(e) => e.stopPropagation()}>
+                 </div> */}
+            </div>
+          </div>
+        )}
       </div>
     </>
   );

@@ -36,29 +36,29 @@ const Agenda = () => {
   };
 
   return (
-    <div className="overflow-hidden">
+    <div className="w-[90vw] mx-auto">
       <h2 className="text-3xl font-bold mb-6">Agenda de la Experiencia</h2>
-      <div className="overflow-x-auto">
+      <div>
         <table className="whitespace-nowrap table-auto">
           <thead>
             <tr>
-              <th>Nombre de la Experiencia</th>
-              <th>Fecha</th>
-              <th>Cupos</th>
-              <th>Acciones</th>
+              <th className="px-6 py-3text-sm font-semibold tracking-wide text-center">Nombre de la Experiencia</th>
+              <th className="px-6 py-3text-sm font-semibold tracking-wide text-center">Fecha</th>
+              <th className="px-6 py-3text-sm font-semibold tracking-wide text-center">Cupos</th>
+              <th className="px-6 py-3text-sm font-semibold tracking-wide text-center">Acciones</th>
             </tr>
           </thead>
           <tbody>
             {agendas.map((agenda) => (
               <tr key={agenda.id}>
-                <td>{agenda.producto.nombre}</td>
-                <td>{FormatDate(agenda.fechaIda)} a {FormatDate(agenda.fechaVuelta)}</td>
-                <td>{agenda.cupos}</td>
+                <td className="text-md text-center">{agenda.producto.nombre}</td>
+                <td className="text-md text-center">{FormatDate(agenda.fechaIda)} a {FormatDate(agenda.fechaVuelta)}</td>
+                <td className="text-md text-center">{agenda.cupos}</td>
                 <td>
-                  <button className="flex justify-center rounded-md bg-rosa px-3 py-1.5 text-m font-semibold leading-6 text-white shadow-sm hover:bg-indigo-500 focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-indigo-600">
+                  <button className="w-20 flex mx-auto m-2 rounded-md bg-fuchsia-400 px-3 py-2 text-sm font-medium text-justify text-white shadow-sm hover:bg-purple-500 focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-indigo-600">
                     Editar
                   </button>
-                  <button className="flex justify-center rounded-md bg-rosa px-3 py-1.5 text-m font-semibold leading-6 text-white shadow-sm hover:bg-indigo-500 focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-indigo-600">
+                  <button className="w-20 flex mx-auto m-2 rounded-md bg-fuchsia-400 px-3 py-2 text-sm font-medium text-white shadow-sm hover:bg-purple-500 focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-indigo-600">
                     Eliminar
                   </button>
                 </td>
@@ -69,7 +69,7 @@ const Agenda = () => {
       </div>
       <div className="flex justify-center m-10">
         <button
-          className="flex justify-center rounded-md bg-rosa px-3 py-1.5 text-m font-semibold leading-6 text-white shadow-sm hover:bg-indigo-500 focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-indigo-600 m-10"
+          className="flex justify-center rounded-md bg-fuchsia-400 px-3 py-3 text-m font-semibold leading-6 text-white shadow-sm hover:bg-purple-500 focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-indigo-600 m-10"
           onClick={handleModalOpen}
         >
           Agendar Experiencia

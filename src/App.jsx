@@ -20,11 +20,16 @@ import ProtectedRoutes from "./router/ProtectedRoutes.jsx";
 import ProductList from "./Components/ListProduct/ProductList.jsx";
 import Agenda from "./Components/Agenda/Agenda.jsx";
 import AgendaProducto from "./Components/Agenda/AgendaProducto.jsx";
+// import Calendar from "./Components/calendar/Calendar.jsx";
+
+
 import Reserva from "./Components/Reserva/Reserva.jsx";
 import CrearClienteForm from "./Components/Cliente/Cliente.jsx";
 import PanelUsuario from "./Pages/PanelUsuario/PanelUsuario.jsx"
 import ListFavorite from "./Components/ListFavorite/ListFavorite.jsx";
 import SearchResults from "./Components/searcher/ListSearcher.jsx";
+import Caracteristicas from './Components/Caracteristicas/Caracteristicas.jsx'
+import AsignarCaracteristica from "./Components/AsignarCaracteristica/AsignarCaracteristica.jsx";
 
 function App() {
   const [user, setUser] = useState(null);
@@ -59,7 +64,7 @@ function App() {
           });
       }
     };
-  
+
     obtenerEmail();
   }, []);
 
@@ -86,6 +91,8 @@ function App() {
           <Route path="/asignarCategoria" element={<AsignarCategoria />} />
           <Route path="/agenda" element={<Agenda />} />
           <Route path="/agenda/:id" element={<AgendaProducto />} />
+          <Route path='/caracteristicas' element={<Caracteristicas />} />
+          <Route path='/asignarCaracteristica' element={<AsignarCaracteristica />} />
         </Route>
         <Route path="/crearUsuario" element={<RegisterUser />} />
         <Route path="/listarProductos/:categoryId" element={<ProductList clienteId={cliente?.id} />} />
@@ -93,7 +100,7 @@ function App() {
         <Route path="/cliente" element={<CrearClienteForm user={user} />} />
         <Route path="/panelUsuario" element={<PanelUsuario />} />
         <Route path="/listarFavoritos" element={<ListFavorite clienteId={cliente?.id} />} />
-        <Route path="/search" element={<SearchResults/>} />
+        <Route path="/search" element={<SearchResults />} />
       </Routes>
     </>
   );

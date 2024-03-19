@@ -1,6 +1,7 @@
 import React, { useState } from 'react';
 import { Dialog, Transition } from '@headlessui/react';
 import { Fragment, useRef } from 'react';
+import { FaInfo } from 'react-icons/fa';
 
 const ErrorComponent = ({ title, message, onClose }) => {
   const [open, setOpen] = useState(true)
@@ -37,8 +38,8 @@ const ErrorComponent = ({ title, message, onClose }) => {
             <div className="bg-white rounded-lg overflow-hidden shadow-xl transform transition-all sm:max-w-lg">
               <div className="px-4 py-5 sm:p-6">
                 <div className="sm:flex sm:items-start">
-                  <div className="mx-auto flex-shrink-0 flex items-center justify-center h-12 w-12 rounded-full bg-red-100 sm:mx-0 sm:h-10 sm:w-10">
-                    
+                  <div className="mx-auto flex-shrink-0 flex items-center justify-center h-12 w-12 rounded-full bg-purple-600 sm:mx-0 sm:h-10 sm:w-10">
+                  <FaInfo />
                   </div>
                   <div className="mt-3 text-center sm:mt-0 sm:ml-4 sm:text-left">
                     <Dialog.Title as="h3" className="text-lg leading-6 font-medium text-gray-900">
@@ -60,7 +61,7 @@ const ErrorComponent = ({ title, message, onClose }) => {
                   onClick={onClose}
                   ref={cancelButtonRef}
                 >
-                  Cancel
+                  Cerrar
                 </button>
               </div>
             </div>

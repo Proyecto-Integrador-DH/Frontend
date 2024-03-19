@@ -9,6 +9,7 @@ import style from "./ListProducts.module.css";
 import { fetchCategorias } from "../../services/api";
 import { errorHandling } from "../../services/errorHandling";
 import ErrorComponent from "../error/ErrorAlert";
+import AsignarCaracteristica from "../AsignarCaracteristica/AsignarCaracteristica";
 
 const ListProducts = () => {
   const [productos, setProducts] = useState([]);
@@ -18,6 +19,7 @@ const ListProducts = () => {
   const [error, setError] = useState(null);
   const [titleError, setTitleError] = useState(null);
   const [modalErrorVisible, setModalErrorVisible] = useState(false);
+  const [mostrarAsignarCaracteristica, setMostrarAsignarCaracteristica] = useState(false);
 
   useEffect(() => {
     fetchListarProductos()
@@ -106,8 +108,12 @@ const ListProducts = () => {
     errorHandling(error);
   };
 
+  const guardarCaracteristicasSeleccionadas = (caracteristicas) => {
+    setMostrarAsignarCaracteristica(false);
+};
+
   return (
-    <div className="overflow-hidden">
+    <div className="w-[95vw] mx-auto">
       <h2 className="text-3xl font-bold mb-6">Lista de Experiencias</h2>
       {modalErrorVisible && (
         <ErrorComponent
@@ -116,29 +122,29 @@ const ListProducts = () => {
           onClose={closeModal}
         />
       )}
-      <div className="overflow-x-auto">
-        <table className="whitespace-nowrap table-auto">
+      <div className="relative shadow-md sm:rounded-lg">
+        <table className="w-[95vw] mx-auto">
           <thead>
             <tr>
-              <th>ID</th>
-              <th>Nombre de la Experiencia</th>
-              <th>Categoría</th>
-              <th className="text-center">Cambiar categoría</th>
-              <th className="text-center">Acciones</th>
-              <th>Agenda</th>
+              <th className="px-6 py-3 text-sm font-semibold tracking-wide text-left">ID</th>
+              <th className="px-6 py-3 text-sm font-semibold tracking-wide text-left">Nombre de la Experiencia</th>
+              <th className="px-6 py-3 text-sm font-semibold tracking-wide text-left">Categoría</th>
+              <th className="px-6 py-3 text-sm font-semibold tracking-wide text-left">Cambiar categoría</th>
+              <th className="px-6 py-3 text-sm font-semibold tracking-wide text-center">Acciones</th>
+              <th className="px-6 py-3 text-sm font-semibold tracking-wide text-left">Agenda</th>
             </tr>
           </thead>
           <tbody>
             {productos.map((producto) => (
               <tr key={producto.Id}>
-                <td>{producto.Id}</td>
-                <td>{producto.nombre}</td>
-                <td className="capitalize">{producto.categoria.nombre}</td>
+                <td className="text-sm text-left">{producto.Id}</td>
+                <td className="text-sm text-left">{producto.nombre}</td>
+                <td className="text-sm text-left capitalize">{producto.categoria.nombre}</td>
                 <td>
                   <div className="relative mt-2 text-center">
                     <button
                       type="button"
-                      className="relative w-55 cursor-default rounded-md bg-white py-1.5 pl-3 pr-10 text-left text-gray-900 shadow-sm ring-1 ring-inset ring-gray-300 focus:outline-none focus:ring-2 focus:ring-indigo-500 sm:text-sm sm:leading-6"
+                      className="relative w-40 cursor-default rounded-md bg-white py-1.5 pl-3 pr-10 text-left text-gray-900 shadow-sm ring-1 ring-inset ring-gray-300 focus:outline-none focus:ring-2 focus:ring-indigo-500 sm:text-sm sm:leading-6"
                       aria-haspopup="listbox"
                       aria-expanded={showOptions[producto.Id]}
                       aria-labelledby="listbox-label"
@@ -221,9 +227,9 @@ const ListProducts = () => {
                     )}
                   </div>
                 </td>
-                <td className="text-center">
+                <td className="accion">
                   <button
-                    className={style.button}
+                    className={style.button1}
                     onClick={() =>
                       handleChangeCategoria(
                         producto.Id,
@@ -234,17 +240,29 @@ const ListProducts = () => {
                     Actualizar
                   </button>
                   <button
-                    className={style.button}
+                    className={style.button1}
                     onClick={() => handleDeleteProducto(producto.Id)}
                   >
                     Eliminar
                   </button>
+                  <button 
+                  className={style.button1}
+                  onClick={() => {
+                    if(mostrarAsignarCaracteristica){
+                      setMostrarAsignarCaracteristica(false);
+                    }else{
+                      setMostrarAsignarCaracteristica(true);
+                    }
+                  }}
+                  >
+                    {mostrarAsignarCaracteristica ? "Ocultar Características" : "Seleccionar Características"}
+                    </button>
                 </td>
                 <td>
-                  <div className="flex text-center">
+                  <div>
                     <Link
                       to={`/agenda/${producto.Id}`}
-                      className="text-blue-500 hover:underline"
+                      className="text-sm text-purple-500 hover:underline"
                     >
                       Ver más
                     </Link>
@@ -254,6 +272,7 @@ const ListProducts = () => {
             ))}
           </tbody>
         </table>
+        {mostrarAsignarCaracteristica && <AsignarCaracteristica onSave={guardarCaracteristicasSeleccionadas} />}
       </div>
     </div>
   );
