@@ -1,14 +1,25 @@
 import React, { useEffect, useState } from "react";
 import { FaRegHeart, FaHeart } from "react-icons/fa";
-import { fetchAddFavoritos, fetchRemoveFavoritos, fetchCheckFavoritos } from "../../services/api";
+import {
+  fetchAddFavoritos,
+  fetchRemoveFavoritos,
+  fetchCheckFavoritos,
+} from "../../services/api";
+import ErrorComponent from "../error/ErrorAlert";
 
 const FavoriteButton = ({ clienteId, productoId }) => {
   const [isFavorite, setIsFavorite] = useState(false);
+  const [error, setError] = useState(null);
+  const [titleError, setTitleError] = useState(null);
+  const [modalErrorVisible, setModalErrorVisible] = useState(false);
 
   useEffect(() => {
     const checkFavoriteStatus = async () => {
       try {
-        const isFav = await fetchCheckFavoritos(Number(clienteId), Number(productoId));
+        const isFav = await fetchCheckFavoritos(
+          Number(clienteId),
+          Number(productoId)
+        );
         console.log("isFav", isFav);
         setIsFavorite(isFav);
       } catch (error) {
@@ -23,6 +34,13 @@ const FavoriteButton = ({ clienteId, productoId }) => {
 
   const handleToggleFavorite = async () => {
     try {
+      if (!clienteId || !productoId) {
+        setTitleError("Información");
+        setError(
+          "Actualmente no se puede agregar a favoritos, completa tus datos e intenta nuevamente."
+        );
+        setModalErrorVisible(true);
+      }
       const favorito = {
         cliente: { id: clienteId },
         producto: { Id: productoId },
@@ -42,9 +60,24 @@ const FavoriteButton = ({ clienteId, productoId }) => {
     }
   };
 
+  const closeModal = () => {
+    setModalErrorVisible(false);
+  };
+
   return (
     <div className="favoriteIcon" onClick={handleToggleFavorite}>
-      {isFavorite ? <FaHeart color="red" size={32} /> : <FaRegHeart size={32} />}
+      {modalErrorVisible && (
+        <ErrorComponent
+          title={titleError}
+          message={error}
+          onClose={closeModal}
+        />
+      )}
+      {isFavorite ? (
+        <FaHeart color="red" size={32} />
+      ) : (
+        <FaRegHeart size={32} />
+      )}
     </div>
   );
 };
