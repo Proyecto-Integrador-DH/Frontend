@@ -50,9 +50,6 @@ const Agenda = ({ productoId }) => {
       setAgenda(filteredAgenda);
     } catch (error) {
       console.error("Error al obtener la agenda:", error);
-      setTitleError("Error");
-      setError("Error al obtener agenda de la experiencia. Intente nuevamente más tarde.");
-      setModalErrorVisible(true);
     }
   };
 
@@ -70,6 +67,12 @@ const Agenda = ({ productoId }) => {
   };
 
   const toggleCalendar = () => {
+    if(!agenda.length){
+      setShowCalendar(false);
+      setModalErrorVisible(true);
+      setTitleError("Error");
+      setError("Error al obtener la agenda de la experiencia. Intente nuevamente más tarde.");
+    }
     setShowCalendar((prevShowCalendar) => !prevShowCalendar);
   };
 
