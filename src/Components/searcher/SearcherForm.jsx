@@ -17,6 +17,22 @@ function SearchForm() {
   const history = useNavigate();
   const calendarRef = useRef(null);
   const [criterio, setCriterio] = useState("");
+  const [suggestions, setSuggestions] = useState([]);
+  const [showSuggestions, setShowSuggestions] = useState(false);
+  const [selectedIndex, setSelectedIndex] = useState(-1);
+  const palabras = [
+    "hotel",
+    "rural",
+    "playa",
+    "montaña",
+    "aventura",
+    "ciudad",
+    "spa",
+    "buceo",
+    "tango",
+    "Colombia",
+    "Argentina",
+  ];
 
   useEffect(() => {
     document.addEventListener("mousedown", handleClickOutside);
@@ -45,7 +61,7 @@ function SearchForm() {
   };
 
   const handleSearchClick = () => {
-    if(!criterio) {
+    if (!criterio) {
       handleError("Error", "Por favor ingresa un criterio de búsqueda.");
       return;
     }
@@ -72,8 +88,46 @@ function SearchForm() {
   };
 
   const handleCriterioChange = (event) => {
-    console.log("Criterio de búsqueda", event.target.value);
-    setCriterio(event.target.value);
+    const inputValue = event.target.value;
+    setCriterio(inputValue);
+    const filteredSuggestions = palabras.filter((palabra) =>
+      palabra.toLowerCase().includes(inputValue.toLowerCase())
+    );
+    setSuggestions(filteredSuggestions);
+  };
+
+  const handleKeyDown = (event) => {
+    if (event.key === "Enter" && suggestions.length > 0) {
+      setCriterio(suggestions[selectedIndex]);
+      setShowSuggestions(false);
+    } else if (event.key === "ArrowUp") {
+      event.preventDefault();
+      setSelectedIndex((prevIndex) =>
+        prevIndex === 0 ? suggestions.length - 1 : prevIndex - 1
+      );
+    } else if (event.key === "ArrowDown") {
+      event.preventDefault();
+      setSelectedIndex((prevIndex) =>
+        prevIndex === suggestions.length - 1 ? 0 : prevIndex + 1
+      );
+    }
+  };
+
+  const handleSuggestionClick = (suggestion) => {
+    setCriterio(suggestion);
+    setShowSuggestions(false);
+  };
+
+  const handleFocus = () => {
+    const inputValue = criterio.trim().toLowerCase();
+    const filteredSuggestions = palabras.filter((palabra) =>
+      palabra.toLowerCase().includes(inputValue)
+    );
+    setShowSuggestions(filteredSuggestions.length > 0);
+  };
+
+  const handleBlur = () => {
+    setShowSuggestions(false);
   };
 
   return (
@@ -91,17 +145,33 @@ function SearchForm() {
           "Ingresa las palabras clave y fechas para que hagas match con una experiencia"}
       </p>
       <form className="mb-4 flex flex-wrap justify-center items-center">
-        <div className="mb-2 mr-2">
+        <div className="mb-2 mr-2 relative">
           <input
             type="text"
             id="criterio"
             value={criterio}
             onChange={handleCriterioChange}
-            onFocus={() => setIsFocused(true)}
-            onBlur={() => setIsFocused(false)}
+            onFocus={handleFocus}
+            onBlur={handleBlur}
+            onKeyDown={handleKeyDown}
             required
-            className="capitalize block w-48 px-3 py-2 border border-gray-300 rounded-md shadow-sm focus:ring-indigo-500 focus:border-indigo-500 sm:text-sm"
+            className="block w-48 px-3 py-2 border border-gray-300 rounded-md shadow-sm focus:ring-indigo-500 focus:border-indigo-500 sm:text-sm"
           />
+          {showSuggestions && (
+            <ul className="absolute left-0 z-10 w-48 mt-2 bg-white border border-gray-200 rounded-md shadow-lg">
+              {suggestions.map((suggestion, index) => (
+                <li
+                  key={index}
+                  className={`px-3 py-2 cursor-pointer hover:bg-gray-100 ${
+                    selectedIndex === index ? "bg-gray-100" : ""
+                  }`}
+                  onClick={() => handleSuggestionClick(suggestion)}
+                >
+                  {suggestion}
+                </li>
+              ))}
+            </ul>
+          )}
         </div>
         <div className="mb-2 mr-2">
           <label className="block" ref={calendarRef}>
