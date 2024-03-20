@@ -61,11 +61,12 @@ const FavoriteButton = ({ clienteId, productoId }) => {
   };
 
   const closeModal = () => {
+    console.log("closeModal");
     setModalErrorVisible(false);
   };
 
   return (
-    <div className="favoriteIcon" onClick={handleToggleFavorite}>
+    <div>
       {modalErrorVisible && (
         <ErrorComponent
           title={titleError}
@@ -73,11 +74,13 @@ const FavoriteButton = ({ clienteId, productoId }) => {
           onClose={closeModal}
         />
       )}
-      {isFavorite ? (
-        <FaHeart color="red" size={32} />
-      ) : (
-        <FaRegHeart size={32} />
-      )}
+      <div className="favoriteIcon" onClick={handleToggleFavorite}>
+        {isFavorite ? (
+          <FaHeart color="red" size={32} />
+        ) : (
+          <FaRegHeart size={32} />
+        )}
+      </div>
     </div>
   );
 };
