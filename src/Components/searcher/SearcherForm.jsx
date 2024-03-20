@@ -4,7 +4,7 @@ import { fetchCategorias } from "../../services/api";
 import ErrorComponent from "../error/ErrorAlert";
 import DatePicker from "react-datepicker";
 import "react-datepicker/dist/react-datepicker.css";
-//import moment from "moment";
+import moment from "moment";
 
 function SearchForm() {
   const [categoryId, setCategoryId] = useState("");
@@ -21,6 +21,7 @@ function SearchForm() {
   const history = useNavigate();
   let typingTimer;
   const calendarRef = useRef(null);
+
 
   useEffect(() => {
     fetchCategories();
