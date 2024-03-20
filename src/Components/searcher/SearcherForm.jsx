@@ -1,4 +1,4 @@
-import React, { useState, useEffect, useRef } from "react";
+import React, { useState, useEffect, useRef, useMemo } from "react";
 import { useNavigate } from "react-router-dom";
 import { fetchCategorias } from "../../services/api";
 import ErrorComponent from "../error/ErrorAlert";
@@ -32,6 +32,7 @@ function SearchForm() {
     "tango",
     "Colombia",
     "Argentina",
+    "noche"
   ];
 
   useEffect(() => {
@@ -90,45 +91,51 @@ function SearchForm() {
   const handleCriterioChange = (event) => {
     const inputValue = event.target.value;
     setCriterio(inputValue);
+  
     const filteredSuggestions = palabras.filter((palabra) =>
       palabra.toLowerCase().includes(inputValue.toLowerCase())
     );
     setSuggestions(filteredSuggestions);
+    setShowSuggestions(inputValue.trim() !== "" && filteredSuggestions.length > 0);
   };
+  
+  const filteredSuggestions = useMemo(() => {
+    const inputValue = criterio.trim().toLowerCase();
+    return palabras.filter((palabra) =>
+      palabra.toLowerCase().includes(inputValue)
+    );
+  }, [criterio]);
 
   const handleKeyDown = (event) => {
-    if (event.key === "Enter" && suggestions.length > 0) {
-      setCriterio(suggestions[selectedIndex]);
-      setShowSuggestions(false);
+    if (event.key === "Enter" && filteredSuggestions.length > 0) {
+      setCriterio(filteredSuggestions[selectedIndex]);
+      setSelectedIndex(-1);
     } else if (event.key === "ArrowUp") {
       event.preventDefault();
       setSelectedIndex((prevIndex) =>
-        prevIndex === 0 ? suggestions.length - 1 : prevIndex - 1
+        prevIndex === 0 ? filteredSuggestions.length - 1 : prevIndex - 1
       );
     } else if (event.key === "ArrowDown") {
       event.preventDefault();
       setSelectedIndex((prevIndex) =>
-        prevIndex === suggestions.length - 1 ? 0 : prevIndex + 1
+        prevIndex === filteredSuggestions.length - 1 ? 0 : prevIndex + 1
       );
     }
   };
 
   const handleSuggestionClick = (suggestion) => {
     setCriterio(suggestion);
+    setSelectedIndex(-1);
+    setSuggestions([]);
     setShowSuggestions(false);
   };
 
   const handleFocus = () => {
     setIsFocused(true);
-    const inputValue = criterio.trim().toLowerCase();
-    const filteredSuggestions = palabras.filter((palabra) =>
-      palabra.toLowerCase().includes(inputValue)
-    );
-    setShowSuggestions(filteredSuggestions.length > 0);
   };
 
   const handleBlur = () => {
-    setShowSuggestions(false);
+    setIsFocused(false);
   };
 
   return (
