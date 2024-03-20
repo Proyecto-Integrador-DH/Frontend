@@ -119,6 +119,7 @@ function SearchForm() {
   };
 
   const handleFocus = () => {
+    setIsFocused(true);
     const inputValue = criterio.trim().toLowerCase();
     const filteredSuggestions = palabras.filter((palabra) =>
       palabra.toLowerCase().includes(inputValue)
