@@ -10,11 +10,11 @@ const Banner = () => {
     return (
         <div className={BannerStyles.bannerContainer}>
             <div className={BannerStyles.bannerDivOne}>
-                <img src= {Explorer} alt="banner"/>
+                <img className="mt-4" src= {Explorer} alt="banner"/>
                 <h2>Desde</h2> 
                 <h2>Colombia </h2>
                 <h3>hasta Argentina </h3>
-                <p>Recuerda que nunca es tarde para cumplir tus sueños <br></br>aventureros, ¡así que planea tu próxima travesía con nosotros en cualquier momento!</p>
+                <p>Recuerda que nunca es tarde para cumplir tus sueños aventureros, ¡así que planea tu próxima travesía con nosotros en cualquier momento!</p>
             </div>
             <div className={BannerStyles.bannerDivTwo}>
                 <img src= {ImagenBanner} alt="banner"/>

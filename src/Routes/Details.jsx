@@ -124,14 +124,14 @@ const Details = ({ clienteId }) => {
           </div>
         </div>
 
-        <h2 className="text-2xl font-bold text-rosa mt-4 mb-2">
+        <h2 className="text-2xl font-bold mt-4 mb-2">
           La experiencia incluye
         </h2>
         <CardCaracteristica />
       </div>
       <div className="mb-10">
         <p className="text-base mb-2">Antes de reservar, consulta nuestros</p>
-        <button className="botonPoliticas" onClick={abrirPoliticas}>
+        <button className="bg-purple-600 hover:bg-purple-400 focus:outline-none focus:ring-2 focus:ring-purple-600 focus:ring-opacity-50 text-white rounded-md px-4 py-2 transition-colors duration-300 ease-in-out" onClick={abrirPoliticas}>
           Términos y Condiciones
         </button>
         {mostrarPoliticas && (

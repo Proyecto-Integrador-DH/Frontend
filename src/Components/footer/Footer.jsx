@@ -19,28 +19,27 @@ const Footer= () => {
         </div>
         <div className="segundaColumna">
           <div className="about">
-            <h4>About</h4>
+            <h4>Menú</h4>
             <ul className="ul">
-              <li>How to book</li>
-              <li>Contact Us</li>
-              <li>Help Center</li>
-              <li>Career</li>
+              <li>Home</li>
+              <li>Reservas</li>
+              <li>Detalles</li>
             </ul>
           </div>
           <div className="products">
-            <h4>Products</h4>
+            <h4>Experiencias</h4>
             <ul className="ul">
-              <li>Flights</li>
-              <li>Hotels</li>
-              <li>Trains</li>
-              <li>Villas</li>
+              <li>Ciudad y noche</li>
+              <li>Aventura y naturaleza</li>
+              <li>Cultura y patrimonio</li>
+              <li>Bienestar y coaching</li>
             </ul>
           </div>
           <div className="other">
-            <h4>Other</h4>
+            <h4>Otros</h4>
             <ul className="ul">
-              <li>Blog</li>
-              <li>Privacy Notice</li>
+              <li>Contáctanos</li>
+              <li>Políticas</li>
             </ul>
           </div>
         </div>
@@ -48,9 +47,10 @@ const Footer= () => {
       <div className="parte2">
         <img src={Copyright} alt="" />
         <div className="footer-social">
-          <FontAwesomeIcon icon={faFacebook}/>
-          <FontAwesomeIcon icon={faTwitterSquare} className="twitter" />
-          <FontAwesomeIcon icon={faInstagramSquare}/>
+        <a href="https://www.facebook.com/SoloAventuraDH/" target="_blank" rel="noopener noreferrer"><FontAwesomeIcon icon={faFacebook} className="h-6"/></a>
+        <a href="https://twitter.com/Hugo3802128953/" target="_blank" rel="noopener noreferrer"><FontAwesomeIcon icon={faTwitterSquare} className="twitter h-6" /></a>
+        <a href="https://www.instagram.com/soloaventurasdh/" target="_blank" rel="noopener noreferrer"><FontAwesomeIcon icon={faInstagramSquare} className="h-6" /></a>
+
         </div>
       </div>
     </>

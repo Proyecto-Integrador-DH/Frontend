@@ -123,7 +123,7 @@ const Recommended = () => {
               )}
             </div>
             <div>
-              <p>{product.nombre}</p>
+              <p className="mt-3 mb-1 font-medium">{product.nombre}</p>
             </div>
             <Link to={`/details/${product.Id}`}>
               <button className={RecommendedStyles.verDetalles}>

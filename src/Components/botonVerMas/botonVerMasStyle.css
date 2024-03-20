@@ -1,8 +1,13 @@
 .boton{
-    background-color: #cdb7e9;
+    background-color: #ffffff;
     color: #872BFF;
-    border-radius: 20px; 
+    border-radius: 10px; 
+    border: #872BFF solid 1px;
     font-size: 1.1rem;  
+    font-weight: 600;
     margin-top: 20px;   
     padding: 10px 10px;
+    box-shadow: 0px 8px 11px -6px rgba(31, 30, 30, 0.77);
+  -webkit-box-shadow: 0px 8px 11px -6px rgba(0, 0, 0, 0.77);
+  -moz-box-shadow: 0px 8px 11px -6px rgba(0, 0, 0, 0.77);
   }

@@ -24,6 +24,24 @@
 .searcherContainer button:hover {
     background-color: #ff94ed;
 }
+.titu{
+    color: #F411CF;
+}
+.date{
+    margin-bottom:0.52rem;
+    margin-right: 0.5rem;
+}
+.date input{
+    width: 14rem;
+    border-radius: 6px;
+}
+.date input:focus{
+   outline: none;
+   border-color:#872BFF
+}
+
+ 
+
 
 
 

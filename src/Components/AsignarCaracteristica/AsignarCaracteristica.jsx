@@ -30,7 +30,7 @@ const AsignarCaracteristica = ({ onSave }) => {
     console.log(caracteristicasSeleccionadas, "dssss");
     setCaracteristicasSeleccionadas([...caracteristicasSeleccionadas]);
     localStorage.setItem('selectedfeatures', JSON.stringify(caracteristicasSeleccionadas));
-    onSave([...caracteristicasSeleccionadas]);     // Llama a la función onSave con las características seleccionadas
+    onSave([...caracteristicasSeleccionadas]);
   };
 
 
@@ -52,7 +52,7 @@ const AsignarCaracteristica = ({ onSave }) => {
           </li>
         ))}
       </ul>
-      <button className={style.button} onClick={handleGuardar}>Guardar</button> {/* Agrega el botón "Guardar" */}
+      <button className={style.button} onClick={handleGuardar}>Guardar</button>
     </div>
   );
 };

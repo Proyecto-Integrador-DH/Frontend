@@ -46,12 +46,12 @@
   /* Estilos para el contenedor de cada par de tarjetas */
   .tarjetasContainer {
     display: flex;
-    
+    width: 100%;
+    justify-content: space-evenly; 
   }
   
   /* Estilos para las tarjetas */
   .tarjetas {
-    margin-right: 80px;
     background-color: #f9f9f9;
     padding: 30px;
     border-radius: 16px;
@@ -66,7 +66,7 @@
     transform: translateY(-5px);
   }
   
-  @media screen and (max-width: 425px) {
+  /* @media(max-width: 425px) {
     .contenedor {
       display: none !important;
     }
@@ -79,5 +79,7 @@
       margin-top: 50px;
       text-align: center;
     }
+    .tarjetasContainer {
+      display: grid;
   }
-  
+} */

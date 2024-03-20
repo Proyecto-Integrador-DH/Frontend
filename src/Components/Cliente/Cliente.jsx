@@ -44,9 +44,15 @@ const CrearClienteForm = ({ user }) => {
   };
 
   return (
-    <form onSubmit={handleSubmit}>
+    <form className="max-w-md mx-auto mt-6" onSubmit={handleSubmit}>
       {/* Campos para los datos del cliente */}
+
+      <h3 className="w-full text-center text-2xl font-semibold p-0">Datos cliente</h3>
+      <p className="text-center text-xs font-base mb-2">Complete los siguientes campos</p>
+
+      <div className="mb-5">
       <input
+        className="block py-2.5 px-0 w-full text-sm text-gray-900 bg-transparent border-0 border-b-2 border-gray-600 focus:outline-none focus:ring-0 focus:border-purple-600 peer"
         type="text"
         name="tipoDocumento"
         value={cliente.tipoDocumento}
@@ -54,7 +60,11 @@ const CrearClienteForm = ({ user }) => {
         placeholder="Tipo de documento"
         required
       />
+      </div>
+
+      <div className="mb-5">
       <input
+        className="block py-2.5 px-0 w-full text-sm text-gray-900 bg-transparent border-0 border-b-2 border-gray-600 focus:outline-none focus:ring-0 focus:border-purple-600 peer"
         type="text"
         name="numeroDocumento"
         value={cliente.numeroDocumento}
@@ -62,7 +72,10 @@ const CrearClienteForm = ({ user }) => {
         placeholder="Número de documento"
         required
       />
+      </div>
+      <div className="mb-5">
       <input
+        className="block py-2.5 px-0 w-full text-sm text-gray-900 bg-transparent border-0 border-b-2 border-gray-600 focus:outline-none focus:ring-0 focus:border-purple-600 peer"
         type="text"
         name="telefono"
         value={cliente.telefono}
@@ -70,7 +83,10 @@ const CrearClienteForm = ({ user }) => {
         placeholder="Teléfono"
         required
       />
+      </div>
+      <div className="mb-5">
       <input
+        className="block py-2.5 px-0 w-full text-sm text-gray-900 bg-transparent border-0 border-b-2 border-gray-600 focus:outline-none focus:ring-0 focus:border-purple-600 peer"
         type="text"
         name="direccion"
         value={cliente.direccion}
@@ -78,7 +94,10 @@ const CrearClienteForm = ({ user }) => {
         placeholder="Dirección"
         required
       />
+      </div>
+      <div className="mb-5">
       <input
+        className="block py-2.5 px-0 w-full text-sm text-gray-900 bg-transparent border-0 border-b-2 border-gray-600 focus:outline-none focus:ring-0 focus:border-purple-600 peer"
         type="text"
         name="ciudad"
         value={cliente.ciudad}
@@ -86,7 +105,10 @@ const CrearClienteForm = ({ user }) => {
         placeholder="Ciudad"
         required
       />
+      </div>
+      <div className="mb-5">
       <input
+        className="block py-2.5 px-0 w-full text-sm text-gray-900 bg-transparent border-0 border-b-2 border-gray-600 focus:outline-none focus:ring-0 focus:border-purple-600 peer"
         type="text"
         name="pais"
         value={cliente.pais}
@@ -94,7 +116,8 @@ const CrearClienteForm = ({ user }) => {
         placeholder="País"
         required
       />
-      <button type="submit">Completar Información</button>
+      </div>
+      <button className="my-6 px-4 py-2 text-sm font-medium text-white bg-purple-600 border border-transparent rounded-md shadow-sm hover:bg-purple-300 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-purple-500" type="submit">Completar Información</button>
     </form>
   );
 };

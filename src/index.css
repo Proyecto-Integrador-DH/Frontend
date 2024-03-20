@@ -24,4 +24,15 @@ a {
   text-decoration: none;
 }
 
+.react-datepicker__header{
+  background-color:#872BFF;
+  }
+  .react-datepicker-popper[data-placement^=bottom] .react-datepicker__triangle {
+    fill: #872BFF;
+    color: #872BFF;
+}
+.react-datepicker__current-month,
+.react-datepicker__day-name{
+  color: aliceblue;
+}
 

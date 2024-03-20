@@ -2,7 +2,7 @@ import React from "react";
 
 const Politicas = () => {
   return (
-    <div className="modal-overlay">
+    <div className="modal-overlay p-12">
       <div className="container mx-auto">
         <h2 className="text-2xl font-bold underline mb-4">
           Políticas de términos y condiciones
@@ -11,7 +11,7 @@ const Politicas = () => {
           Al reservar su experiencia deseada, usted acepta los siguientes
           términos y condiciones:
         </h3>
-        <div className="w-full bg-gradient-to-r from-purple-200 to-pink-300  rounded-lg">
+        <div className="w-full bg-gradient-to-r from-pink-200 to-white  rounded-lg">
         <h2 className="text-2xl font-bold underline pt-6">
           Términos y condiciones
         </h2>

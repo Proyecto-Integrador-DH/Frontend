@@ -120,7 +120,7 @@ const Agenda = ({ productoId }) => {
       )}
       <button
         onClick={toggleCalendar}
-        className="bg-purple-400 hover:bg-purple-600 focus:outline-none focus:ring-2 focus:ring-purple-600 focus:ring-opacity-50 text-white rounded-md px-4 py-2 transition-colors duration-300 ease-in-out"
+        className="bg-purple-600 hover:bg-purple-400 focus:outline-none focus:ring-2 focus:ring-purple-600 focus:ring-opacity-50 text-white rounded-md px-4 py-2 transition-colors duration-300 ease-in-out"
       >
         Ver Disponibilidad
       </button>
