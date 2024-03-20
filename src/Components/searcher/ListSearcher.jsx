@@ -6,26 +6,36 @@ import { useSearchParams } from "react-router-dom";
 import formatDate from "../../utils/FormatDate";
 import flecha from "../../assets/arrowRightflecha.png";
 
-const SearchResults = () => {
+const ListSearch = () => {
   const [results, setResults] = useState([]);
   const [searchParams] = useSearchParams();
-  const categoryId = searchParams.get("category");
   const startDate = searchParams.get("start");
   const endDate = searchParams.get("end");
+  const criteria = searchParams.get("criteria");
   const [notFound, setNotFound] = useState(false);
   const navigate = useNavigate();
 
   useEffect(() => {
     const fetchData = async () => {
       try {
-        console.log("Buscando productos con los siguientes parámetros", {
-          categoryId,
-          startDate,
-          endDate,
+        const data = await fetchSearch(startDate, endDate);
+        const filteredResults = data.filter((result) => {
+          return (
+            (result.producto?.nombre || "")
+              .toLowerCase()
+              .includes((criteria || "").toLowerCase()) ||
+            (result.producto?.descripcion || "")
+              .toLowerCase()
+              .includes((criteria || "").toLowerCase())
+          );
         });
-        const data = await fetchSearch(Number(categoryId), startDate, endDate);
-        console.log("Resultados de búsqueda", data);
-        setResults(data);
+        console.log("Resultados filtrados", filteredResults);
+        setResults(filteredResults);
+        if (filteredResults.length === 0) {
+          setNotFound(true);
+        } else {
+          setNotFound(false);
+        }
       } catch (error) {
         console.error(error);
         setNotFound(true);
@@ -33,7 +43,7 @@ const SearchResults = () => {
     };
 
     fetchData();
-  }, [categoryId, startDate, endDate]);
+  }, [startDate, endDate, criteria]);
 
   if (notFound) {
     return (
@@ -103,4 +113,4 @@ const SearchResults = () => {
   );
 };
 
-export default SearchResults;
+export default ListSearch;
