@@ -12,6 +12,7 @@ const FavoriteButton = ({ clienteId, productoId }) => {
   const [error, setError] = useState(null);
   const [titleError, setTitleError] = useState(null);
   const [modalErrorVisible, setModalErrorVisible] = useState(false);
+  const token = localStorage.getItem("token");
 
   useEffect(() => {
     const checkFavoriteStatus = async () => {
@@ -38,6 +39,13 @@ const FavoriteButton = ({ clienteId, productoId }) => {
         setTitleError("Información");
         setError(
           "Actualmente no se puede agregar a favoritos, completa tus datos e intenta nuevamente."
+        );
+        setModalErrorVisible(true);
+      }
+      if(!token){
+        setTitleError("Información");
+        setError(
+          "Debes iniciar sesión para agregar a favoritos."
         );
         setModalErrorVisible(true);
       }
