@@ -394,8 +394,7 @@ export const fetchCheckFavoritos = async (clienteId, id) => {
 }
 
 export const fetchReservasCliente = async (id) => {
-  const url = `${baseUrl}/reserva/cliente/${id}`;
-  console.log("ID reserva", id);
+  const url = `${baseUrl}/reserva/cliente/${id.clienteId}`;
   const response = await fetch(url, {
     method: "GET",
     headers: {

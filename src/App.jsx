@@ -102,7 +102,7 @@ function App() {
         <Route path="/panelUsuario" element={<PanelUsuario />} />
         <Route path="/listarFavoritos" element={<ListFavorite clienteId={cliente?.id} />} />
         <Route path="/search" element={<SearchResults />} />
-        <Route path="/reservas" element={<Reservas />}></Route>
+        <Route path="/reservas" element={<Reservas clienteId={cliente?.id}/>}></Route>
       </Routes>
     </>
   );
