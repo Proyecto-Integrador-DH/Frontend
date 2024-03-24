@@ -4,7 +4,6 @@ import {
   fetchNuevaReserva,
   fetchReservasCliente,
 } from "../../services/api";
-import FormatDate from "../../utils/FormatDate";
 import ErrorComponent from "../error/ErrorAlert";
 import { useSearchParams, useNavigate } from "react-router-dom";
 import DatePicker from "react-datepicker";
@@ -99,8 +98,6 @@ const Reserva = ({ cliente, usuario }) => {
     setModalErrorVisible(false);
   };
 
-  console.log("cliente", cliente);
-
   return (
     <div className="max-w-xl mx-auto">
       {modalErrorVisible && (
@@ -143,7 +140,7 @@ const Reserva = ({ cliente, usuario }) => {
           </h3>
           <div>
             <p>
-              {usuario && usuario.nombre + " " + usuario && usuario.apellido}
+              {usuario && usuario.nombre} {" "} {usuario && usuario.apellido}
             </p>
             <p>{usuario && usuario.email}</p>
             <p>{cliente && cliente.telefono}</p>
