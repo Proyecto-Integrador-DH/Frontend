@@ -1,9 +1,16 @@
 import React, { useEffect, useState } from "react";
-import { fetchListarAgenda, fetchNuevaReserva, fetchReservasCliente } from "../../services/api";
+import {
+  fetchListarAgenda,
+  fetchNuevaReserva,
+  fetchReservasCliente,
+} from "../../services/api";
 import FormatDate from "../../utils/FormatDate";
 import ErrorComponent from "../error/ErrorAlert";
+import { useSearchParams } from "react-router-dom";
+import DatePicker from "react-datepicker";
+import "react-datepicker/dist/react-datepicker.css";
 
-const Reserva = ({ cliente }) => {
+const Reserva = ({ cliente, usuario }) => {
   const [formData, setFormData] = useState({
     cliente: "",
     agenda: "",
@@ -14,16 +21,37 @@ const Reserva = ({ cliente }) => {
   const [error, setError] = useState(null);
   const [titleError, setTitleError] = useState(null);
   const [modalErrorVisible, setModalErrorVisible] = useState(false);
+  const [searchParams] = useSearchParams();
+  const agendaId = searchParams.get("agendaId");
+  const [agenda, setAgenda] = useState(null);
 
   useEffect(() => {
     fetchListarAgenda()
       .then((data) => {
         setAgendas(data);
+        const agendaSelec = data.find(
+          (agenda) => agenda.id === parseInt(agendaId)
+        );
+        console.log("Agenda Seleccionada", agendaSelec);
+        if (agendaSelec) {
+          setAgenda(agendaSelec);
+        }
       })
       .catch((error) => {
         console.error(error);
+        setError("Error al cargar las agendas");
+        setModalErrorVisible(true);
       });
   }, []);
+
+  useEffect(() => {
+    if (agenda) {
+      setFormData({
+        ...formData,
+        agenda: agenda.id,
+      });
+    }
+  }, [agenda]);
 
   const handleChange = (e) => {
     setFormData({
@@ -37,7 +65,7 @@ const Reserva = ({ cliente }) => {
     if (formData.agenda) {
       const formDataCopy = {
         ...formData,
-        cliente: { id: cliente.id }, 
+        cliente: { id: cliente.id },
         agenda: { id: parseInt(formData.agenda) },
       };
       fetchNuevaReserva(formDataCopy)
@@ -65,8 +93,10 @@ const Reserva = ({ cliente }) => {
     setModalErrorVisible(false);
   };
 
+  console.log("cliente", cliente);
+
   return (
-    <div>
+    <div className="max-w-xl mx-auto">
       {modalErrorVisible && (
         <ErrorComponent
           title={titleError}
@@ -74,39 +104,67 @@ const Reserva = ({ cliente }) => {
           onClose={closeModal}
         />
       )}
-      <h2>Generar Reserva</h2>
-      <form onSubmit={handleSubmit}>
-        <label>
-          Agenda:
-          <select
-            name="agenda"
-            value={formData.agenda}
-            onChange={handleChange}
-            required
-          >
-            <option value="">Seleccione una agenda</option>
-            {agendas.map((agenda) => (
-              <option key={agenda.id} value={agenda.id}>
-                {agenda.producto.nombre} : {FormatDate(agenda.fechaIda)} a{" "}
-                {FormatDate(agenda.fechaVuelta)}
-              </option>
-            ))}
-          </select>
-        </label>
-        <br />
-        <label>
-          Cantidad:
-          <input
-            type="number"
-            name="cantidad"
-            value={formData.cantidad}
-            onChange={handleChange}
-            required
-          />
-        </label>
-        <br />
-        <button type="submit">Generar Reserva</button>
-      </form>
+      <h2 className="text-3xl font-bold mb-6">Generar Reserva</h2>
+      <div className="w-full flex flex-col md:flex-row items-start md:items-center space-y-6 md:space-y-0 md:space-x-6">
+        <div className="w-full">
+          <div className="border rounded-lg p-4 relative bg-white shadow-md">
+            {agenda && agenda.producto && agenda.producto.imagenes && agenda.producto.imagenes[0] && (
+              <img
+                src={agenda.producto.imagenes[0].url}
+                className="object-cover h-40 w-full mb-4 rounded-lg"
+                alt={agenda.producto.nombre}
+              />
+            )}
+            <div className="relative">
+              <h3 className="text-lg font-bold mb-2">{agenda && agenda.producto && agenda.producto.nombre}</h3>
+              <p className="mb-6 font-bold">Cupos disponibles: {agenda.cupos}</p>
+              <p className="text-sm mb-4 text-justify">{agenda && agenda.producto && agenda.producto.descripcion}</p>
+            </div>
+          </div>
+        </div>
+        <div className="w-full">
+          <h3 className="text-2xl font-bold mb-6 text-center">Datos del cliente: </h3>
+          <div>
+            <p>{usuario.nombre + " " + usuario.apellido}</p>
+            <p>{usuario.email}</p>
+            <p>{cliente.telefono}</p>
+            <p className="text-red-500">Ver más... Muestra una modal con más info</p>
+          </div>
+          <form onSubmit={handleSubmit} className="flex flex-col items-start">
+            <label className="mb-4">
+              Fecha de ida:
+              <DatePicker
+                selected={agenda ? new Date(agenda.fechaIda) : null}
+                readOnly
+              />
+            </label>
+            <label className="mb-4">
+              Fecha de vuelta:
+              <DatePicker
+                selected={agenda ? new Date(agenda.fechaVuelta) : null}
+                readOnly
+              />
+            </label>
+            <label className="mb-4">
+              Cantidad:
+              <input
+                type="number"
+                name="cantidad"
+                value={formData.cantidad}
+                onChange={handleChange}
+                required
+                className="border border-gray-300 rounded-md px-2 py-1 focus:outline-none focus:border-blue-500"
+              />
+            </label>
+            <button
+              type="submit"
+              className="m-auto bg-blue-500 hover:bg-blue-700 text-white font-bold py-2 px-4 rounded"
+            >
+              Reservar
+            </button>
+          </form>
+        </div>
+      </div>
     </div>
   );
 };

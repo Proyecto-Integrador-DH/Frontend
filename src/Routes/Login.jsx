@@ -34,21 +34,13 @@ const Login = () => {
           window.location.href = "/";
         }, 2000);
         return;
-      } /* else  {
-        console.log("Correo o contraseña incorrectos.");
-        setError("Error");
-        setTitleError("Correo o contraseña incorrectos.");
-        setModalErrorVisible(true);
-        return;
-      } */
+      }
       } catch (error) {
         console.log("Correo o contraseña incorrectos.");
         setError("Por favor verifique los datos ingresados");
         setTitleError("Correo o contraseña incorrectos.");
         setModalErrorVisible(true);
         return;
-      /* setModalErrorVisible(true);
-      console.error("Error al iniciar sesión:", error.message); */
     }
   };
 
@@ -56,6 +48,8 @@ const Login = () => {
     setModalErrorVisible(false);
     errorHandling(error);
   };
+
+  const isAuthenticated = localStorage.getItem("token");
 
   return (
     <div>
@@ -77,6 +71,11 @@ const Login = () => {
           <h2 className="mt-10 text-center text-2xl font-bold leading-9 tracking-tight text-gray-900">
             Inicie sesión en su cuenta
           </h2>
+          {!isAuthenticated && (
+            <p className="mt-2 text-center text-sm text-gray-600">
+              El login es obligatorio para realizar una reserva.
+            </p>
+          )}
         </div>
 
         <div className="mt-10 sm:mx-auto sm:w-full sm:max-w-sm">

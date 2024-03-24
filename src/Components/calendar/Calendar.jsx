@@ -4,6 +4,7 @@ import "react-datepicker/dist/react-datepicker.css";
 import { fetchListarAgendaProducto } from "../../services/api";
 import { isValid, isAfter, format, isSameDay } from "date-fns";
 import ErrorComponent from "../error/ErrorAlert";
+import { useNavigate, Link } from "react-router-dom";
 
 const Agenda = ({ productoId }) => {
   const [startDate, setStartDate] = useState(new Date());
@@ -16,6 +17,10 @@ const Agenda = ({ productoId }) => {
   const [error, setError] = useState(null);
   const [titleError, setTitleError] = useState(null);
   const [modalErrorVisible, setModalErrorVisible] = useState(false);
+  const [selectedDate, setSelectedDate] = useState(null);
+  const [showReservaModal, setShowReservaModal] = useState(false);
+  const token = localStorage.getItem("token");
+  const history = useNavigate();
 
   useEffect(() => {
     fetchAgendaExperiencia();
@@ -25,6 +30,7 @@ const Agenda = ({ productoId }) => {
     try {
       const response = await fetchListarAgendaProducto(Number(productoId));
       const fechas = response.map((item) => ({
+        id: item.id,
         fechaIda: new Date(item.fechaIda),
         fechaVuelta: new Date(item.fechaVuelta),
         cupos: item.cupos,
@@ -67,11 +73,13 @@ const Agenda = ({ productoId }) => {
   };
 
   const toggleCalendar = () => {
-    if(!agenda.length){
+    if (!agenda.length) {
       setShowCalendar(false);
       setModalErrorVisible(true);
       setTitleError("Error");
-      setError("Error al obtener la agenda de la experiencia. Intente nuevamente más tarde.");
+      setError(
+        "Error al obtener la agenda de la experiencia. Intente nuevamente más tarde."
+      );
     }
     setShowCalendar((prevShowCalendar) => !prevShowCalendar);
   };
@@ -103,6 +111,27 @@ const Agenda = ({ productoId }) => {
     );
     setCuposDisponibles(cuposDisponibles ? cuposDisponibles.cupos : null);
     setStartDate(date);
+    setSelectedDate(date);
+  };
+
+  const handleReservar = () => {
+    if (!token) {
+      history("/Login");
+    } else {
+      const agendaSeleccionada = agenda.find(
+        (item) =>
+          isSameDay(item.fechaIda, selectedDate) ||
+          isSameDay(item.fechaVuelta, selectedDate)
+      );
+      if (!agendaSeleccionada) {
+        setModalErrorVisible(true);
+        setTitleError("Error");
+        setError("Debe seleccionar una fecha disponible");
+        return;
+      }
+      console.log("Agenda seleccionada", agendaSeleccionada.id);
+      history(`/reserva?agendaId=${agendaSeleccionada?.id}`);
+    }
   };
 
   const closeModal = () => {
@@ -197,8 +226,17 @@ const Agenda = ({ productoId }) => {
             onChange={handleDateChange}
           >
             {cuposDisponibles !== null && (
-              <p>Cupos disponibles: {cuposDisponibles}</p>
+              <pc className="m-auto text-lg">
+                Cupos disponibles: {cuposDisponibles}
+              </pc>
             )}
+            <hr className="m-2" />
+            <button
+              className="text-lg bg-purple-600 hover:bg-purple-400 focus:outline-none focus:ring-2 focus:ring-purple-600 focus:ring-opacity-50 text-white rounded-md px-4 py-2 transition-colors duration-300 ease-in-out"
+              onClick={handleReservar}
+            >
+              Reservar
+            </button>
           </DatePicker>
         </label>
       )}
