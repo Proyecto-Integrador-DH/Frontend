@@ -30,6 +30,7 @@ import ListFavorite from "./Components/ListFavorite/ListFavorite.jsx";
 import SearchResults from "./Components/searcher/ListSearcher.jsx";
 import Caracteristicas from './Components/Caracteristicas/Caracteristicas.jsx'
 import AsignarCaracteristica from "./Components/AsignarCaracteristica/AsignarCaracteristica.jsx";
+import Reservas from "./Components/ListReservas/Reservas.jsx";
 
 function App() {
   const [user, setUser] = useState(null);
@@ -101,6 +102,7 @@ function App() {
         <Route path="/panelUsuario" element={<PanelUsuario />} />
         <Route path="/listarFavoritos" element={<ListFavorite clienteId={cliente?.id} />} />
         <Route path="/search" element={<SearchResults />} />
+        <Route path="/reservas" element={<Reservas />}></Route>
       </Routes>
     </>
   );
