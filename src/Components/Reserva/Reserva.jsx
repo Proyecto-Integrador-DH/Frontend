@@ -1,11 +1,9 @@
 import React, { useEffect, useState } from "react";
 import {
-  fetchListarAgenda,
   fetchNuevaReserva,
-  fetchReservasCliente,
 } from "../../services/api";
 import ErrorComponent from "../error/ErrorAlert";
-import { useSearchParams, useNavigate } from "react-router-dom";
+import { useSearchParams, useNavigate, useLocation } from "react-router-dom";
 import DatePicker from "react-datepicker";
 import "react-datepicker/dist/react-datepicker.css";
 
@@ -16,34 +14,23 @@ const Reserva = ({ cliente, usuario }) => {
     cantidad: "",
     estado: true,
   });
-  const [agendas, setAgendas] = useState([]);
   const [error, setError] = useState(null);
   const [titleError, setTitleError] = useState(null);
   const [modalErrorVisible, setModalErrorVisible] = useState(false);
   const [searchParams] = useSearchParams();
-  const agendaId = searchParams.get("agendaId");
   const [agenda, setAgenda] = useState(null);
   const [showSuccessMessage, setShowSuccessMessage] = useState(false);
   const navigate = useNavigate();
+  const location = useLocation();
 
   useEffect(() => {
-    fetchListarAgenda()
-      .then((data) => {
-        setAgendas(data);
-        const agendaSelec = data.find(
-          (agenda) => agenda.id === parseInt(agendaId)
-        );
-        console.log("Agenda Seleccionada", agendaSelec);
-        if (agendaSelec) {
-          setAgenda(agendaSelec);
-        }
-      })
-      .catch((error) => {
-        console.error(error);
-        setError("Error al cargar las agendas");
-        setModalErrorVisible(true);
-      });
-  }, []);
+    const agendaSeleccionada = JSON.parse(decodeURIComponent(new URLSearchParams(location.search).get("agenda")));
+    if (!cliente) {
+      navigate(`/cliente?agenda=${encodeURIComponent(JSON.stringify(agendaSeleccionada))}`);
+    } else {
+      setAgenda(agendaSeleccionada);
+    }
+  }, [cliente, usuario, agenda]);
 
   useEffect(() => {
     if (agenda) {
@@ -52,7 +39,7 @@ const Reserva = ({ cliente, usuario }) => {
         agenda: agenda.id,
       });
     }
-  }, [agenda]);
+  }, [agenda, cliente]);
 
   const handleChange = (e) => {
     setFormData({

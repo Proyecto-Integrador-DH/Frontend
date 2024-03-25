@@ -34,6 +34,7 @@ const Agenda = ({ productoId }) => {
         fechaIda: new Date(item.fechaIda),
         fechaVuelta: new Date(item.fechaVuelta),
         cupos: item.cupos,
+        producto: item.producto,
       }));
       const fechaHoy = new Date();
       const agendaFechas = fechas.filter(
@@ -129,8 +130,8 @@ const Agenda = ({ productoId }) => {
         setError("Debe seleccionar una fecha disponible");
         return;
       }
-      console.log("Agenda seleccionada", agendaSeleccionada.id);
-      history(`/reserva?agendaId=${agendaSeleccionada?.id}`);
+      console.log("Agenda seleccionada", agendaSeleccionada);
+      history(`/reserva?agenda=${encodeURIComponent(JSON.stringify(agendaSeleccionada))}`);
     }
   };
 
