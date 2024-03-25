@@ -22,10 +22,10 @@ import Agenda from "./Components/Agenda/Agenda.jsx";
 import AgendaProducto from "./Components/Agenda/AgendaProducto.jsx";
 import Reserva from "./Components/Reserva/Reserva.jsx";
 import CrearClienteForm from "./Components/Cliente/Cliente.jsx";
-import PanelUsuario from "./Pages/PanelUsuario/PanelUsuario.jsx"
+import PanelUsuario from "./Pages/PanelUsuario/PanelUsuario.jsx";
 import ListFavorite from "./Components/ListFavorite/ListFavorite.jsx";
 import SearchResults from "./Components/searcher/ListSearcher.jsx";
-import Caracteristicas from './Components/Caracteristicas/Caracteristicas.jsx'
+import Caracteristicas from "./Components/Caracteristicas/Caracteristicas.jsx";
 import AsignarCaracteristica from "./Components/AsignarCaracteristica/AsignarCaracteristica.jsx";
 import Reservas from "./Components/ListReservas/Reservas.jsx";
 
@@ -75,7 +75,7 @@ function App() {
 
   const handleSubmit = (clienteData) => {
     setCliente(clienteData);
-  }
+  };
 
   return (
     <>
@@ -84,7 +84,10 @@ function App() {
         <Route path="/Login" element={<Login />} />
         <Route path="/products" element={<Products />} />
         <Route path="/" element={<HomePage />} />
-        <Route path="/details/:id" element={<Details clienteId={cliente?.id} />} />
+        <Route
+          path="/details/:id"
+          element={<Details clienteId={cliente?.id} />}
+        />
         <Route element={<ProtectedRoutes />}>
           <Route path="/listarProductos" element={<ListProducts />} />
           <Route path="/registrarProducto" element={<RegisterProducts />} />
@@ -93,17 +96,47 @@ function App() {
           <Route path="/asignarCategoria" element={<AsignarCategoria />} />
           <Route path="/agenda" element={<Agenda />} />
           <Route path="/agenda/:id" element={<AgendaProducto />} />
-          <Route path='/caracteristicas' element={<Caracteristicas />} />
-          <Route path='/asignarCaracteristica' element={<AsignarCaracteristica />} />
+          <Route path="/caracteristicas" element={<Caracteristicas />} />
+          <Route
+            path="/asignarCaracteristica"
+            element={<AsignarCaracteristica />}
+          />
         </Route>
         <Route path="/crearUsuario" element={<RegisterUser />} />
-        <Route path="/listarProductos/:categoryId" element={<ProductList clienteId={cliente?.id} />} />
-        <Route path="/reserva/" element={<Reserva cliente={cliente} usuario={user} />} />
-        <Route path="/cliente" element={<CrearClienteForm cliente={cliente} user={user} onSubmit={handleSubmit} />} />
+        <Route
+          path="/listarProductos/:categoryId"
+          element={<ProductList clienteId={cliente?.id} />}
+        />
+        <Route
+          path="/reserva/"
+          element={<Reserva cliente={cliente} usuario={user} />}
+        />
+        <Route
+          path="/cliente"
+          element={
+            <CrearClienteForm
+              cliente={cliente}
+              user={user}
+              onSubmit={handleSubmit}
+            />
+          }
+        />
         <Route path="/panelUsuario" element={<PanelUsuario />} />
-        <Route path="/listarFavoritos" element={<ListFavorite clienteId={cliente?.id} />} />
+        <Route
+          path="/listarFavoritos"
+          element={<ListFavorite clienteId={cliente?.id} />}
+        />
         <Route path="/search" element={<SearchResults />} />
-        <Route path="/reservas" element={<Reservas clienteId={cliente?.id}/>}></Route>
+        <Route
+          path="/reservas"
+          element={
+            user ? (
+              <Reservas cliente={cliente} usuario={user} />
+            ) : (
+              <div>Cargando...</div>
+            )
+          }
+        />
       </Routes>
     </>
   );

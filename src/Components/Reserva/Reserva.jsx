@@ -1,6 +1,6 @@
 import React, { useEffect, useState } from "react";
 import {
-  fetchNuevaReserva,
+  fetchNuevaReserva, fetchObtenerClienteByUsuario
 } from "../../services/api";
 import ErrorComponent from "../error/ErrorAlert";
 import { useSearchParams, useNavigate, useLocation } from "react-router-dom";
@@ -9,9 +9,9 @@ import "react-datepicker/dist/react-datepicker.css";
 
 const Reserva = ({ cliente, usuario }) => {
   const [formData, setFormData] = useState({
-    cliente: "",
+    client: "",
     agenda: "",
-    cantidad: "",
+    cantidad: 0,
     estado: true,
   });
   const [error, setError] = useState(null);
@@ -20,18 +20,29 @@ const Reserva = ({ cliente, usuario }) => {
   const [searchParams] = useSearchParams();
   const [agenda, setAgenda] = useState(null);
   const [showSuccessMessage, setShowSuccessMessage] = useState(false);
+  const [client, setClient] = useState(null);
   const navigate = useNavigate();
   const location = useLocation();
 
-  useEffect(() => {
+  const verificarCliente = (e) => {
     const agendaSeleccionada = JSON.parse(decodeURIComponent(new URLSearchParams(location.search).get("agenda")));
-    if (!cliente) {
-      console.log("No hay cliente");
-      navigate(`/cliente?agenda=${encodeURIComponent(JSON.stringify(agendaSeleccionada))}`);
-    } else {
+    fetchObtenerClienteByUsuario(Number(usuario.id))
+    .then((clienteData) => {
+      setClient(clienteData);
+      console.log("Cliente", clienteData);
       setAgenda(agendaSeleccionada);
+    })
+    .catch((error) => {
+      navigate(`/cliente?agenda=${encodeURIComponent(JSON.stringify(agendaSeleccionada))}`);
+      console.error(errorHandling(error));
+    });
+  }
+
+  useEffect(() => {
+    if (usuario) {
+      verificarCliente();
     }
-  }, [agenda]);
+  }, [usuario, cliente]);
 
   useEffect(() => {
     if (agenda) {
@@ -40,7 +51,7 @@ const Reserva = ({ cliente, usuario }) => {
         agenda: agenda.id,
       });
     }
-  }, [agenda, cliente]);
+  }, [agenda, client]);
 
   const handleChange = (e) => {
     setFormData({
@@ -49,12 +60,14 @@ const Reserva = ({ cliente, usuario }) => {
     });
   };
 
+  
+
   const handleSubmit = (e) => {
     e.preventDefault();
     if (formData.agenda) {
       const formDataCopy = {
         ...formData,
-        cliente: { id: cliente.id },
+        cliente: { id: client.id },
         agenda: { id: parseInt(formData.agenda) },
       };
       fetchNuevaReserva(formDataCopy)
