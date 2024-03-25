@@ -26,11 +26,12 @@ const Reserva = ({ cliente, usuario }) => {
   useEffect(() => {
     const agendaSeleccionada = JSON.parse(decodeURIComponent(new URLSearchParams(location.search).get("agenda")));
     if (!cliente) {
+      console.log("No hay cliente");
       navigate(`/cliente?agenda=${encodeURIComponent(JSON.stringify(agendaSeleccionada))}`);
     } else {
       setAgenda(agendaSeleccionada);
     }
-  }, [cliente, usuario, agenda]);
+  }, [agenda]);
 
   useEffect(() => {
     if (agenda) {

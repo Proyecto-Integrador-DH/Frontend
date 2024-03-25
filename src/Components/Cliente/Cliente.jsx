@@ -3,7 +3,7 @@ import { useNavigate, useLocation } from "react-router-dom";
 import { fetchCrearCliente } from "../../services/api";
 import ErrorComponent from "../error/ErrorAlert";
 
-const CrearClienteForm = ({ user }) => {
+const CrearClienteForm = ({ user, onSubmit }) => {
   const [error, setError] = useState(null);
   const [titleError, setTitleError] = useState(null);
   const [modalErrorVisible, setModalErrorVisible] = useState(false);
@@ -37,19 +37,16 @@ const CrearClienteForm = ({ user }) => {
     e.preventDefault();
     fetchCrearCliente(cliente)
       .then((data) => {
-        setModalErrorVisible(true);
         setTitleError("Cliente creado");
         setError("El cliente ha sido creado correctamente");
-        setShowSuccessMessage(true);
+        setModalErrorVisible(true);
         const agendaSeleccionada = JSON.parse(
           decodeURIComponent(new URLSearchParams(location.search).get("agenda"))
         );
-
-        navigate(
-          `/reserva?agenda=${encodeURIComponent(
-            JSON.stringify(agendaSeleccionada)
-          )}`
-        );
+        onSubmit(cliente);
+        setTimeout(() => {
+          navigate(`/reserva?agenda=${encodeURIComponent(JSON.stringify(agendaSeleccionada))}`);
+        }, 3000);
       })
       .catch((error) => {
         console.log("Error", error);

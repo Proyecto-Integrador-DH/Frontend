@@ -20,9 +20,6 @@ import ProtectedRoutes from "./router/ProtectedRoutes.jsx";
 import ProductList from "./Components/ListProduct/ProductList.jsx";
 import Agenda from "./Components/Agenda/Agenda.jsx";
 import AgendaProducto from "./Components/Agenda/AgendaProducto.jsx";
-// import Calendar from "./Components/calendar/Calendar.jsx";
-
-
 import Reserva from "./Components/Reserva/Reserva.jsx";
 import CrearClienteForm from "./Components/Cliente/Cliente.jsx";
 import PanelUsuario from "./Pages/PanelUsuario/PanelUsuario.jsx"
@@ -76,6 +73,10 @@ function App() {
     window.location.href = "/";
   };
 
+  const handleSubmit = (clienteData) => {
+    setCliente(clienteData);
+  }
+
   return (
     <>
       <Header user={user} onLogout={handleLogout} />
@@ -98,7 +99,7 @@ function App() {
         <Route path="/crearUsuario" element={<RegisterUser />} />
         <Route path="/listarProductos/:categoryId" element={<ProductList clienteId={cliente?.id} />} />
         <Route path="/reserva/" element={<Reserva cliente={cliente} usuario={user} />} />
-        <Route path="/cliente" element={<CrearClienteForm cliente={cliente} user={user} />} />
+        <Route path="/cliente" element={<CrearClienteForm cliente={cliente} user={user} onSubmit={handleSubmit} />} />
         <Route path="/panelUsuario" element={<PanelUsuario />} />
         <Route path="/listarFavoritos" element={<ListFavorite clienteId={cliente?.id} />} />
         <Route path="/search" element={<SearchResults />} />
