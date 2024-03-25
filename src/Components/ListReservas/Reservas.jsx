@@ -19,8 +19,8 @@ const Reservas = ({ usuario, cliente }) => {
     }, [usuario]);
 
     useEffect(() => {
-        if (cliente || client) {
-            const id = cliente.id || client.id;
+        if (client) {
+            const id = client.id;
             fetchReservasCliente(Number(id))
                 .then((data) => {
                     setReservas(data);
@@ -29,14 +29,14 @@ const Reservas = ({ usuario, cliente }) => {
                     console.error(error);
                 });
         }
-    }, [cliente, client]);
+    }, [client]);
 
     return (
         <div>
             <h2>Reservas</h2>
             <ul>
-                {reservas.map((reserva) => (
-                    <li key={reserva.id}>
+                {reservas && reservas.map((reserva) => (
+                    <li key={reserva?.id}>
                         <p>Fecha: {FormatDate(reserva.agenda.fechaIda)} al {FormatDate(reserva.agenda.fechaVuelta)}</p>
                         <p>Estado: {reserva.estado ? "Activa" : "Cancelada"}</p>
                         <p>Cantidad: {reserva.cantidad}</p>
