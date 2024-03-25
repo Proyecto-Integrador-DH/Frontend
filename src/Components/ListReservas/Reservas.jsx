@@ -31,6 +31,17 @@ const Reservas = ({ usuario, cliente }) => {
         }
     }, [client]);
 
+    const getReservaState = (reserva) => {
+        const fechaHoy = new Date();
+        const fechaReserva = new Date(reserva.agenda.fechaIda);
+
+        if (fechaReserva < fechaHoy) {
+            return "Inactiva";
+        } else {
+            return reserva.estado ? "Activa" : "Cancelada";
+        }
+    };
+
     return (
         <div>
             <h2>Reservas</h2>
@@ -38,7 +49,7 @@ const Reservas = ({ usuario, cliente }) => {
                 {reservas && reservas.map((reserva) => (
                     <li key={reserva?.id}>
                         <p>Fecha: {FormatDate(reserva.agenda.fechaIda)} al {FormatDate(reserva.agenda.fechaVuelta)}</p>
-                        <p>Estado: {reserva.estado ? "Activa" : "Cancelada"}</p>
+                        <p>Estado: {getReservaState(reserva)}</p>
                         <p>Cantidad: {reserva.cantidad}</p>
                     </li>
                 ))}
