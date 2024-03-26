@@ -28,6 +28,7 @@ import SearchResults from "./Components/searcher/ListSearcher.jsx";
 import Caracteristicas from "./Components/Caracteristicas/Caracteristicas.jsx";
 import AsignarCaracteristica from "./Components/AsignarCaracteristica/AsignarCaracteristica.jsx";
 import Reservas from "./Components/ListReservas/Reservas.jsx";
+import 'bootstrap/dist/css/bootstrap.min.css';
 
 function App() {
   const [user, setUser] = useState(null);
