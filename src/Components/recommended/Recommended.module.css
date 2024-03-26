@@ -49,9 +49,9 @@
 .imagenContainer img {
   border-top-left-radius: 20px;
   border-top-right-radius: 20px;
-  width: 100%;
+  width: 95%;
   height: 350px;
-  object-fit: cover;
+  margin : 0 auto;
 }
 
 .verDetalles {
