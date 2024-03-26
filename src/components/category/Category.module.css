@@ -8,7 +8,7 @@
 
 h3 {
     text-align: justify;
-    font-size: 38px;
+    font-size: 40px;
     width: 80%;
     padding-bottom: 30px;
 }
@@ -50,10 +50,7 @@ h3 {
     grid-template-columns: repeat(2, 1fr); /* Dos columnas de tamaño igual */
     gap: 20px; /* Espacio entre los elementos */
 }
-.categoryLinks p{
-    color: #7C8DB0;
-    font-weight: 500;
-}
+
 .cityAndNigth {
     display: flex;
     flex-direction: column;
