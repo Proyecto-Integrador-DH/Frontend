@@ -1,6 +1,7 @@
 import React, { useState } from "react";
 import { useEffect } from "react";
 
+
 const CardCaracteristica = ({ caracteristica }) => {
     const [caracteristicaSeleccionadas, setCaracteristicasSeleccionadas] = useState([]);
 
@@ -20,4 +21,4 @@ const CardCaracteristica = ({ caracteristica }) => {
   );
 };
 
-export default CardCaracteristica;
+export default CardCaracteristica; 
