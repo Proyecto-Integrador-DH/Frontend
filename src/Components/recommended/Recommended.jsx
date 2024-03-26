@@ -84,60 +84,74 @@ const Recommended = () => {
         </div>
       </div>
       {showAll ? (
-      <div className={RecommendedStyles.showAll}>
-        {productosApi.map((product, index) => (
-          <div key={index} className={RecommendedStyles.cardRecommended2}>
-            <div className={RecommendedStyles.imagenContainer}>
-              {product.imagenes.length > 0 ? (
-                <img src={product.imagenes[0].url} alt={product.imagenes[0].altText} />
-              ) : (
-                <img src={defaultImage} alt="Imagen por defecto" />
-              )}
+        <div className={`${RecommendedStyles.showAll} grid grid-cols-2 gap-6`}>
+          {productosApi.map((product, index) => (
+            <div
+              key={index}
+              className={`${RecommendedStyles.cardRecommended}  bg-white rounded-lg shadow-md overflow-hidden transition duration-300 hover:shadow-lg`}
+            >
+              <div className="h-52 overflow-hidden">
+                {product.imagenes.length > 0 ? (
+                  <img
+                    src={product.imagenes[0].url}
+                    alt={product.imagenes[0].altText}
+                    className="w-full h-full object-cover"
+                  />
+                ) : (
+                  <img
+                    src={defaultImage}
+                    alt="Imagen por defecto"
+                    className="w-full h-full object-cover"
+                  />
+                )}
+              </div>
+              <div className="p-2">
+                <p className=" font-semibold mb-2">{product.nombre}</p>
+              </div>
+              <Link to={`/details/${product.Id}`}>
+                <button className={RecommendedStyles.verDetalles}>
+                  Ver detalle
+                </button>
+              </Link>
             </div>
-            <div>
-              <p>{product.nombre}</p>
+          ))}
+        </div>
+      ) : (
+        <Slider
+          ref={sliderRef}
+          {...(showAll ? allProductsSliderSettings : sliderSettings)}
+        >
+        
+          {productosApi.map((product, index) => (
+            <div 
+              key={index} 
+              className="bg-white rounded-lg  shadow-md overflow-hidden transition duration-300 hover:shadow-lg">
+              <div className={RecommendedStyles.imagenContainer}>
+                {product.imagenes.length > 0 ? (
+                  <img
+                    src={product.imagenes[0].url}
+                    alt={product.imagenes[0].altText}
+                  />
+                ) : (
+                  <img src={defaultImage} alt="Imagen por defecto" />
+                )}
+              </div>
+              <div>
+                <p className="mt-3 mb-1 font-medium">{product.nombre}</p>
+              </div>
+              <Link to={`/details/${product.Id}`}>
+                <button className={RecommendedStyles.verDetalles}>
+                  Ver detalle
+                </button>
+              </Link>
             </div>
-            <Link to={`/details/${product.Id}`}>
-              <button className={RecommendedStyles.verDetalles}>
-                Ver detalle
-              </button>
-            </Link>
-          </div>
-        ))}
-      </div>
-    ) : (
-      <Slider
-        ref={sliderRef}
-        {...(showAll ? allProductsSliderSettings : sliderSettings)}
-      >
-        {productosApi.map((product, index) => (
-          <div key={index} className={RecommendedStyles.cardRecommended}>
-            <div className={RecommendedStyles.imagenContainer}>
-              {product.imagenes.length > 0 ? (
-                <img
-                  src={product.imagenes[0].url}
-                  alt={product.imagenes[0].altText}
-                />
-              ) : (
-                <img src={defaultImage} alt="Imagen por defecto" />
-              )}
-            </div>
-            <div>
-              <p className="mt-3 mb-1 font-medium">{product.nombre}</p>
-            </div>
-            <Link to={`/details/${product.Id}`}>
-              <button className={RecommendedStyles.verDetalles}>
-                Ver detalle
-              </button>
-            </Link>
-          </div>
-        ))}
-      </Slider>
-    )}
+          ))}
+        </Slider>
+      )}
 
-    <VerMas onClick={handleToggleClick} isExpanded={showAll} />
-  </div>
-);
+      <VerMas onClick={handleToggleClick} isExpanded={showAll} />
+    </div>
+  );
 };
 
 export default Recommended;
