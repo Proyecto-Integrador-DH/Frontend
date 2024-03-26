@@ -31,7 +31,7 @@ const ListFavorite = ({ clienteId }) => {
     return () => {
       document.removeEventListener("favoriteRemoved", handleFavoriteRemoved);
     };
-  }, []);
+  }, [clienteId]);
 
   return (
     <div className="overflow-hidden">
