@@ -1,5 +1,5 @@
-const baseUrl = "http://localhost:8081";
-const baseUrl2 = "http://localhost:8080";
+const baseUrl = "http://booking.us-east-1.elasticbeanstalk.com";
+const baseUrl2 = "http://usuario.us-east-1.elasticbeanstalk.com";
 const token = localStorage.getItem("token");
 
 export const fetchCategorias = async () => {
