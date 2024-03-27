@@ -1,78 +1,299 @@
-import React, { useEffect, useState } from "react";
-import { fetchCategoryProducts, fetchCategoria } from "../../services/api";
+import React, { useState, useEffect } from "react";
+import { Link } from "react-router-dom";
+import {
+  fetchCambiarCategoria,
+  fetchListarProductos,
+  fetchDeleteProducto,
+} from "../../services/api";
+import style from "./ListProducts.module.css";
+import { fetchCategorias } from "../../services/api";
 import { errorHandling } from "../../services/errorHandling";
-import { useParams, Link } from "react-router-dom";
-import FavoriteButton from "../Favorite/Favorite";
-import Card from "../Card/Card.jsx";
+import ErrorComponent from "../error/ErrorAlert";
+import AsignarCaracteristica from "../AsignarCaracteristica/AsignarCaracteristica";
 
-const ProductList = ({ clienteId }) => {
-  const [productos, setProductos] = useState([]);
-  const [categoria, setCategoria] = useState(null);
-  const { categoryId } = useParams();
+const ListProducts = () => {
+  const [productos, setProducts] = useState([]);
+  const [categorias, setCategoria] = useState([]);
+  const [categoriasSeleccionadas, setCategoriasSeleccionadas] = useState({});
+  const [showOptions, setShowOptions] = useState({});
+  const [error, setError] = useState(null);
+  const [titleError, setTitleError] = useState(null);
+  const [modalErrorVisible, setModalErrorVisible] = useState(false);
+  const [mostrarAsignarCaracteristica, setMostrarAsignarCaracteristica] =useState(false);
 
   useEffect(() => {
-    const cargarCategoria = async () => {
-      const id = Number(categoryId);
-      try {
-        const data = await fetchCategoria(id);
+    fetchListarProductos()
+      .then((data) => {
+        setProducts(data);
+        console.log(data);
+      })
+      .catch((error) => {
+        console.error(errorHandling(error));
+      });
+  }, []);
+
+  useEffect(() => {
+    fetchCategorias()
+      .then((data) => {
         setCategoria(data);
-      } catch (error) {
+      })
+      .catch((error) => {
         console.error(errorHandling(error));
-      }
-    };
-    cargarCategoria();
-  }, [categoryId]);
+      });
+  }, []);
 
-  useEffect(() => {
-    const loadProducts = async () => {
-      const id = Number(categoryId);
-      try {
-        const data = await fetchCategoryProducts(id);
-        setProductos(data[0].productos);
-        console.log("Productos: ", data[0].productos);
-      } catch (error) {
-        console.error(errorHandling(error));
-      }
-    };
-
-    if (categoryId) {
-      loadProducts();
+  const refrescarProductos = async () => {
+    try {
+      const data = await fetchListarProductos();
+      setProducts(data);
+      console.log("Lista de productos actualizada");
+    } catch (error) {
+      console.error(
+        "Error al actualizar la lista de productos:",
+        error.message
+      );
+      console.error(
+        "Error al actualizar la lista de productos. Por favor, inténtalo de nuevo."
+      );
     }
-  }, [categoryId]);
+  };
+
+  const handleChangeCategoria = async (idProducto, categoria) => {
+    var valor = null;
+    for (let clave in categoria) {
+      valor = categoria[clave];
+    }
+    const idCategoria = categorias.find((c) => c.nombre === valor).id;
+    try {
+      await fetchCambiarCategoria(idProducto, idCategoria);
+      await refrescarProductos();
+      setModalErrorVisible(true);
+      setTitleError("Categoría Actualizada");
+      setError("La categoría se ha actualizado correctamente.");
+    } catch (error) {
+      console.error("Error al actualizar la categoría:", error.message);
+      setModalErrorVisible(true);
+      setTitleError("Error");
+      setError(
+        "Error al actualizar la categoría. Por favor, inténtalo de nuevo."
+      );
+    }
+  };
+
+  const handleCategoriaChange = (productoId, event) => {
+    const nuevaSeleccion = { ...categoriasSeleccionadas };
+    nuevaSeleccion[productoId] = event.target.value;
+    console.log(nuevaSeleccion);
+
+    setCategoriasSeleccionadas(nuevaSeleccion);
+  };
+
+  const handleDeleteProducto = async (id) => {
+    try {
+      await fetchDeleteProducto(Number(id));
+      await refrescarProductos();
+      setModalErrorVisible(true);
+      setTitleError("Producto Eliminado");
+      setError("El producto se ha eliminado correctamente.");
+    } catch (error) {
+      console.error("Error al eliminar el producto:", error.message);
+      setModalErrorVisible(true);
+      setTitleError("Error");
+      setError("Error al eliminar el producto. Por favor, inténtalo de nuevo.");
+    }
+  };
+
+  const closeModal = () => {
+    setModalErrorVisible(false);
+    errorHandling(error);
+  };
+
+  const guardarCaracteristicasSeleccionadas = (caracteristicas) => {
+    setMostrarAsignarCaracteristica(false);
+  };
 
   return (
-    <div className="overflow-hidden">
-      <h2 className="text-3xl font-bold mb-6">
-        Experiencias de la categoría
-        <span className="capitalize">
-          <br /> {categoria && categoria.nombre}
-        </span>
-      </h2>
-      <div className="grid grid-cols-2 gap-6 m-5">
-        {productos.map((producto) => (
-          <div key={producto.Id} className="border rounded p-4 shadow-md">
-            <Card producto={producto} />
-            <div className="flex justify-between mt-4">
-              <div>
-                <FavoriteButton
-                  clienteId={clienteId}
-                  productoId={producto.Id}
-                />
-              </div>
-              <div>
-                <Link
-                  to={`/details/${producto.Id}`}
-                  className="text-blue-500 hover:underline"
-                >
-                  Ver más
-                </Link>
-              </div>
-            </div>
-          </div>
-        ))}
+    <div className="w-[95vw] mx-auto">
+      <h2 className="text-3xl font-bold mb-6">Lista de Experiencias</h2>
+      {modalErrorVisible && (
+        <ErrorComponent
+          title={titleError}
+          message={error}
+          onClose={closeModal}
+        />
+      )}
+      <div className="relative shadow-md sm:rounded-lg">
+        <table className="w-[95vw] mx-auto">
+          <thead>
+            <tr>
+              <th className="px-6 py-3 text-sm font-semibold tracking-wide text-left">
+                ID
+              </th>
+              <th className="px-6 py-3 text-sm font-semibold tracking-wide text-left">
+                Nombre de la Experiencia
+              </th>
+              <th className="px-6 py-3 text-sm font-semibold tracking-wide text-left">
+                Categoría
+              </th>
+              <th className="px-6 py-3 text-sm font-semibold tracking-wide text-left">
+                Cambiar categoría
+              </th>
+              <th className="px-6 py-3 text-sm font-semibold tracking-wide text-center">
+                Acciones
+              </th>
+              <th className="px-6 py-3 text-sm font-semibold tracking-wide text-left">
+                Agenda
+              </th>
+            </tr>
+          </thead>
+          <tbody>
+            {productos.map((producto) => (
+              <tr key={producto.Id}>
+                <td className="text-sm text-left">{producto.Id}</td>
+                <td className="text-sm text-left">{producto.nombre}</td>
+                <td className="text-sm text-left capitalize">
+                  {producto.categoria.nombre}
+                </td>
+                <td>
+                  <div className="relative mt-2 text-center">
+                    <button
+                      type="button"
+                      className="relative w-40 cursor-default rounded-md bg-white py-1.5 pl-3 pr-10 text-left text-gray-900 shadow-sm ring-1 ring-inset ring-gray-300 focus:outline-none focus:ring-2 focus:ring-indigo-500 sm:text-sm sm:leading-6"
+                      aria-haspopup="listbox"
+                      aria-expanded={showOptions[producto.Id]}
+                      aria-labelledby="listbox-label"
+                      onClick={() =>
+                        setShowOptions({
+                          ...showOptions,
+                          [producto.Id]: !showOptions[producto.Id],
+                        })
+                      }
+                    >
+                      <span className="flex items-center">
+                        <span className="capitalize ml-3 block truncate">
+                          {categoriasSeleccionadas[producto.Id]
+                            ? categoriasSeleccionadas[producto.Id]
+                            : "Selecciona una categoría"}
+                        </span>
+                      </span>
+                      <span className="pointer-events-none absolute inset-y-0 right-0 ml-3 flex items-center pr-2">
+                        <svg
+                          className={`h - 5 w-5 ${
+                            showOptions[producto.Id]
+                              ? "transform rotate-180"
+                              : ""
+                          } text-gray-400`}
+                          viewBox="0 0 20 20"
+                          fill="currentColor"
+                          aria-hidden="true"
+                        >
+                          <path
+                            fillRule="evenodd"
+                            d="M5.23 7.21a.75.75 0 011.06.02L10 11.168l3.71-3.938a.75.75 0 111.08 1.04l-4.25 4.5a.75.75 0 01-1.08 0l-4.25-4.5a.75.75 0 01.02-1.06z"
+                            clipRule="evenodd"
+                          />
+                        </svg>
+                      </span>
+                    </button>
+                    {showOptions[producto.Id] && (
+                      <ul
+                        className="capitalize absolute z-10 mt-1 max-h-56 w-full overflow-auto rounded-md bg-white py-1 text-base shadow-lg ring-1 ring-black ring-opacity-5 focus:outline-none sm:text-sm"
+                        role="listbox"
+                        aria-labelledby="listbox-label"
+                        aria-activedescendant="listbox-option-3"
+                      >
+                        {categorias.map((categoria, index) => (
+                          <li
+                            key={index}
+                            value={categoria.nombre}
+                            className="text-gray-900 relative cursor-default select-none py-2 pl-3 pr-9"
+                            id="listbox-option-0"
+                            role="option"
+                            onClick={() => {
+                              handleCategoriaChange(producto.Id, {
+                                target: { value: categoria.nombre },
+                              });
+                              setShowOptions(false);
+                            }}
+                          >
+                            <div className="flex items-center">
+                              <span className="font-normal ml-3 block truncate">
+                                {categoria.nombre}
+                              </span>
+                            </div>
+                            <span className="text-indigo-600 absolute inset-y-0 right-0 flex items-center pr-4">
+                              <svg
+                                className="h-5 w-5"
+                                viewBox="0 0 20 20"
+                                fill="currentColor"
+                                aria-hidden="true"
+                              >
+                                <path
+                                  fillRule="evenodd"
+                                  d="M16.704 4.153a.75.75 0 01.143 1.052l-8 10.5a.75.75 0 01-1.127.075l-4.5-4.5a.75.75 0 011.06-1.06l3.894 3.893 7.48-9.817a.75.75 0 011.05-.143z"
+                                  clipRule="evenodd"
+                                />
+                              </svg>
+                            </span>
+                          </li>
+                        ))}
+                      </ul>
+                    )}
+                  </div>
+                </td>
+                <td className="accion">
+                  <button
+                    className={style.button1}
+                    onClick={() =>
+                      handleChangeCategoria(
+                        producto.Id,
+                        categoriasSeleccionadas
+                      )
+                    }
+                  >
+                    Actualizar
+                  </button>
+                  <button
+                    className={style.button1}
+                    onClick={() => handleDeleteProducto(producto.Id)}
+                  >
+                    Eliminar
+                  </button>
+                  <button
+                    className={style.button1}
+                    onClick={() => {
+                      if (mostrarAsignarCaracteristica) {
+                        setMostrarAsignarCaracteristica(false);
+                      } else {
+                        setMostrarAsignarCaracteristica(true);
+                      }
+                    }}
+                  >
+                    {mostrarAsignarCaracteristica
+                      ? "Ocultar Características"
+                      : "Seleccionar Características"}
+                  </button>
+                </td>
+                <td>
+                  <div>
+                    <Link
+                      to={`/agenda/${producto.Id}`}
+                      className="text-sm text-purple-500 hover:underline"
+                    >
+                      Ver más
+                    </Link>
+                  </div>
+                </td>
+              </tr>
+            ))}
+          </tbody>
+        </table>
+        {mostrarAsignarCaracteristica && (
+          <AsignarCaracteristica onSave={guardarCaracteristicasSeleccionadas} />
+        )}
       </div>
     </div>
   );
 };
 
-export default ProductList;
+export default ListProducts;
