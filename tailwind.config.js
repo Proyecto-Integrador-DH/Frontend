@@ -9,6 +9,7 @@ export default {
       colors: {
         'rosa': '#F411CF',
         'precio': '#872BFF',
+        'foto': '296px'
       }
     },
   },

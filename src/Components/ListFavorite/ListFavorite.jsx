@@ -36,10 +36,10 @@ const ListFavorite = ({ clienteId }) => {
   return (
     <div className="overflow-hidden">
       <h2 className="text-3xl font-bold mb-6">Tus Experiencias Favoritas</h2>
-      <div className="grid grid-cols-2 gap-6 m-5">
+      <div className="flex flex-wrap sm:justify-center sm:columns-1 md:columns-2 gap-6 m-5">
         {favoritos.map((favorito) => (
           <div
-            key={favorito.id} className="border rounded-lg p-4 relative bg-white shadow-md">
+            key={favorito.id} className="sm:w-full md:w-auto border rounded-lg p-4 relative bg-white shadow-md" style={{ maxWidth: '540px' }}>
             {favorito.producto && (
               <Card producto={favorito.producto}/>
              )}
