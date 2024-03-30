@@ -11,6 +11,7 @@ const RegisterProducts = () => {
   const [nombre, setNombre] = useState("");
   const [descripcion, setDescripcion] = useState("");
   const [disponible, setDisponible] = useState(true);
+  const [ubicacion, setUbicacion] = useState("");
   const [imagenes, setImagenes] = useState([]);
   const [error, setError] = useState(null);
   const [titleError, setTitleError] = useState(null);
@@ -38,6 +39,7 @@ const RegisterProducts = () => {
         nombre,
         descripcion,
         disponible,
+        ubicacion,
         categoria: {
           id: categoriaSeleccionada.id,
         },
@@ -64,7 +66,7 @@ const RegisterProducts = () => {
 
         setNombre("");
         setDescripcion("");
-
+        setUbicacion("");
         setDisponible(true);
         setImagenes(null);
         setCategoriaSeleccionada(null);
@@ -225,7 +227,15 @@ const RegisterProducts = () => {
                 </div>
               </div>
             </label>
-
+            <label className="block text-left text-sm font-medium leading-6 text-gray-900">
+              Ubicacion:
+              <input
+                type="text"
+                checked={ubicacion}
+                onChange={(e) => setUbicacion(e.target.value)}
+                className="block w-full rounded-md border-0 py-1.5 text-gray-900 shadow-sm ring-1 ring-inset ring-gray-300 placeholder:text-gray-400 focus:ring-2 focus:ring-inset focus:ring-indigo-600 sm:text-sm sm:leading-6"
+              />
+            </label>              
             <label className="block text-left text-sm font-medium leading-6 text-gray-900">
               Disponible:
               <input
