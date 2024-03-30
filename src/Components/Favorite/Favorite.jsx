@@ -15,7 +15,7 @@ const FavoriteButton = ({ clienteId, productoId }) => {
   const [titleError, setTitleError] = useState(null);
   const [modalErrorVisible, setModalErrorVisible] = useState(false);
   const token = localStorage.getItem("token");
-  const [loading, setLoading] = useState(true);
+  const [loading, setLoading] = useState(false);
 
   useEffect(() => {
     const checkFavoriteStatus = async () => {

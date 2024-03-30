@@ -25,7 +25,7 @@ const Reserva = ({ cliente, usuario }) => {
   const [client, setClient] = useState(null);
   const navigate = useNavigate();
   const location = useLocation();
-  const [loading, setLoading] = useState(true);
+  const [loading, setLoading] = useState(false);
 
   const verificarCliente = (e) => {
     const agendaSeleccionada = JSON.parse(decodeURIComponent(new URLSearchParams(location.search).get("agenda")));
