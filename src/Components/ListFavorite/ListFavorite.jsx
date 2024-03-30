@@ -2,6 +2,8 @@ import React, { useState, useEffect } from "react";
 import Footer from "../footer/Footer";
 import { fetchListarFavoritosCliente } from "../../services/api";
 import FavoriteButton from "../Favorite/Favorite";
+import card from "../Card/Card.jsx";
+import Card from "../Card/Card.jsx";
 
 const ListFavorite = ({ clienteId }) => {
   const [favoritos, setFavoritos] = useState([]);
@@ -29,33 +31,21 @@ const ListFavorite = ({ clienteId }) => {
     return () => {
       document.removeEventListener("favoriteRemoved", handleFavoriteRemoved);
     };
-  }, []);
+  }, [clienteId]);
 
   return (
     <div className="overflow-hidden">
       <h2 className="text-3xl font-bold mb-6">Tus Experiencias Favoritas</h2>
-      <div className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-4 gap-6 m-5">
+      <div className="flex flex-wrap sm:justify-center sm:columns-1 md:columns-2 gap-6 m-5">
         {favoritos.map((favorito) => (
           <div
-            key={favorito.id}
-            className="border rounded-lg p-4 relative bg-white shadow-md"
-          >
-            {favorito.producto && favorito.producto.imagenes && favorito.producto.imagenes[0] && (
-              <img
-                src={favorito.producto.imagenes[0].url}
-                className="object-cover h-40 w-full mb-4 rounded-lg"
-                alt={favorito.producto.nombre}
-              />
-            )}
-            <div className="relative">
-              <h3 className="text-lg font-bold mb-2">{favorito.producto && favorito.producto.nombre}</h3>
-              <div className="absolute top-0 right-0">
-                {favorito.producto && (
+            key={favorito.id} className="sm:w-full md:w-auto border rounded-lg p-4 relative bg-white shadow-md" style={{ maxWidth: '540px' }}>
+            {favorito.producto && (
+              <Card producto={favorito.producto}/>
+             )}
+              <div className="flex justify-between mt-4">
                   <FavoriteButton clienteId={clienteId} productoId={favorito.producto.Id} />
-                )}
-              </div>
             </div>
-            <p className="text-sm mb-4 text-justify">{favorito.producto && favorito.producto.descripcion}</p>
           </div>
         ))}
       </div>

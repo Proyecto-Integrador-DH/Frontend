@@ -67,8 +67,8 @@ const Details = ({ clienteId }) => {
           Tours & experiencias
         </h1>
       </div>
-      <div className="imageContainer relative">
-        <div className="absolute right-40 top-0">
+      <div className="relative lg:pt-20 lg:px-36 sm:flex sm:flex-col md:grid md:grid-cols-2 gap-2 mx-32">
+        <div className="absolute lg:right-40 lg:top-0 md:right-0 md:-top-16">
           <FavoriteButton
             clienteId={clienteId}
             productoId={id}
@@ -76,11 +76,12 @@ const Details = ({ clienteId }) => {
           />
         </div>
         {/* Imagen principal grande a la izquierda */}
-        <div className="imagenIzquierda">
+        <div className="max-h-96">
           {detallesProducto?.imagenes?.length > 0 ? (
             <img
               src={detallesProducto.imagenes[0]?.url}
               alt={`Imagen principal`}
+              className="md:max-h-72  lg:h-full lg:max-h-foto object-cover h-full w-full rounded-2xl "
             />
           ) : (
             <img src={defaultImage} alt="Imagen por defecto" />
@@ -88,10 +89,15 @@ const Details = ({ clienteId }) => {
         </div>
 
         {/* Cuadrícula de imágenes más pequeñas a la derecha */}
-        <div className="cuadriculaImagenes">
+        <div className=" lg:h-full grid grid-cols-2 gap-2 rounded-full max-h-96">
           {allImages &&
             allImages.map((imagen, index) => (
-              <img key={index} src={imagen.url} alt={`Imagen ${index + 1}`} />
+              <img
+                key={index}
+                src={imagen.url}
+                alt={`Imagen ${index + 1}`}
+                className="md:h-full md:min-h-32 md:max-h-36 md:w-full lg:w-full lg:h-auto object-cover rounded-2xl max-h-48 overflow-hidden"
+              />
             ))}
         </div>
       </div>

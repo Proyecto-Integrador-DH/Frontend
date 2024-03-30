@@ -49,14 +49,12 @@
 .imagenContainer img {
   border-top-left-radius: 20px;
   border-top-right-radius: 20px;
-  width: 95%;
+  width: 90%;
   height: 350px;
   margin : 0 auto;
+
 }
 
-.cardRecommended p {
-  height: 60px;
-}
 
 .verDetalles {
   background-color: #872BFF;
@@ -121,6 +119,10 @@
   flex-direction: row;
   flex-wrap: wrap;
   justify-content: center;
+}
+
+.titulo-card {
+  font-size: 50%;
 }
 
 

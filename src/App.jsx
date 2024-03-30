@@ -28,6 +28,8 @@ import SearchResults from "./Components/searcher/ListSearcher.jsx";
 import Caracteristicas from "./Components/Caracteristicas/Caracteristicas.jsx";
 import AsignarCaracteristica from "./Components/AsignarCaracteristica/AsignarCaracteristica.jsx";
 import Reservas from "./Components/ListReservas/Reservas.jsx";
+import "bootstrap/dist/css/bootstrap.min.css";
+import WhatsAppFloatingButton from "./Components/WhatsApp/WhatsApp.jsx";
 
 function App() {
   const [user, setUser] = useState(null);
@@ -80,6 +82,7 @@ function App() {
   return (
     <>
       <Header user={user} onLogout={handleLogout} />
+      <WhatsAppFloatingButton />
       <Routes>
         <Route path="/Login" element={<Login />} />
         <Route path="/products" element={<Products />} />
