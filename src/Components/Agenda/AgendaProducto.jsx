@@ -3,6 +3,7 @@ import { useParams } from "react-router-dom";
 import ModalAgenda from "./ModalAgenda";
 import { fetchListarAgendaProducto, fetchProduct, fetchAgendarExperiencia } from "../../services/api";
 import FormatDate from "../../utils/FormatDate";
+import Loading from "../Loading/Loading";
 
 const AgendaProducto = () => {
   const { id } = useParams();
@@ -10,6 +11,7 @@ const AgendaProducto = () => {
   const [agendas, setAgendas] = useState([]);
   const [error, setError] = useState(null);
   const [producto, setProducto] = useState({});
+  const [loading, setLoading] = useState(true);
 
   useEffect(() => {
     fetchData();
@@ -18,24 +20,28 @@ const AgendaProducto = () => {
 
   const fetchData = async () => {
     try {
+      setLoading(true);
       const response = await fetchListarAgendaProducto(Number(id));
-      console.log("Agendas: ", response);
       setAgendas(response);
       setError(null);
     } catch (error) {
       console.error("Error al obtener la lista de agendas", error);
       setAgendas([]);
       setError("No se encontraron agendas asignadas para esta experiencia.");
+    } finally {
+      setLoading(false);
     }
   };
 
   const fetchProducto = async () => {
     try {
+      setLoading(true);
       const response = await fetchProduct(Number(id));
-      console.log("Agenda producto: ", response);
       setProducto(response);
     } catch (error) {
       console.error("Error al obtener la lista de productos", error);
+    } finally {
+      setLoading(false);
     }
   }
 
@@ -58,9 +64,11 @@ const AgendaProducto = () => {
     }
   };
 
+  if (loading) return <Loading />;
+
   return (
-    <div className="overflow-hidden">
-      {producto.nombre && ( // Condición para verificar si producto.nombre está disponible
+    <div className="w-[90vw] mx-auto">
+      {producto.nombre && (
         <h2 className="text-3xl font-bold mb-6">
           Agenda de la Experiencia
           <br />
@@ -70,27 +78,27 @@ const AgendaProducto = () => {
       {error ? (
         <p className="text-red-500 font-bold">{error}</p>
       ) : (
-        <div className="overflow-x-auto">
+        <div>
           <table className="whitespace-nowrap table-auto">
             <thead>
               <tr>
-                <th>Nombre de la Experiencia</th>
-                <th>Fecha</th>
-                <th>Cupos</th>
-                <th>Acciones</th>
+                <th className="px-6 py-3text-sm font-semibold tracking-wide text-center">Nombre de la Experiencia</th>
+                <th className="px-6 py-3text-sm font-semibold tracking-wide text-center">Fecha</th>
+                <th className="px-6 py-3text-sm font-semibold tracking-wide text-center">Cupos</th>
+                <th className="px-6 py-3text-sm font-semibold tracking-wide text-center">Acciones</th>
               </tr>
             </thead>
             <tbody>
               {agendas.map((agenda) => (
                 <tr key={agenda.id}>
-                  <td>{agenda.producto.nombre}</td>
-                  <td>{FormatDate(agenda.fechaIda)} a {FormatDate(agenda.fechaVuelta)}</td>
-                  <td>{agenda.cupos}</td>
-                  <td>
-                    <button className="flex justify-center rounded-md bg-rosa px-3 py-1.5 text-m font-semibold leading-6 text-white shadow-sm hover:bg-indigo-500 focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-indigo-600">
+                  <td className="text-md text-center">{agenda.producto.nombre}</td>
+                  <td className="text-md text-center">{FormatDate(agenda.fechaIda)} a {FormatDate(agenda.fechaVuelta)}</td>
+                  <td className="text-md text-center">{agenda.cupos}</td>
+                  <td className="text-md text-center">
+                    <button className="w-20 flex mx-auto m-2 rounded-md bg-fuchsia-400 px-3 py-2 text-sm font-medium text-justify text-white shadow-sm hover:bg-purple-500 focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-indigo-600">
                       Editar
                     </button>
-                    <button className="flex justify-center rounded-md bg-rosa px-3 py-1.5 text-m font-semibold leading-6 text-white shadow-sm hover:bg-indigo-500 focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-indigo-600">
+                    <button className="w-20 flex mx-auto m-2 rounded-md bg-fuchsia-400 px-3 py-2 text-sm font-medium text-justify text-white shadow-sm hover:bg-purple-500 focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-indigo-600">
                       Eliminar
                     </button>
                   </td>

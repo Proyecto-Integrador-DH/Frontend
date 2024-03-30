@@ -5,12 +5,10 @@ import { fetchProduct, fetchCheckFavoritos } from "../services/api";
 import flecha from "../assets/arrowRightflecha.png";
 import Calendar from "../Components/calendar/Calendar";
 import "./details.css";
-import { fetchListarAgendaProducto } from "../services/api";
-import "./details.css";
 import FavoriteButton from "../Components/Favorite/Favorite";
 import CardCaracteristica from "../Components/CardCaracteristica/CardCaracteristica.jsx";
 import Politicas from "../Components/Politica/Politicas.jsx";
-import { faL } from "@fortawesome/free-solid-svg-icons";
+import Loading from "../Components/Loading/Loading.jsx";
 
 const Details = ({ clienteId }) => {
   const { id } = useParams();
@@ -20,6 +18,7 @@ const Details = ({ clienteId }) => {
   const [mostrarPoliticas, setMostrarPoliticas] = useState(false);
   const defaultImage = "https://via.placeholder.com/150";
   const totalImage = 4;
+  const [loading, setLoading] = useState(true);
 
   useEffect(() => {
     fetchDetallesProductos();
@@ -27,6 +26,7 @@ const Details = ({ clienteId }) => {
 
   const fetchDetallesProductos = async () => {
     try {
+      setLoading(true);
       const data = await fetchProduct(id);
       setDetallesProducto(data);
       if (clienteId) {
@@ -36,6 +36,8 @@ const Details = ({ clienteId }) => {
       }
     } catch (error) {
       console.error("Error al obtener datos:", error);
+    } finally {
+      setLoading(false);
     }
   };
 
@@ -56,6 +58,8 @@ const Details = ({ clienteId }) => {
   const cerrarPoliticas = () => {
     setMostrarPoliticas(false);
   };
+
+  if (loading) return <Loading />;
 
   return (
     <>

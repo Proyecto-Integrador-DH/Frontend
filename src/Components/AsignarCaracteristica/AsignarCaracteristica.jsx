@@ -1,18 +1,24 @@
 import React, { useState, useEffect } from "react";
 import { fetchCaracteristicas } from "../../services/api";
 import style from './AsignarCaracterisica.module.css'
+import Loading from "../Loading/Loading";
 
 const AsignarCaracteristica = ({ onSave }) => {
   const [caracteristicas, setCaracteristicas] = useState([]);
   const [caracteristicasSeleccionadas, setCaracteristicasSeleccionadas] = useState([]);
+  const [loading, setLoading] = useState(true);
 
   useEffect(() => {
     fetchCaracteristicas()
       .then(data => {
+        setLoading(true);
         setCaracteristicas(data);
       })
       .catch(error => {
         console.error(errorHandling(error));
+      })
+      .finally(() => {
+        setLoading(false);
       });
   }, []);
 
@@ -27,12 +33,12 @@ const AsignarCaracteristica = ({ onSave }) => {
   };
 
   const handleGuardar = () => {
-    console.log(caracteristicasSeleccionadas, "dssss");
     setCaracteristicasSeleccionadas([...caracteristicasSeleccionadas]);
     localStorage.setItem('selectedfeatures', JSON.stringify(caracteristicasSeleccionadas));
     onSave([...caracteristicasSeleccionadas]);
   };
 
+  if (loading) return <Loading />;
 
   return (
     <div className="size-3/4 mx-auto my-10 pb-10">

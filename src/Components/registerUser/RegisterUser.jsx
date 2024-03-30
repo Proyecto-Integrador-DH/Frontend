@@ -3,6 +3,8 @@ import Logo from "../../assets/Logo03.png";
 import { fetchCrearUsuario } from "../../services/api";
 import registerUserStyles from "./RegisterUser.module.css";
 import ErrorComponent from "../error/ErrorAlert";
+import Loading from "../Loading/Loading";
+import { set } from "date-fns";
 
 const nombreRegex = /^[a-zA-Z]+$/;
 const apellidoRegex = /^[a-zA-Z]+$/;
@@ -16,6 +18,7 @@ function RegisterUser() {
   const [error, setError] = useState(null);
   const [titleError, setTitleError] = useState(null);
   const [modalErrorVisible, setModalErrorVisible] = useState(false);
+  const [loading, setLoading] = useState(false);
 
   const handleSubmit = async (event) => {
     event.preventDefault();
@@ -122,6 +125,7 @@ function RegisterUser() {
     }
 
     try {
+      setLoading(true);
       const usuarioResponse = await fetchCrearUsuario({
         nombre,
         apellido,
@@ -129,29 +133,30 @@ function RegisterUser() {
         pass,
       });
       if (usuarioResponse == 400) {
-        console.log("El email ya está registrado");
+        setLoading(false);
         setTitleError("Error");
         setError("Ya existe un usuario registrado con el mismo correo.");
         setModalErrorVisible(true);
         return;
       } else {
+        setLoading(false);
         setTitleError("Usuario Registrado");
         setError("Usuario registrado con éxito");
         setModalErrorVisible(true);
       }
     } catch (error) {
-      // Capturar y manejar errores que ocurran en el bloque try
       setModalErrorVisible(true);
+      setTitleError("Error");
+      setError("Error al registrar el usuario");
       console.error("Error al registrar el usuario", error.message, error);
-      alert("Ocurrió un error al registrar el usuario: " + error.message); // Mostrar el mensaje de error específico
+    } finally {
+      setLoading(false);
     }
-    // Restablecer los campos del formulario
     setNombre("");
     setApellido("");
     setEmail("");
     setPass("");
 
-    // Restablecer los errores
     setErrors({});
   };
 
@@ -159,6 +164,8 @@ function RegisterUser() {
     setModalErrorVisible(false);
     errorHandling(error);
   };
+
+  if (loading) return <Loading />;
 
   return (
     <div>

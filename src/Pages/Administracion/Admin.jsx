@@ -37,10 +37,6 @@ const Adminstrador = () => {
             <h2>Gestionar Usuarios</h2>
             <Link to='/listarUsuarios'><Button className={AdminStyle.boton}>Clic aquí</Button></Link>
           </div>
-          <div className={AdminStyle.tarjetas}>
-            <h2>Gestionar Reservas</h2>
-            <Link to='/'><Button className={AdminStyle.boton}>Clic aquí</Button></Link>
-          </div>
         </div>
       </div>
       <Footer />

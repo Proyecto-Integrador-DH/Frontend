@@ -1,19 +1,26 @@
 import React, { useState, useEffect } from 'react';
 import { fetchReservasCliente, fetchObtenerClienteByUsuario } from '../../services/api';
 import FormatDate from "../../utils/FormatDate";
+import Loading from '../Loading/Loading';
+import { set } from 'date-fns';
 
 const Reservas = ({ usuario }) => {
     const [reservas, setReservas] = useState([]);
     const [cliente, setCliente] = useState(null);
+    const [loading, setLoading] = useState(true);
 
     useEffect(() => {
         if (usuario) {
             fetchObtenerClienteByUsuario(Number(usuario.id))
                 .then((clienteData) => {
+                    setLoading(true);
                     setCliente(clienteData);
                 })
                 .catch((error) => {
                     console.error(error);
+                })
+                .finally(() => {
+                    setLoading(false);
                 });
         }
     }, [usuario]);
@@ -23,16 +30,18 @@ const Reservas = ({ usuario }) => {
             const id = cliente.id;
             fetchReservasCliente(Number(id))
                 .then((data) => {
-                    //Aqui ordeno las reservas
+                    setLoading(true);
                     data.sort((a, b) => new Date(a.agenda.fechaIda) - new Date(b.agenda.fechaIda));
                     setReservas(data);
                 })
                 .catch((error) => {
                     console.error(error);
+                })
+                .finally(() => {
+                    setLoading(false);
                 });
         }
     }, [cliente]);
-    console.log('reservas', reservas);
 
     const getReservaState = (reserva) => {
         const fechaHoy = new Date();
@@ -44,6 +53,8 @@ const Reservas = ({ usuario }) => {
             return reserva.estado ? "Activa" : "Cancelada";
         }
     };
+
+    if (loading) return <Loading />;
 
     return (
         <div>

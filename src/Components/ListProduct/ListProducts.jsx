@@ -10,6 +10,7 @@ import { fetchCategorias } from "../../services/api";
 import { errorHandling } from "../../services/errorHandling";
 import ErrorComponent from "../error/ErrorAlert";
 import AsignarCaracteristica from "../AsignarCaracteristica/AsignarCaracteristica";
+import Loading from "../Loading/Loading";
 
 const ListProducts = () => {
   const [productos, setProducts] = useState([]);
@@ -20,33 +21,41 @@ const ListProducts = () => {
   const [titleError, setTitleError] = useState(null);
   const [modalErrorVisible, setModalErrorVisible] = useState(false);
   const [mostrarAsignarCaracteristica, setMostrarAsignarCaracteristica] =useState(false);
+  const [loading, setLoading] = useState(true);
 
   useEffect(() => {
     fetchListarProductos()
       .then((data) => {
+        setLoading(true);
         setProducts(data);
-        console.log(data);
       })
       .catch((error) => {
         console.error(errorHandling(error));
+      })
+      .finally(() => {
+        setLoading(false);
       });
   }, []);
 
   useEffect(() => {
     fetchCategorias()
       .then((data) => {
+        setLoading(true);
         setCategoria(data);
       })
       .catch((error) => {
         console.error(errorHandling(error));
+      })
+      .finally(() => {
+        setLoading(false);
       });
   }, []);
 
   const refrescarProductos = async () => {
     try {
+      setLoading(true);
       const data = await fetchListarProductos();
       setProducts(data);
-      console.log("Lista de productos actualizada");
     } catch (error) {
       console.error(
         "Error al actualizar la lista de productos:",
@@ -55,6 +64,8 @@ const ListProducts = () => {
       console.error(
         "Error al actualizar la lista de productos. Por favor, inténtalo de nuevo."
       );
+    } finally {
+      setLoading(false);
     }
   };
 
@@ -65,6 +76,7 @@ const ListProducts = () => {
     }
     const idCategoria = categorias.find((c) => c.nombre === valor).id;
     try {
+      setLoading(true);
       await fetchCambiarCategoria(idProducto, idCategoria);
       await refrescarProductos();
       setModalErrorVisible(true);
@@ -77,6 +89,8 @@ const ListProducts = () => {
       setError(
         "Error al actualizar la categoría. Por favor, inténtalo de nuevo."
       );
+    } finally {
+      setLoading(false);
     }
   };
 
@@ -90,6 +104,7 @@ const ListProducts = () => {
 
   const handleDeleteProducto = async (id) => {
     try {
+      setLoading(true);
       await fetchDeleteProducto(Number(id));
       await refrescarProductos();
       setModalErrorVisible(true);
@@ -100,6 +115,8 @@ const ListProducts = () => {
       setModalErrorVisible(true);
       setTitleError("Error");
       setError("Error al eliminar el producto. Por favor, inténtalo de nuevo.");
+    } finally {
+      setLoading(false);
     }
   };
 
@@ -111,6 +128,8 @@ const ListProducts = () => {
   const guardarCaracteristicasSeleccionadas = (caracteristicas) => {
     setMostrarAsignarCaracteristica(false);
   };
+
+  if (loading) return <Loading />;
 
   return (
     <div className="w-[95vw] mx-auto">
