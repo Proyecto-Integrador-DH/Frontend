@@ -31,7 +31,6 @@ const Details = ({ clienteId }) => {
       setDetallesProducto(data);
       if (clienteId) {
         const isFav = await fetchCheckFavoritos(clienteId, id);
-        console.log("isFav", isFav);
         setIsFavorite(isFav);
       }
     } catch (error) {

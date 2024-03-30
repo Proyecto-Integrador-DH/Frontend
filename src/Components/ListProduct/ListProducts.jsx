@@ -97,7 +97,6 @@ const ListProducts = () => {
   const handleCategoriaChange = (productoId, event) => {
     const nuevaSeleccion = { ...categoriasSeleccionadas };
     nuevaSeleccion[productoId] = event.target.value;
-    console.log(nuevaSeleccion);
 
     setCategoriasSeleccionadas(nuevaSeleccion);
   };

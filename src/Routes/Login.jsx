@@ -24,7 +24,6 @@ const Login = () => {
         pass,
       });
       if (loginResponse) {
-        console.log("Login exitoso.");
         setError("Login exitoso.");
         setTitleError("Inicio de sesión exitoso.");
         setModalErrorVisible(true);

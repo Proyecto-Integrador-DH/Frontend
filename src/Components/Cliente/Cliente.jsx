@@ -62,7 +62,6 @@ const CrearClienteForm = ({ user, onSubmit }) => {
         }, 3000);
       })
       .catch((error) => {
-        console.log("Error", error);
         setTitleError("Error");
         setError("Error al crear el cliente, intente nuevamente");
         setModalErrorVisible(true);

@@ -53,7 +53,6 @@ const RegisterProducts = () => {
       });
 
       if (productoResponse == 400) {
-        console.log("Ya existe un producto con ese nombre.");
         setTitleError("Error");
         setError("Ya existe una experiencia con ese nombre.");
         setModalErrorVisible(true);
@@ -104,9 +103,7 @@ const RegisterProducts = () => {
         });
       })
     ).then(() => {
-      console.log("Imágenes convertidas a base64:", imagenes);
       setImagenes(imagenes.length === 0 ? [] : imagenes);
-      console.log("Estado de imágenes actualizado:", imagenes.length);
     });
   };
 

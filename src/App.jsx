@@ -49,7 +49,6 @@ function App() {
         fetchEmail(decoded.sub)
           .then((data) => {
             setUser(data);
-            console.log("Info de usuario", data);
             if (data) {
               fetchObtenerClienteByUsuario(Number(data.id))
                 .then((clienteData) => {
