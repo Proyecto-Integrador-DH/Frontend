@@ -19,7 +19,8 @@ const Agenda = ({ productoId }) => {
   const [modalErrorVisible, setModalErrorVisible] = useState(false);
   const [selectedDate, setSelectedDate] = useState(null);
   const [showReservaModal, setShowReservaModal] = useState(false);
-  const token = localStorage.getItem("token");
+  // const token = localStorage.getItem("token");
+  const [isLoggedIn, setIsLoggedIn] = useState(!!localStorage.getItem("token"));
   const history = useNavigate();
 
   useEffect(() => {
@@ -97,10 +98,17 @@ const Agenda = ({ productoId }) => {
   const MyContainer = ({ className, children }) => {
     return (
       <div
-        className={`p-4 bg-gradient-to-br from-purple-300 to-pink-300 text-black shadow-lg ${className}`}
+        className={`p-4 text-black shadow-lg border-purple-300 ${className}`}
       >
-        <div className="bg-gradient-to-br from-purple-300 to-pink-300"></div>
         <div className="relative">{children}</div>
+        <div className="w-full flex justify-center">
+          <button
+              className="p-4 text-md bg-purple-600 hover:bg-purple-400 focus:outline-none focus:ring-2 focus:ring-purple-600 focus:ring-opacity-50 text-white rounded-md px-4 py-2 transition-colors duration-300 ease-in-out"
+              onClick={handleReservar}
+            >
+              Reservar
+            </button></div>
+        
       </div>
     );
   };
@@ -116,8 +124,11 @@ const Agenda = ({ productoId }) => {
   };
 
   const handleReservar = () => {
-    if (!token) {
-      history("/Login");
+    if (!isLoggedIn) {
+      setModalErrorVisible(true);
+      setTitleError("Atención!");
+      setError("Para efectuar una reserva debe iniciar sesión.");
+      return;
     } else {
       const agendaSeleccionada = agenda.find(
         (item) =>
@@ -137,6 +148,14 @@ const Agenda = ({ productoId }) => {
 
   const closeModal = () => {
     setModalErrorVisible(false);
+    if (titleError === "Atención!" && error === "Para efectuar una reserva debe iniciar sesión.") {
+      history("/Login");
+    }
+  };
+
+  const handleLoginRedirect = () => {
+    // Redirige al usuario a la página de inicio de sesión
+    history("/Login");
   };
 
   return (
@@ -146,6 +165,8 @@ const Agenda = ({ productoId }) => {
           title={titleError}
           message={error}
           onClose={closeModal}
+          buttonText="Reservar"
+          onButtonClick={handleLoginRedirect}
         />
       )}
       <button
@@ -227,17 +248,11 @@ const Agenda = ({ productoId }) => {
             onChange={handleDateChange}
           >
             {cuposDisponibles !== null && (
-              <pc className="m-auto text-lg">
+              <p className="m-auto text-lg">
                 Cupos disponibles: {cuposDisponibles}
-              </pc>
+              </p>
             )}
             <hr className="m-2" />
-            <button
-              className="text-lg bg-purple-600 hover:bg-purple-400 focus:outline-none focus:ring-2 focus:ring-purple-600 focus:ring-opacity-50 text-white rounded-md px-4 py-2 transition-colors duration-300 ease-in-out"
-              onClick={handleReservar}
-            >
-              Reservar
-            </button>
           </DatePicker>
         </label>
       )}
