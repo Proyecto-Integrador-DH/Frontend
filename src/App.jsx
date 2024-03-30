@@ -29,7 +29,9 @@ import Caracteristicas from "./Components/Caracteristicas/Caracteristicas.jsx";
 import AsignarCaracteristica from "./Components/AsignarCaracteristica/AsignarCaracteristica.jsx";
 import Reservas from "./Components/ListReservas/Reservas.jsx";
 import 'bootstrap/dist/css/bootstrap.min.css';
-
+import Ours from "./Components/Ours/Ours.jsx";
+import Contact from "./Components/Contactanos/Contactanos.jsx";
+import Politicas  from "./Components/Politica/Politicas.jsx";
 function App() {
   const [user, setUser] = useState(null);
   const [email, setEmail] = useState("");
@@ -82,6 +84,7 @@ function App() {
     <>
       <Header user={user} onLogout={handleLogout} />
       <Routes>
+
         <Route path="/Login" element={<Login />} />
         <Route path="/products" element={<Products />} />
         <Route path="/" element={<HomePage />} />
@@ -138,6 +141,11 @@ function App() {
             )
           }
         />
+        <Route path="/ours" element={<Ours />} />
+        <Route path="/contact" element={<Contact/>} />
+        <Route path="/politicas" element={<Politicas/>} />
+
+
       </Routes>
     </>
   );
