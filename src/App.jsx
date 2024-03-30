@@ -32,6 +32,8 @@ import 'bootstrap/dist/css/bootstrap.min.css';
 import Ours from "./Components/Ours/Ours.jsx";
 import Contact from "./Components/Contactanos/Contactanos.jsx";
 import Politicas  from "./Components/Politica/Politicas.jsx";
+import WhatsAppFloatingButton from "./Components/WhatsApp/WhatsApp.jsx";
+
 function App() {
   const [user, setUser] = useState(null);
   const [email, setEmail] = useState("");
@@ -83,6 +85,7 @@ function App() {
   return (
     <>
       <Header user={user} onLogout={handleLogout} />
+      <WhatsAppFloatingButton />
       <Routes>
 
         <Route path="/Login" element={<Login />} />

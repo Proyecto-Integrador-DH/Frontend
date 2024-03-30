@@ -1,20 +1,29 @@
-# Usa la imagen base de Node.js
-FROM node:alpine
+# Usa una imagen de node para construir la aplicación
+FROM node:latest AS builder
 
 # Establece el directorio de trabajo dentro del contenedor
-WORKDIR /usr/src/app
+WORKDIR /app
 
-# Copia el package.json y el package-lock.json (si existen)
-COPY package*.json ./
+# Copia el package.json y el package-lock.json
+COPY package.json .
+# COPY yarn.lock .
 
 # Instala las dependencias
 RUN npm install
 
-# Copia el resto del código fuente
+# Copia el resto de los archivos de la aplicación
 COPY . .
 
-# Expone el puerto en el que se ejecutará tu aplicación
-EXPOSE 3000
+# Construye la aplicación
+RUN npm run build
 
-# Comando para ejecutar tu aplicación
-CMD ["npm", "start"]
+# Ahora, configuramos el servidor web para servir la aplicación construida
+FROM nginx:alpine
+
+# Copia los archivos construidos de la etapa anterior al directorio de trabajo del servidor nginx
+COPY --from=builder /app/dist /usr/share/nginx/html
+
+COPY nginx.conf /etc/nginx/nginx.conf
+
+# Exponer el puerto 80
+EXPOSE 80

@@ -19,7 +19,7 @@ const ListProducts = () => {
   const [error, setError] = useState(null);
   const [titleError, setTitleError] = useState(null);
   const [modalErrorVisible, setModalErrorVisible] = useState(false);
-  const [mostrarAsignarCaracteristica, setMostrarAsignarCaracteristica] = useState(false);
+  const [mostrarAsignarCaracteristica, setMostrarAsignarCaracteristica] =useState(false);
 
   useEffect(() => {
     fetchListarProductos()
@@ -110,7 +110,7 @@ const ListProducts = () => {
 
   const guardarCaracteristicasSeleccionadas = (caracteristicas) => {
     setMostrarAsignarCaracteristica(false);
-};
+  };
 
   return (
     <div className="w-[95vw] mx-auto">
@@ -126,12 +126,24 @@ const ListProducts = () => {
         <table className="w-[95vw] mx-auto">
           <thead>
             <tr>
-              <th className="px-6 py-3 text-sm font-semibold tracking-wide text-left">ID</th>
-              <th className="px-6 py-3 text-sm font-semibold tracking-wide text-left">Nombre de la Experiencia</th>
-              <th className="px-6 py-3 text-sm font-semibold tracking-wide text-left">Categoría</th>
-              <th className="px-6 py-3 text-sm font-semibold tracking-wide text-left">Cambiar categoría</th>
-              <th className="px-6 py-3 text-sm font-semibold tracking-wide text-center">Acciones</th>
-              <th className="px-6 py-3 text-sm font-semibold tracking-wide text-left">Agenda</th>
+              <th className="px-6 py-3 text-sm font-semibold tracking-wide text-left">
+                ID
+              </th>
+              <th className="px-6 py-3 text-sm font-semibold tracking-wide text-left">
+                Nombre de la Experiencia
+              </th>
+              <th className="px-6 py-3 text-sm font-semibold tracking-wide text-left">
+                Categoría
+              </th>
+              <th className="px-6 py-3 text-sm font-semibold tracking-wide text-left">
+                Cambiar categoría
+              </th>
+              <th className="px-6 py-3 text-sm font-semibold tracking-wide text-center">
+                Acciones
+              </th>
+              <th className="px-6 py-3 text-sm font-semibold tracking-wide text-left">
+                Agenda
+              </th>
             </tr>
           </thead>
           <tbody>
@@ -139,7 +151,9 @@ const ListProducts = () => {
               <tr key={producto.Id}>
                 <td className="text-sm text-left">{producto.Id}</td>
                 <td className="text-sm text-left">{producto.nombre}</td>
-                <td className="text-sm text-left capitalize">{producto.categoria.nombre}</td>
+                <td className="text-sm text-left capitalize">
+                  {producto.categoria.nombre}
+                </td>
                 <td>
                   <div className="relative mt-2 text-center">
                     <button
@@ -245,18 +259,20 @@ const ListProducts = () => {
                   >
                     Eliminar
                   </button>
-                  <button 
-                  className={style.button1}
-                  onClick={() => {
-                    if(mostrarAsignarCaracteristica){
-                      setMostrarAsignarCaracteristica(false);
-                    }else{
-                      setMostrarAsignarCaracteristica(true);
-                    }
-                  }}
+                  <button
+                    className={style.button1}
+                    onClick={() => {
+                      if (mostrarAsignarCaracteristica) {
+                        setMostrarAsignarCaracteristica(false);
+                      } else {
+                        setMostrarAsignarCaracteristica(true);
+                      }
+                    }}
                   >
-                    {mostrarAsignarCaracteristica ? "Ocultar Características" : "Seleccionar Características"}
-                    </button>
+                    {mostrarAsignarCaracteristica
+                      ? "Ocultar Características"
+                      : "Seleccionar Características"}
+                  </button>
                 </td>
                 <td>
                   <div>
@@ -272,7 +288,9 @@ const ListProducts = () => {
             ))}
           </tbody>
         </table>
-        {mostrarAsignarCaracteristica && <AsignarCaracteristica onSave={guardarCaracteristicasSeleccionadas} />}
+        {mostrarAsignarCaracteristica && (
+          <AsignarCaracteristica onSave={guardarCaracteristicasSeleccionadas} />
+        )}
       </div>
     </div>
   );
