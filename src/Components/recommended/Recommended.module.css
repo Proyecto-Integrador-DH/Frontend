@@ -54,6 +54,10 @@
   margin : 0 auto;
 }
 
+.cardRecommended p {
+  height: 60px;
+}
+
 .verDetalles {
   background-color: #872BFF;
   width: 6.1rem;

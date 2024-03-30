@@ -125,7 +125,7 @@ const Recommended = () => {
           {productosApi.map((product, index) => (
             <div 
               key={index} 
-              className="bg-white rounded-lg  shadow-md overflow-hidden transition duration-300 hover:shadow-lg">
+              className="bg-white rounded-lg pb-6 shadow-md overflow-hidden transition duration-300 hover:shadow-lg">
               <div className={RecommendedStyles.imagenContainer}>
                 {product.imagenes.length > 0 ? (
                   <img
@@ -137,7 +137,7 @@ const Recommended = () => {
                 )}
               </div>
               <div>
-                <p className="mt-3 mb-1 font-medium">{product.nombre}</p>
+                <p className="mt-3 mb-1 font-medium h-12">{product.nombre}</p>
               </div>
               <Link to={`/details/${product.Id}`}>
                 <button className={RecommendedStyles.verDetalles}>
