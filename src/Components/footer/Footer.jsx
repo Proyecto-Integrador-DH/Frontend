@@ -63,7 +63,7 @@ const Footer = () => {
                 <Link to="/contact">Contactanos</Link>
               </li>
               <li>
-                <Link to="/politicas">Politicas</Link>
+                <Link to="/politicas">Políticas</Link>
               </li>
             </ul>
           </div>
@@ -72,10 +72,9 @@ const Footer = () => {
       <div className="parte2">
         <img src={Copyright} alt="" />
         <div className="footer-social">
-          <a href="https://www.facebook.com/SoloAventuraDH/" target="_blank" rel="noopener noreferrer"><FontAwesomeIcon icon={faFacebook} className="h-6" /></a>
-          <a href="https://twitter.com/Hugo3802128953/" target="_blank" rel="noopener noreferrer"><FontAwesomeIcon icon={faTwitterSquare} className="twitter h-6" /></a>
-          <a href="https://www.instagram.com/soloaventurasdh/" target="_blank" rel="noopener noreferrer"><FontAwesomeIcon icon={faInstagramSquare} className="h-6" /></a>
-
+          <a href="https://www.facebook.com/SoloAventuraDH/" target="_blank" rel="noopener noreferrer"><FontAwesomeIcon icon={faFacebook} className="h-8" /></a>
+          <a href="https://twitter.com/Hugo3802128953/" target="_blank" rel="noopener noreferrer"><FontAwesomeIcon icon={faTwitterSquare} className="twitter h-8" /></a>
+          <a href="https://www.instagram.com/soloaventurasdh/" target="_blank" rel="noopener noreferrer"><FontAwesomeIcon icon={faInstagramSquare} className="h-8" /></a>
         </div>
       </div>
     </>

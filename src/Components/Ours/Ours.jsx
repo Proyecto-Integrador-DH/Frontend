@@ -18,8 +18,8 @@ const Ours = () => {
             <div className="flex items-center gap-x-6">
               <img className="h-16 w-16 rounded-full" src={Adri} alt="" />
               <div>
-                <h3 className="text-base font-semibold leading-7 tracking-tight text-gray-900">Adriana</h3>
-                <p className="text-sm font-semibold leading-6 text-indigo-600">Backend</p>
+                <h3 className="text-xl font-semibold leading-7 tracking-tight text-gray-900 w-100 pb-1">Adriana Paredes S</h3>
+                <p className="text-sm font-semibold leading-6 text-indigo-600">BackEnd - Infraestructura</p>
               </div>
             </div>
           </li>
@@ -27,7 +27,7 @@ const Ours = () => {
             <div className="flex items-center gap-x-6">
               <img className="h-16 w-16 rounded-full" src={Matt} alt="" />
               <div>
-                <h3 className="text-base font-semibold leading-7 tracking-tight text-gray-900">Matt</h3>
+                <h3 className="text-xl font-semibold leading-7 tracking-tight text-gray-900 w-100 pb-1">Matteo Lovatto</h3>
                 <p className="text-sm font-semibold leading-6 text-indigo-600">FrontEnd</p>
               </div>
             </div>
@@ -36,7 +36,7 @@ const Ours = () => {
             <div className="flex items-center gap-x-6">
               <img className="h-16 w-16 rounded-full" src={hugo} alt="" />
               <div>
-                <h3 className="text-base font-semibold leading-7 tracking-tight text-gray-900">Hugo</h3>
+                <h3 className="text-xl font-semibold leading-7 tracking-tight text-gray-900 w-100 pb-1">Hugo Dominguez</h3>
                 <p className="text-sm font-semibold leading-6 text-indigo-600">Infraestructura - FrontEnd</p>
               </div>
             </div>
@@ -45,7 +45,7 @@ const Ours = () => {
             <div className="flex items-center gap-x-6">
               <img className="h-16 w-16 rounded-full" src={Erika} alt="" />
               <div>
-                <h3 className="text-base font-semibold leading-7 tracking-tight text-gray-900">Erika</h3>
+                <h3 className="text-xl font-semibold leading-7 tracking-tight text-gray-900 w-100 pb-1">Erika Guarín</h3>
                 <p className="text-sm font-semibold leading-6 text-indigo-600">Testing - FrontEnd</p>
               </div>
             </div>
@@ -54,7 +54,7 @@ const Ours = () => {
             <div className="flex items-center gap-x-6">
               <img className="h-16 w-16 rounded-full" src={glendis} alt="" />
               <div>
-                <h3 className="text-base font-semibold leading-7 tracking-tight text-gray-900">Glendys</h3>
+                <h3 className="text-xl font-semibold leading-7 tracking-tight text-gray-900 w-100 pb-1">Glendis Piña</h3>
                 <p className="text-sm font-semibold leading-6 text-indigo-600">Bases de datos</p>
               </div>
             </div>
@@ -63,8 +63,8 @@ const Ours = () => {
             <div className="flex items-center gap-x-6">
               <img className="h-16 w-16 rounded-full" src="https://images.unsplash.com/photo-1494790108377-be9c29b29330?ixlib=rb-1.2.1&ixid=eyJhcHBfaWQiOjEyMDd9&auto=format&fit=facearea&facepad=2&w=256&h=256&q=80" alt="" />
               <div>
-                <h3 className="text-base font-semibold leading-7 tracking-tight text-gray-900">Liz</h3>
-                <p className="text-sm font-semibold leading-6 text-indigo-600">Ux</p>
+                <h3 className="text-xl font-semibold leading-7 tracking-tight text-gray-900 w-100 pb-1">Liz Gabriela Nova</h3>
+                <p className="text-sm font-semibold leading-6 text-indigo-600">Scrum Master - Ux</p>
               </div>
             </div>
           </li>

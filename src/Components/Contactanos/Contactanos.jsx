@@ -21,7 +21,7 @@ const Contactanos = () => {
                             </div>
                             <h3 className=" text-xl font-bold mb-4">Contáctanos</h3>
                             <ul className="list-unstyled">
-                                <li><strong>Teléfono:</strong> +57 3165340548 </li>
+                                <li><strong>Teléfono:</strong> +57 3023437366 </li>
                                 <li><strong>Correo electrónico:</strong> soloAventuras@gmail.com</li>
                                 <li><strong>Dirección:</strong> Calle Principal</li>
                             </ul>
