@@ -2,11 +2,12 @@ import React, { useState, useEffect } from "react";
 import Footer from "../footer/Footer";
 import { fetchListarFavoritosCliente } from "../../services/api";
 import FavoriteButton from "../Favorite/Favorite";
-import card from "../Card/Card.jsx";
 import Card from "../Card/Card.jsx";
+import Loading from "../Loading/Loading.jsx";
 
 const ListFavorite = ({ clienteId }) => {
   const [favoritos, setFavoritos] = useState([]);
+  const [loading, setLoading] = useState(true);
 
   useEffect(() => {
     fetchFavoritos();
@@ -15,11 +16,14 @@ const ListFavorite = ({ clienteId }) => {
   const fetchFavoritos = () => {
     fetchListarFavoritosCliente(clienteId)
       .then((data) => {
-        console.log("Favoritos", data);
+        setLoading(true);
         setFavoritos(data);
       })
       .catch((error) => {
         console.error(error);
+      })
+      .finally(() => {
+        setLoading(false);
       });
   };
 
@@ -32,6 +36,8 @@ const ListFavorite = ({ clienteId }) => {
       document.removeEventListener("favoriteRemoved", handleFavoriteRemoved);
     };
   }, [clienteId]);
+
+  if (loading) return <Loading />;
 
   return (
     <div className="overflow-hidden">

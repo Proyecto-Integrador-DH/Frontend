@@ -6,11 +6,14 @@ import { fetchCargarImagen } from "../../services/api";
 import { errorHandling } from "../../services/errorHandling";
 import Button from "../button/Button";
 import { fetchCategorias } from "../../services/api";
+import Loading from "../Loading/Loading";
+import { set } from "date-fns";
 
 const RegisterProducts = () => {
   const [nombre, setNombre] = useState("");
   const [descripcion, setDescripcion] = useState("");
   const [disponible, setDisponible] = useState(true);
+  const [ubicacion, setUbicacion] = useState("");
   const [imagenes, setImagenes] = useState([]);
   const [error, setError] = useState(null);
   const [titleError, setTitleError] = useState(null);
@@ -18,15 +21,19 @@ const RegisterProducts = () => {
   const [showOptions, setShowOptions] = useState(false);
   const [categorias, setCategoria] = useState([]);
   const [categoriaSeleccionada, setCategoriaSeleccionada] = useState(null);
+  const [loading, setLoading] = useState(true);
 
   useEffect(() => {
     fetchCategorias()
       .then((data) => {
+        setLoading(true);
         setCategoria(data);
-        console.log(data);
       })
       .catch((error) => {
         console.error(errorHandling(error));
+      })
+      .finally(() => {
+        setLoading(false);
       });
   }, []);
 
@@ -34,17 +41,18 @@ const RegisterProducts = () => {
     event.preventDefault();
 
     try {
+      setLoading(true);
       const productoResponse = await fetchProductoNuevo({
         nombre,
         descripcion,
         disponible,
+        ubicacion,
         categoria: {
           id: categoriaSeleccionada.id,
         },
       });
 
       if (productoResponse == 400) {
-        console.log("Ya existe un producto con ese nombre.");
         setTitleError("Error");
         setError("Ya existe una experiencia con ese nombre.");
         setModalErrorVisible(true);
@@ -64,7 +72,7 @@ const RegisterProducts = () => {
 
         setNombre("");
         setDescripcion("");
-
+        setUbicacion("");
         setDisponible(true);
         setImagenes(null);
         setCategoriaSeleccionada(null);
@@ -72,6 +80,8 @@ const RegisterProducts = () => {
     } catch (error) {
       setModalErrorVisible(true);
       console.error("Error al registrar el producto:", error.message);
+    } finally {
+      setLoading(false);
     }
   };
 
@@ -93,9 +103,7 @@ const RegisterProducts = () => {
         });
       })
     ).then(() => {
-      console.log("Imágenes convertidas a base64:", imagenes);
       setImagenes(imagenes.length === 0 ? [] : imagenes);
-      console.log("Estado de imágenes actualizado:", imagenes.length);
     });
   };
 
@@ -103,6 +111,8 @@ const RegisterProducts = () => {
     setModalErrorVisible(false);
     errorHandling(error);
   };
+
+  if (loading) return <Loading />;
 
   return (
     <div>
@@ -225,7 +235,15 @@ const RegisterProducts = () => {
                 </div>
               </div>
             </label>
-
+            <label className="block text-left text-sm font-medium leading-6 text-gray-900">
+              Ubicacion:
+              <input
+                type="text"
+                checked={ubicacion}
+                onChange={(e) => setUbicacion(e.target.value)}
+                className="block w-full rounded-md border-0 py-1.5 text-gray-900 shadow-sm ring-1 ring-inset ring-gray-300 placeholder:text-gray-400 focus:ring-2 focus:ring-inset focus:ring-indigo-600 sm:text-sm sm:leading-6"
+              />
+            </label>              
             <label className="block text-left text-sm font-medium leading-6 text-gray-900">
               Disponible:
               <input

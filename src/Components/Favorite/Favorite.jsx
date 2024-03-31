@@ -6,6 +6,8 @@ import {
   fetchCheckFavoritos,
 } from "../../services/api";
 import ErrorComponent from "../error/ErrorAlert";
+import Loading from "../Loading/Loading";
+import { set } from "date-fns";
 
 const FavoriteButton = ({ clienteId, productoId }) => {
   const [isFavorite, setIsFavorite] = useState(false);
@@ -13,18 +15,21 @@ const FavoriteButton = ({ clienteId, productoId }) => {
   const [titleError, setTitleError] = useState(null);
   const [modalErrorVisible, setModalErrorVisible] = useState(false);
   const token = localStorage.getItem("token");
+  const [loading, setLoading] = useState(false);
 
   useEffect(() => {
     const checkFavoriteStatus = async () => {
       try {
+        setLoading(true);
         const isFav = await fetchCheckFavoritos(
           Number(clienteId),
           Number(productoId)
         );
-        console.log("isFav", isFav);
         setIsFavorite(isFav);
       } catch (error) {
         console.error("Error al verificar favoritos:", error);
+      } finally {
+        setLoading(false);
       }
     };
 
@@ -55,23 +60,26 @@ const FavoriteButton = ({ clienteId, productoId }) => {
       };
 
       if (isFavorite) {
+        setLoading(true);
         await fetchRemoveFavoritos(favorito);
-        console.log("Producto eliminado de favoritos");
         document.dispatchEvent(new Event("favoriteRemoved"));
       } else {
+        setLoading(true);
         await fetchAddFavoritos(favorito);
-        console.log("Producto agregado a favoritos");
       }
       setIsFavorite(!isFavorite);
     } catch (error) {
       console.error("Error al modificar favoritos:", error);
+    } finally {
+      setLoading(false);
     }
   };
 
   const closeModal = () => {
-    console.log("closeModal");
     setModalErrorVisible(false);
   };
+
+  if (loading) return <Loading />;
 
   return (
     <div>

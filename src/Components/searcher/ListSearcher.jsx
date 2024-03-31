@@ -5,6 +5,7 @@ import { useNavigate } from "react-router-dom";
 import { useSearchParams } from "react-router-dom";
 import formatDate from "../../utils/FormatDate";
 import flecha from "../../assets/arrowRightflecha.png";
+import Loading from "../Loading/Loading";
 
 const ListSearch = () => {
   const [results, setResults] = useState([]);
@@ -14,10 +15,12 @@ const ListSearch = () => {
   const criteria = searchParams.get("criteria");
   const [notFound, setNotFound] = useState(false);
   const navigate = useNavigate();
+  const [loading, setLoading] = useState(true);
 
   useEffect(() => {
     const fetchData = async () => {
       try {
+        setLoading(true);
         const data = await fetchSearch(startDate, endDate);
         const filteredResults = data.filter((result) => {
           return (
@@ -29,7 +32,6 @@ const ListSearch = () => {
               .includes((criteria || "").toLowerCase())
           );
         });
-        console.log("Resultados filtrados", filteredResults);
         setResults(filteredResults);
         if (filteredResults.length === 0) {
           setNotFound(true);
@@ -39,6 +41,8 @@ const ListSearch = () => {
       } catch (error) {
         console.error(error);
         setNotFound(true);
+      } finally {
+        setLoading(false);
       }
     };
 
@@ -65,6 +69,8 @@ const ListSearch = () => {
       </div>
     );
   }
+
+  if (loading) return <Loading />;
 
   return (
     <div className="overflow-hidden">

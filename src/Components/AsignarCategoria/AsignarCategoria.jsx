@@ -1,19 +1,26 @@
 import React, { useState, useEffect } from "react";
 import { fetchCategorias } from "../../services/api";
+import Loading from "../Loading/Loading";
 
 const AsignarCategoria = () => {
   const [categorias, setCategoria] = useState([]);
+  const [loading, setLoading] = useState(true);
 
   useEffect(() => {
     fetchCategorias()
       .then((data) => {
+        setLoading(true);
         setCategoria(data);
-        console.log(data);
       })
       .catch((error) => {
         console.error(errorHandling(error));
+      })
+      .finally(() => {
+        setLoading(false);
       });
   }, []);
+
+  if (loading) return <Loading />;
 
   return (
     <div className="w-[90vw] mx-auto">

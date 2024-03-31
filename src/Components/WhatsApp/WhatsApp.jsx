@@ -9,8 +9,7 @@ const WhatsAppFloatingButton = () => {
     <FloatingWhatsApp
       avatar={Solologo}
       accountName="Solo Aventuras"
-      phoneNumber="573186219938"
-      message="Hola, ¿cómo puedo ayudarte?"
+      phoneNumber="573023437366"
       statusMessage="Estamos en línea"
       chatMessage="Hola! Somos Solo Aventuras, queremos que hagas match con tu próxima experiencia. ¿En qué podemos ayudarte?"
       placeholder="Escribe tu mensaje aquí"

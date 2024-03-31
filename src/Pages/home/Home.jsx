@@ -1,5 +1,4 @@
 import React from "react";
-import Searcher from "../../Components/searcher/Searcher";
 import Category from "../../Components/category/Category";
 import Banner from "../../Components/banner/Banner";
 import Recommended from "../../Components/recommended/Recommended";
@@ -9,8 +8,6 @@ import SearchForm from "../../Components/searcher/SearcherForm";
 const HomePage = () => {
   return (
     <div>
-
-      {/*<Searcher />*/}
       <SearchForm />
       
       <Banner />

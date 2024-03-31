@@ -8,6 +8,7 @@ import {
 import { errorHandling } from "../../services/errorHandling";
 import style from './Caracterisicas.module.css'
 import ErrorComponent from "../error/ErrorAlert";
+import Loading from "../Loading/Loading";
 
 
 const Caracteristicas = () => {
@@ -22,23 +23,27 @@ const Caracteristicas = () => {
   const [error, setError] = useState(null);
   const [titleError, setTitleError] = useState(null);
   const [modalErrorVisible, setModalErrorVisible] = useState(false);
-  
+  const [loading, setLoading] = useState(true);
 
   useEffect(() => {
     fetchCaracteristicas()
       .then(data => {
+        setLoading(true);
         setCaracteristicas(data);
       })
       .catch(error => {
         console.error(errorHandling(error));
+      })
+      .finally(() => {
+        setLoading(false);
       });
   }, []);
 
   const recargarCaracteristicas = async () => {
     try {
+      setLoading(true);
       const data = await fetchCaracteristicas();
       setCaracteristicas(data);
-      console.log("Lista de caracteristicas actualizada");
     } catch (error) {
       console.error(
         "Error al actualizar la lista de caracteristicas:",
@@ -47,11 +52,14 @@ const Caracteristicas = () => {
       console.error(
         "Error al actualizar la lista de caracteristicas. Por favor, inténtalo de nuevo."
       );
+    } finally {
+      setLoading(false);
     }
   };
 
   const handleCrearCaracteristica = async () => {
     try {
+      setLoading(true);
       await fetchCaracteristicaNueva(caracteristicaNueva);
       setCaracteristicaNueva({
         nombre: "",
@@ -69,11 +77,14 @@ const Caracteristicas = () => {
       setModalErrorVisible(true);
       setTitleError("Error");
       setError("No se ha podido actualizar la lista. Por favor, intentalo de nuevo");
+    } finally {
+      setLoading(false);
     }
   };
 
   const handleActualizarCaracteristica = async (id, data) => {
     try {
+      setLoading(true);
       await fetchEditarCaracteristica(data);
       const nuevasCaracteristicas = await fetchCaracteristicas();
       setCaracteristicas(nuevasCaracteristicas);
@@ -85,11 +96,14 @@ const Caracteristicas = () => {
       setModalErrorVisible(true);
       setTitleError("Error");
       setError("No se ha podido actualizar la característica. Por favor, intentalo de nuevo");
+    } finally {
+      setLoading(false);
     }
   };
 
   const handleEliminarCaracteristica = async (id) => {
     try {
+      setLoading(true);
       await fetchBorrarCaracteristica(id);      
       await recargarCaracteristicas();
       setModalErrorVisible(true);
@@ -99,6 +113,8 @@ const Caracteristicas = () => {
       setModalErrorVisible(true);
       setTitleError("Error");
       setError("No se ha podido eliminar la caracteristica. Por favor, intentalo de nuevo");
+    } finally {
+      setLoading(false);
     }
   };
 
@@ -106,6 +122,8 @@ const Caracteristicas = () => {
     setModalErrorVisible(false);
     errorHandling(error);
   };
+
+  if (loading) return <Loading />;
 
   return (
     <div className="size-full">

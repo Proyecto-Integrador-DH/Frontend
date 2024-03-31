@@ -4,9 +4,7 @@ const CardCaracteristica = ({ caracteristica }) => {
   const [caracteristicaSeleccionadas, setCaracteristicasSeleccionadas] = useState([]);
 
   useEffect(() => {
-    console.log(caracteristicaSeleccionadas);
     const storedFeatures = JSON.parse(localStorage.getItem('selectedfeatures'));
-    // Verificar si storedFeatures es null antes de actualizar el estado
     if (storedFeatures !== null) {
       setCaracteristicasSeleccionadas(storedFeatures);
     }

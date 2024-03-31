@@ -4,15 +4,16 @@ import { fetchCrearCliente } from "../../services/api";
 import ErrorComponent from "../error/ErrorAlert";
 import Logo from "../../assets/Logo03.png";
 import CountrySelect from "../CountrySelect/CountrySelect";
+import Loading from "../Loading/Loading";
 
 const CrearClienteForm = ({ user, onSubmit }) => {
   const [errors, setErrors] = useState({});
   const [error, setError] = useState(null);
   const [titleError, setTitleError] = useState(null);
   const [modalErrorVisible, setModalErrorVisible] = useState(false);
-  const [showSuccessMessage, setShowSuccessMessage] = useState(false);
   const navigate = useNavigate();
   const location = useLocation();
+  const [loading, setLoading] = useState(false);
 
   const [cliente, setCliente] = useState({
     usuario_id: "",
@@ -42,9 +43,9 @@ const CrearClienteForm = ({ user, onSubmit }) => {
 
   const handleSubmit = (e) => {
     e.preventDefault();
-    console.log("Cliente", cliente);
     fetchCrearCliente(cliente)
       .then((data) => {
+        setLoading(true);
         setTitleError("Cliente actualizado");
         setError("El cliente ha sido actualizado correctamente");
         setModalErrorVisible(true);
@@ -61,17 +62,21 @@ const CrearClienteForm = ({ user, onSubmit }) => {
         }, 3000);
       })
       .catch((error) => {
-        console.log("Error", error);
         setTitleError("Error");
         setError("Error al crear el cliente, intente nuevamente");
         setModalErrorVisible(true);
         setErrors({});
+      })
+      .finally(() => {
+        setLoading(false);
       });
   };
 
   const closeModal = () => {
     setModalErrorVisible(false);
   };
+
+  if (loading) return <Loading />;
 
   return (
     <div>

@@ -22,7 +22,7 @@ const Avatar = ({user, onLogout}) => {
 
   }
   const color = generarColor();
-  console.log("usuario: ", user);
+
   return (
     <div>
       <div className="relative ml-3">

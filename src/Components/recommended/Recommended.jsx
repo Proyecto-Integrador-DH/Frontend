@@ -7,17 +7,20 @@ import VerMas from "../botonVerMas/BotonVerMas";
 import { fetchListarProductosRecom } from "../../services/api";
 import { Link } from "react-router-dom";
 import { useParams } from "react-router-dom";
+import Loading from "../Loading/Loading";
 
 const Recommended = () => {
   const [showAll, setShowAll] = useState(false);
   const sliderRef = useRef(null);
   const [productosApi, setProductosApi] = useState([]);
   const { id } = useParams();
+  const [loading, setLoading] = useState(true);
 
   const defaultImage = "https://via.placeholder.com/150";
 
   const fetchApiData = async () => {
     try {
+      setLoading(true);
       const data = await fetchListarProductosRecom();
 
       if (Array.isArray(data)) {
@@ -27,10 +30,10 @@ const Recommended = () => {
       }
     } catch (error) {
       console.error("Error al obtener datos:", error);
+    } finally {
+      setLoading(false);
     }
   };
-
-  console.log(productosApi);
 
   const sliderSettings = {
     dots: false,
@@ -55,6 +58,8 @@ const Recommended = () => {
   useEffect(() => {
     fetchApiData();
   }, []);
+
+  if (loading) return <Loading />;
 
   return (
     <div className={RecommendedStyles.recommendedBloque}>
