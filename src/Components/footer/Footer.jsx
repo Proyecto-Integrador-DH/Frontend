@@ -8,7 +8,7 @@ import { faFacebook, faInstagramSquare, faTwitterSquare } from "@fortawesome/fre
 const Footer= () => {
   return (
     <>
-      <div className="parte1">
+      <div className="parte1 md:m-0 lg:mt-10">
         <div className="primeraColumna">
           <img src={Frame} alt="" />
           <p>

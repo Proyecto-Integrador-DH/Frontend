@@ -36,8 +36,8 @@ const Category = () => {
                     <img src={ImageCategorys} alt="no funciona" />
                 </div>
                 <div className={CategoryStyle.category}>
-                    <h2>CATEGORIAS</h2>
-                    <h3 className="w-full mb-5">Encuentra la experiencia de tus sueños</h3>
+                    <h2 className="md:pl-5 lg:pl-0">CATEGORIAS</h2>
+                    <h3 className="md:pl-5 lg:pl-0 w-full mb-5">Encuentra la experiencia de tus sueños</h3>
                     <div className={CategoryStyle.categoryLinks}>
                         <Link 
                             to={`/listarProductos/${selectedCategory}`} 

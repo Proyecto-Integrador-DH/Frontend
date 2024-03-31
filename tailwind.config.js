@@ -10,6 +10,9 @@ export default {
         'rosa': '#F411CF',
         'precio': '#872BFF',
         'foto': '296px'
+      },
+      screens: {
+        'mobil': '320px'
       }
     },
   },

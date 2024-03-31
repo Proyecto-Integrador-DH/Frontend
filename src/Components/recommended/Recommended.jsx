@@ -131,6 +131,7 @@ const Recommended = () => {
                   <img
                     src={product.imagenes[0].url}
                     alt={product.imagenes[0].altText}
+                    className="md:max-h-56 lg:max-h-none rounded-xl"
                   />
                 ) : (
                   <img src={defaultImage} alt="Imagen por defecto" />

@@ -4,6 +4,7 @@ import { errorHandling } from "../../services/errorHandling";
 import { useParams, Link } from "react-router-dom";
 import FavoriteButton from "../Favorite/Favorite";
 import Card from "../Card/Card.jsx";
+import Footer from '../footer/Footer.jsx'
 
 const ProductList = ({ clienteId }) => {
   const [productos, setProductos] = useState([]);
@@ -48,7 +49,7 @@ const ProductList = ({ clienteId }) => {
           <br /> {categoria && categoria.nombre}
         </span>
       </h2>
-      <div className="grid grid-cols-2 gap-6 m-5">
+      <div className="grid mobil:grid-cols-1 md:grid-cols-2 gap-6 m-5">
         {productos.map((producto) => (
           <div key={producto.Id} className="border rounded p-4 shadow-md">
             <Card producto={producto} />
@@ -71,6 +72,7 @@ const ProductList = ({ clienteId }) => {
           </div>
         ))}
       </div>
+      <Footer/>
     </div>
   );
 };
