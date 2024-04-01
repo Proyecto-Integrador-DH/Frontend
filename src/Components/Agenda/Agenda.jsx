@@ -76,9 +76,6 @@ const Agenda = () => {
               <th className="px-6 py-3text-sm font-semibold tracking-wide text-center">
                 Cupos
               </th>
-              <th className="px-6 py-3text-sm font-semibold tracking-wide text-center">
-                Acciones
-              </th>
             </tr>
           </thead>
           <tbody>
@@ -92,14 +89,6 @@ const Agenda = () => {
                   {FormatDate(agenda.fechaVuelta)}
                 </td>
                 <td className="text-md text-center">{agenda.cupos}</td>
-                <td>
-                  <button className="w-20 flex mx-auto m-2 rounded-md bg-fuchsia-400 px-3 py-2 text-sm font-medium text-justify text-white shadow-sm hover:bg-purple-500 focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-indigo-600">
-                    Editar
-                  </button>
-                  <button className="w-20 flex mx-auto m-2 rounded-md bg-fuchsia-400 px-3 py-2 text-sm font-medium text-white shadow-sm hover:bg-purple-500 focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-indigo-600">
-                    Eliminar
-                  </button>
-                </td>
               </tr>
             ))}
           </tbody>
