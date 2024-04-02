@@ -37,14 +37,14 @@ const Avatar = ({user, onLogout}) => {
           >
             <span className="absolute -inset-1.5"></span>
             <span className="sr-only">Open user menu</span>
-            <p style={{backgroundColor: color}} className="h-12 w-12 text-lg pt-2.5 text-white text-center align-middle rounded-full">{nombreAvatar}</p>
+            <p style={{backgroundColor: color}} className="overflow-hidden h-12 w-12 text-lg pt-2.5 text-white text-center align-middle rounded-full">{nombreAvatar}</p>
           </button>
         </div>
 
         {estado && (
           
           <div
-          className="absolute  right-0 z-10 mt-2 mr-2 w-48 origin-top-right rounded-md bg-white py-1 shadow-lg ring-1 ring-black ring-opacity-5 focus:outline-none"
+          className="absolute right-0 z-10 mt-2 mr-2 w-48 origin-top-right rounded-md bg-white py-1 shadow-lg ring-1 ring-black ring-opacity-5 focus:outline-none"
           role="menu"
           aria-orientation="vertical"
           aria-labelledby="user-menu-button"
@@ -62,7 +62,7 @@ const Avatar = ({user, onLogout}) => {
           </a>
           <a
             href="#"
-            className="block px-4 py-2 text-sm text-gray-700"
+            className="block px-4 py-2 text-sm text-gray-700 truncate"
             role="menuitem"
             tabIndex="-1"
             id="user-menu-item-0"

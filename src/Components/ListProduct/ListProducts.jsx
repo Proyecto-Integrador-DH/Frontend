@@ -78,6 +78,7 @@ const ListProducts = () => {
     const idCategoria = categorias.find((c) => c.nombre === valor).id;
     try {
       setLoading(true);
+      console.log("idProducto", idProducto, "idCategoria", idCategoria);
       await fetchCambiarCategoria(idProducto, idCategoria);
       await refrescarProductos();
       setModalErrorVisible(true);

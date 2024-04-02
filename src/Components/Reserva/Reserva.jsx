@@ -21,7 +21,7 @@ const Reserva = ({ cliente, usuario }) => {
   const [formData, setFormData] = useState({
     client: "",
     agenda: "",
-    cantidad: 0,
+    cantidad: 1,
     estado: true,
   });
   const [error, setError] = useState(null);
@@ -263,6 +263,8 @@ const Reserva = ({ cliente, usuario }) => {
                     <input
                       type="number"
                       name="cantidad"
+                      min={1}
+                      step="any"
                       value={formData.cantidad}
                       onChange={handleChange}
                       required
