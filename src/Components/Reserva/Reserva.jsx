@@ -1,11 +1,19 @@
 import React, { useEffect, useState } from "react";
 import {
-  fetchNuevaReserva, fetchObtenerClienteByUsuario
+  fetchNuevaReserva,
+  fetchObtenerClienteByUsuario,
+  fetchProductosAleatorios,
 } from "../../services/api";
 import ErrorComponent from "../error/ErrorAlert";
-import { useSearchParams, useNavigate, useLocation } from "react-router-dom";
+import { useSearchParams, useNavigate, useLocation, Link } from "react-router-dom";
 import DatePicker from "react-datepicker";
 import "react-datepicker/dist/react-datepicker.css";
+import { FaClock } from "react-icons/fa";
+import { FaCalendar } from "react-icons/fa";
+import { FaLanguage } from "react-icons/fa";
+import { FaWheelchair } from "react-icons/fa";
+import SearchForm from "../searcher/SearcherForm";
+import Card from "../Card/Card";
 import Loading from "../Loading/Loading";
 import { set } from "date-fns";
 
@@ -23,12 +31,27 @@ const Reserva = ({ cliente, usuario }) => {
   const [agenda, setAgenda] = useState(null);
   const [showSuccessMessage, setShowSuccessMessage] = useState(false);
   const [client, setClient] = useState(null);
+  const [showClientData, setShowClientData] = useState(false);
+  const [productosSugeridos, setProductosSugeridos] = useState([]);
   const navigate = useNavigate();
   const location = useLocation();
   const [loading, setLoading] = useState(false);
 
+  useEffect(() => {
+    fetchProductosAleatorios(4)
+      .then((productos) => {
+        console.log("Productos sugeridos:", productos);
+        setProductosSugeridos(productos);
+      })
+      .catch((error) => {
+        console.error(errorHandling(error));
+      });
+  }, []);
+
   const verificarCliente = (e) => {
-    const agendaSeleccionada = JSON.parse(decodeURIComponent(new URLSearchParams(location.search).get("agenda")));
+    const agendaSeleccionada = JSON.parse(
+      decodeURIComponent(new URLSearchParams(location.search).get("agenda"))
+    );
     fetchObtenerClienteByUsuario(Number(usuario.id))
     .then((clienteData) => {
       setClient(clienteData); 
@@ -65,8 +88,6 @@ const Reserva = ({ cliente, usuario }) => {
     });
   };
 
-  
-
   const handleSubmit = (e) => {
     e.preventDefault();
     if (formData.agenda) {
@@ -81,9 +102,9 @@ const Reserva = ({ cliente, usuario }) => {
           setModalErrorVisible(true);
           setTitleError("Reserva generada");
           setError("La reserva se generó correctamente");
-          setShowSuccessMessage(true); 
+          setShowSuccessMessage(true);
           setTimeout(() => {
-            navigate("/reservas"); 
+            navigate("/reservas");
           }, 3000);
         })
         .catch((error) => {
@@ -107,10 +128,20 @@ const Reserva = ({ cliente, usuario }) => {
     setModalErrorVisible(false);
   };
 
+  const toggleClientData = () => {
+    setShowClientData(!showClientData);
+  };
+
+  const truncar = (text, maxLength) => {
+    if (!text || text.length <= maxLength) {
+      return text;
+    }
+    return text.substr(0, maxLength) + "...";
+  };
   if (loading) return <Loading />;
 
   return (
-    <div className="max-w-xl mx-auto">
+    <div className="w-full">
       {modalErrorVisible && (
         <ErrorComponent
           title={titleError}
@@ -118,9 +149,10 @@ const Reserva = ({ cliente, usuario }) => {
           onClose={closeModal}
         />
       )}
-      <h2 className="text-3xl font-bold mb-6">Generar Reserva</h2>
-      <div className="w-full flex flex-col md:flex-row items-start md:items-center space-y-6 md:space-y-0 md:space-x-6">
-        <div className="w-full">
+      <h2 className="text-3xl font-bold my-6 text-center">Generar Reserva</h2>
+      <SearchForm />
+      <div className="flex justify-evenly mt-4">
+        <div className="w-7/12">
           <div className="border rounded-lg p-4 relative bg-white shadow-md">
             {agenda &&
               agenda.producto &&
@@ -128,72 +160,140 @@ const Reserva = ({ cliente, usuario }) => {
               agenda.producto.imagenes[0] && (
                 <img
                   src={agenda.producto.imagenes[0].url}
-                  className="object-cover h-40 w-full mb-4 rounded-lg"
+                  className="object-cover w-full h-3/6 rounded-t-lg mx-auto"
                   alt={agenda.producto.nombre}
                 />
               )}
-            <div className="relative">
-              <h3 className="text-lg font-bold mb-2">
-                {agenda && agenda.producto && agenda.producto.nombre}
-              </h3>
-              <p className="mb-6 font-bold">
-                Cupos disponibles: {agenda && agenda.cupos}
-              </p>
-              <p className="text-sm mb-4 text-justify">
-                {agenda && agenda.producto && agenda.producto.descripcion}
-              </p>
+            <div className="flex bg-purple-100 rounded-b-lg w-full mx-auto  ">
+              <div className="w-6/12 ">
+                <h3 className="text-xl font-bold pb-2 pt-4 pl-6 text-left">
+                  {agenda && agenda.producto && agenda.producto.nombre}
+                </h3>
+                <p className="mb-3 font-normal pl-6 text-left">
+                  Cupos disponibles: {agenda && agenda.cupos}
+                </p>
+                <p className="mb-3 font-normal pl-6 text-left">
+                  Ubicación:{" "}
+                  {agenda && agenda.producto && agenda.producto.ubicacion}
+                </p>
+                <p className="text-sm mb-4 pl-6 text-left pb-6">
+                  {truncar(
+                    agenda && agenda.producto && agenda.producto.descripcion,
+                    200
+                  )}
+                </p>
+                <h3 className="pl-6 pb-3">Descubre tu experiencia:</h3>
+                <div className="flex flex-row content-center pl-8 pt-2">
+                  <div className="flex flex-col gap-3">
+                    <FaClock color="#9333EA" size={"20px"} />
+                    <FaCalendar color="#9333EA" size={"20px"} />
+                    <FaLanguage color="#9333EA" size={"25px"} />
+                    <FaWheelchair color="#9333EA" size={"20px"} />
+                  </div>
+                  <div className="flex flex-col gap-3.5 pl-4">
+                    <p className="text-left">Duración: 2 días</p>
+                    <p className="text-left">Disponible todo el año</p>
+                    <p className="text-left">Guía bilingue</p>
+                    <p className="text-left">Accesibilidad limitada </p>
+                  </div>
+                </div>
+              </div>
+              <div className="w-6/12 p-6">
+                <h3 className="w-full text-xl font-bold pb-2 text-center">
+                  Datos para la reserva:{" "}
+                </h3>
+                <div className="p-3">
+                  <p className="text-left">
+                    Cliente: {usuario && usuario.nombre}{" "}
+                    {usuario && usuario.apellido}
+                  </p>
+                  <p className="text-left">
+                    Correo electrónico: {usuario && usuario.email}
+                  </p>
+                  {showClientData && (
+                    <>
+                      <p className="text-left">
+                        Teléfono: {cliente && cliente.telefono}
+                      </p>
+                      <p className="text-left">
+                        Dirección:{cliente && cliente.direccion}
+                      </p>
+                      <p className="text-left">
+                        Ciudad:{cliente && cliente.ciudad}
+                      </p>
+                      <p className="text-left">
+                        Documento:{cliente && cliente.tipoDocumento}
+                      </p>
+                      <p className="text-left">
+                        Número de documento:{cliente && cliente.numeroDocumento}
+                      </p>
+                    </>
+                  )}
+                </div>
+                <button
+                  onClick={toggleClientData}
+                  className="mt-1 text-purple-600 font-bold"
+                >
+                  {showClientData ? "Ver menos" : "Ver más"}
+                </button>
+                <form
+                  onSubmit={handleSubmit}
+                  className="flex flex-col items-start p-3"
+                >
+                  <label className="mb-4 mr-10">
+                    Fecha de ida:
+                    <DatePicker
+                      selected={agenda ? new Date(agenda.fechaIda) : null}
+                      dateFormat={"dd/MM/yyyy"}
+                      readOnly
+                      className="border-none rounded-lg"
+                    />
+                  </label>
+                  <label className="mb-4 mr-10">
+                    Fecha de vuelta:
+                    <DatePicker
+                      selected={agenda ? new Date(agenda.fechaVuelta) : null}
+                      dateFormat={"dd/MM/yyyy"}
+                      readOnly
+                      className="border-none rounded-lg"
+                    />
+                  </label>
+                  <label className="mb-4 mr-16 pl-4">
+                    Cantidad:
+                    <input
+                      type="number"
+                      name="cantidad"
+                      value={formData.cantidad}
+                      onChange={handleChange}
+                      required
+                      className="border-none rounded-lg"
+                    />
+                  </label>
+                  <button
+                    type="submit"
+                    className="m-auto bg-purple-600 hover:bg-purple-300 text-white font-bold py-2 px-4 rounded"
+                  >
+                    Reservar
+                  </button>
+                </form>
+              </div>
             </div>
           </div>
         </div>
-        <div className="w-full">
-          <h3 className="text-2xl font-bold mb-6 text-center">
-            Datos del cliente:{" "}
+        <div className="w-4/12 mt-6">
+          <h3 className="w-full text-2xl font-semibold my-6 text-center">
+            Experiencias que podrían interesarte
           </h3>
-          <div>
-            <p>
-              {usuario && usuario.nombre} {" "} {usuario && usuario.apellido}
-            </p>
-            <p>{usuario && usuario.email}</p>
-            <p>{cliente && cliente.telefono}</p>
-            <p className="text-red-500">
-              Ver más... Muestra una modal con más info
-            </p>
+          <div className="grid grid-cols-1 gap-4">
+            {productosSugeridos.map((producto) => (
+              <div key={producto.id}>
+              <Card producto={producto} />
+              <Link to={`/details/${producto.Id}`} className="mt-1 text-purple-600 font-semibold bg-purple-200 p-2 rounded ">
+                Ver más
+              </Link>
+            </div>
+            ))}
           </div>
-          <form onSubmit={handleSubmit} className="flex flex-col items-start">
-            <label className="mb-4">
-              Fecha de ida:
-              <DatePicker
-                selected={agenda ? new Date(agenda.fechaIda) : null}
-                dateFormat={"dd/MM/yyyy"}
-                readOnly
-              />
-            </label>
-            <label className="mb-4">
-              Fecha de vuelta:
-              <DatePicker
-                selected={agenda ? new Date(agenda.fechaVuelta) : null}
-                dateFormat={"dd/MM/yyyy"}
-                readOnly
-              />
-            </label>
-            <label className="mb-4">
-              Cantidad:
-              <input
-                type="number"
-                name="cantidad"
-                value={formData.cantidad}
-                onChange={handleChange}
-                required
-                className="border border-gray-300 rounded-md px-2 py-1 focus:outline-none focus:border-blue-500"
-              />
-            </label>
-            <button
-              type="submit"
-              className="m-auto bg-blue-500 hover:bg-blue-700 text-white font-bold py-2 px-4 rounded"
-            >
-              Reservar
-            </button>
-          </form>
         </div>
       </div>
     </div>

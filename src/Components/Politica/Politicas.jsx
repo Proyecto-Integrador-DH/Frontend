@@ -32,9 +32,7 @@ const Politicas = () => {
                 La obligación de SoloAventuras resulta exclusivamente del
                 contenido de la confirmación de la reserva junto con la
                 descripción del viaje e información y explicaciones
-                relacionadas. Los demás acuerdos que amplían el alcance de los
-                servicios contractuales, sólo son válidos, si han sido
-                confirmados por escrito por SoloAventuras.
+                relacionadas.
               </p>
             </div>
 
@@ -44,9 +42,7 @@ const Politicas = () => {
                 El cliente está obligado a informar inmediatamente al guía
                 turístico/ coordinador encargado por SoloAventuras acerca de
                 cualquier problema/ falla con respecto al tour y solicitar una
-                reparación. Reclamaciones de los clientes sólo son válidas, si
-                el cliente cumple con la obligación de notificación de los
-                problemas/ fallas.
+                reparación.
               </p>
             </div>
 
@@ -56,10 +52,7 @@ const Politicas = () => {
                 El viajero es responsable de cumplir con todas las regulaciones
                 necesarias para proceder al viaje. SoloAventuras no es
                 responsable de la emisión y recepción oportuna de los visados
-                necesarios de la respectiva representación diplomática. Todos
-                los gastos y perjuicios ocasionados por el incumplimiento de
-                estas disposiciones por parte del participante del viaje, van a
-                su cuenta.
+                necesarios.
               </p>
             </div>
 
@@ -68,24 +61,16 @@ const Politicas = () => {
               <p className="text-sm">
                 Desde el inicio hasta la finalización del periodo del viaje en
                 que SoloAventuras está contratado como operador turistico, el
-                turista tendrá un seguro viajero de Mundoasistencia. Para
-                los turistas nacionales aplica el seguro “visitor”, para el
-                turista extranjero el seguro “total”. Para actividades con mayor
-                riesgo aplica el seguro “extremo” para el turista nacional y el
-                “visitor extremo” para el turista extranjero.
+                turista tendrá un seguro viajero de Mundoasistencia.
               </p>
             </div>
 
             <div className="place-items-center">
               <h3 className="font-semibold text-center w-full pb-1.5">Características Especiales</h3>
               <p className="text-sm">
-                Pueden ocurrir retrasos de transporte de los destinos
-                correspondientes, tales como autobús o avión. Los eventos
-                locales, como los mercados o festivales se cancelan a menudo con
-                poca antelación y sin dar razones. Dado que las variaciones
-                climáticas son posibles en cualquier momento, no se acepta
-                responsabilidad en este sentido.
-                Vacunas: Le sugerimos obtener recomendaciones de vacunación de
+                Pueden ocurrir retrasos/cancelaciones de transporte/eventos d con
+                poca antelación y sin dar razones, no siendo responsabilidad de la empresa. Vacunas: 
+                Le sugerimos obtener recomendaciones de vacunación de
                 un médico especialista antes de la salida.
               </p>
             </div>
@@ -96,21 +81,18 @@ const Politicas = () => {
                 La información proporcionada en nuestro portafolio es sólo
                 informativa y pretenden ser propuestas de viaje. Por lo tanto,
                 los cambios son posibles y quedan reservados. Sólo el contenido
-                de la confirmación de la reserva es autoritaria. Los errores en
-                la oferta o descripción de servicios quedan reservados.
+                de la confirmación de la reserva es autoritaria. 
               </p>
             </div>
 
             <div className="place-items-center">
               <h3 className="font-semibold text-center w-full pb-1.5">Cancelación del contrato</h3>
               <p className="text-sm">
-                SoloAventuras puede cancelar el contrato, (1) en caso de eventos
-                externos inesperados fortuitos o (2) si las condiciones de pago
-                no se han cumplido por parte del cliente. El cliente puede
+                SoloAventuras puede cancelar el contrato, en caso de eventos
+                externos fortuitos o si las condiciones de pago
+                no se han cumplido. El cliente puede
                 cancelar el contrato en cualquier momento antes de la salida del
-                viaje mediante notificación a SoloAventuras En cualquier caso de
-                cancelación por parte del cliente, SoloAventuras tiene el
-                derecho de aplicar gastos de cancelación. 
+                viaje mediante notificación a SoloAventuras. 
               </p>
             </div>
 

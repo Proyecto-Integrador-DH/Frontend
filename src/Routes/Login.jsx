@@ -74,11 +74,8 @@ const Login = () => {
           <h2 className="mt-10 text-center text-2xl font-bold leading-9 tracking-tight text-gray-900">
             Inicie sesión en su cuenta
           </h2>
-          {!isAuthenticated && (
-            <p className="mt-2 text-center text-sm text-gray-600">
-              El login es obligatorio para realizar una reserva.
-            </p>
-          )}
+          {!isAuthenticated
+          }
         </div>
 
         <div className="mt-10 sm:mx-auto sm:w-full sm:max-w-sm">

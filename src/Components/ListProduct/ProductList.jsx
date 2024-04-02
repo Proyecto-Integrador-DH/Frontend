@@ -15,6 +15,7 @@ const ProductList = ({ clienteId }) => {
   const [loading, setLoading] = useState(true);
 
   useEffect(() => {
+    console.log("categoryId:", categoryId);
     const cargarCategoria = async () => {
       const id = Number(categoryId);
       try {
@@ -32,6 +33,7 @@ const ProductList = ({ clienteId }) => {
 
   useEffect(() => {
     const loadProducts = async () => {
+      console.log("categoryId:", categoryId);
       const id = Number(categoryId);
       try {
         setLoading(true);

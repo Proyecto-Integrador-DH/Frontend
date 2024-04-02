@@ -1,7 +1,7 @@
-//const baseUrl = "http://booking.us-east-1.elasticbeanstalk.com";
-//const baseUrl2 = "http://usuario.us-east-1.elasticbeanstalk.com";
-const baseUrl = "http://localhost:8081";
-const baseUrl2 = "http://localhost:8080";
+const baseUrl = "http://booking.us-east-1.elasticbeanstalk.com";
+const baseUrl2 = "http://usuario.us-east-1.elasticbeanstalk.com";
+//const baseUrl = "http://localhost:8081";
+//const baseUrl2 = "http://localhost:8080";
 
 const token = localStorage.getItem("token");
 
@@ -460,3 +460,38 @@ export const fetchBorrarCaracteristica = async (id) => {
     throw new Error('Error en la solicitud: ' + response.status);
   }
 }
+
+export const fetchProductosAleatorios = async (cantidad)=> {
+  try{
+    const todosProductos = await fetchListarProductos();
+    const random = [];
+    while (random.length < cantidad) {
+      const indice = Math.floor(Math.random()*todosProductos.length);
+      if (!random.includes(indice)) {
+        random.push(indice);
+      }
+    }
+    const productosAleatorios = random.map(
+      (indice) => todosProductos[indice]
+    );
+    return productosAleatorios;
+  }catch(error){
+    console.error("Error al obtener sugeridos:", error);
+    throw error;
+  }
+};
+
+export const fetchCategoriaNueva = async (data) => {
+  const url = `${baseUrl}/categoria/nueva`;
+  console.log("datos categoria ", data);
+  const response = await fetch(url, {
+    method: "POST", 
+    headers: {
+      "Content-Type": "application/json",
+  },
+    body: JSON.stringify(data),
+});if (!response.ok) {
+  throw new Error("Error en la solicitud: " + response.status);
+}
+return await response.text();
+ }
