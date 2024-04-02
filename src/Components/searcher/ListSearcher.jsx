@@ -2,7 +2,7 @@ import React, { useState, useEffect } from "react";
 import Footer from "../footer/Footer";
 import { fetchSearch } from "../../services/api";
 import { useNavigate } from "react-router-dom";
-import { useSearchParams } from "react-router-dom";
+import { useSearchParams, Link } from "react-router-dom";
 import formatDate from "../../utils/FormatDate";
 import flecha from "../../assets/arrowRightflecha.png";
 import Loading from "../Loading/Loading";
@@ -103,6 +103,14 @@ const ListSearch = () => {
             <p className="text-sm mb-4 text-justify">
               {result.producto && result.producto.descripcion}
             </p>
+            <div>
+              <Link
+                to={`/details/${result.producto.Id}`}
+                className="text-sm text-purple-500 hover:underline"
+              >
+                Ver más
+              </Link>
+            </div>
           </div>
         ))}
       </div>

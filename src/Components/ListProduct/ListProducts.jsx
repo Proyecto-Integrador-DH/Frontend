@@ -133,7 +133,7 @@ const ListProducts = () => {
   if (loading) return <Loading />;
 
   return (
-    <div className="w-[95vw] mx-auto">
+    <div className="w-[95vw] mx-auto mb-20">
       <h2 className="text-3xl font-bold mb-6">Lista de Experiencias</h2>
       {modalErrorVisible && (
         <ErrorComponent
@@ -216,52 +216,53 @@ const ListProducts = () => {
                       </span>
                     </button>
                     {showOptions[producto.Id] && (
-                      <ul
-                        className="capitalize absolute z-10 mt-1 max-h-56 w-full overflow-auto rounded-md bg-white py-1 text-base shadow-lg ring-1 ring-black ring-opacity-5 focus:outline-none sm:text-sm"
-                        role="listbox"
-                        aria-labelledby="listbox-label"
-                        aria-activedescendant="listbox-option-3"
-                      >
-                        {categorias.map((categoria, index) => (
-                          <li
-                            key={index}
-                            value={categoria.nombre}
-                            className="text-gray-900 relative cursor-default select-none py-2 pl-3 pr-9"
-                            id="listbox-option-0"
-                            role="option"
-                            onClick={() => {
-                              handleCategoriaChange(producto.Id, {
-                                target: { value: categoria.nombre },
-                              });
-                              setShowOptions(false);
-                            }}
-                          >
-                            <div className="flex items-center">
-                              <span className="font-normal ml-3 block truncate">
-                                {categoria.nombre}
+                      <div className="z-10">
+                        <ul
+                          className="z-10 capitalize absolute mt-1 max-h-56 w-full bg-white py-1 text-base shadow-lg rounded-md ring-1 ring-black ring-opacity-5 focus:outline-none sm:text-sm"
+                          aria-labelledby="listbox-label"
+                          aria-activedescendant="listbox-option-3"
+                        >
+                          {categorias.map((categoria, index) => (
+                            <li
+                              key={index}
+                              value={categoria.nombre}
+                              className="text-gray-900 cursor-default select-none py-2 pl-3 pr-9"
+                              id="listbox-option-0"
+                              role="option"
+                              onClick={() => {
+                                handleCategoriaChange(producto.Id, {
+                                  target: { value: categoria.nombre },
+                                });
+                                setShowOptions(false);
+                              }}
+                            >
+                              <div className="flex items-center">
+                                <span className="font-normal ml-3 block truncate">
+                                  {categoria.nombre}
+                                </span>
+                              </div>
+                              <span className="text-indigo-600 absolute inset-y-0 right-0 flex items-center pr-4">
+                                <svg
+                                  className="h-5 w-5"
+                                  viewBox="0 0 20 20"
+                                  fill="currentColor"
+                                  aria-hidden="true"
+                                >
+                                  <path
+                                    fillRule="evenodd"
+                                    d="M16.704 4.153a.75.75 0 01.143 1.052l-8 10.5a.75.75 0 01-1.127.075l-4.5-4.5a.75.75 0 011.06-1.06l3.894 3.893 7.48-9.817a.75.75 0 011.05-.143z"
+                                    clipRule="evenodd"
+                                  />
+                                </svg>
                               </span>
-                            </div>
-                            <span className="text-indigo-600 absolute inset-y-0 right-0 flex items-center pr-4">
-                              <svg
-                                className="h-5 w-5"
-                                viewBox="0 0 20 20"
-                                fill="currentColor"
-                                aria-hidden="true"
-                              >
-                                <path
-                                  fillRule="evenodd"
-                                  d="M16.704 4.153a.75.75 0 01.143 1.052l-8 10.5a.75.75 0 01-1.127.075l-4.5-4.5a.75.75 0 011.06-1.06l3.894 3.893 7.48-9.817a.75.75 0 011.05-.143z"
-                                  clipRule="evenodd"
-                                />
-                              </svg>
-                            </span>
-                          </li>
-                        ))}
-                      </ul>
+                            </li>
+                          ))}
+                        </ul>
+                      </div>
                     )}
                   </div>
                 </td>
-                <td className="accion">
+                <td className="accion text-center">
                   <button
                     className={style.button1}
                     onClick={() =>
@@ -306,6 +307,7 @@ const ListProducts = () => {
                 </td>
               </tr>
             ))}
+            <div className={style.div}></div>
           </tbody>
         </table>
         {mostrarAsignarCaracteristica && (
