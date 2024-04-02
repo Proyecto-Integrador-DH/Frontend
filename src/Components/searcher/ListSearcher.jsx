@@ -92,6 +92,14 @@ const ListSearch = () => {
               <h3 className="text-lg font-bold mb-2">
                 {result.producto && result.producto.nombre}
               </h3>
+              <div className="flex flex-col mb-2 justify-between item-end">
+                <Link
+                  to={`/details/${result.producto.Id}`}
+                  className="text-sm text-purple-500 hover:underline"
+                >
+                  Ver más
+                </Link>
+              </div>
               <p className="text-sm mb-2">
                 Fecha de ida: {formatDate(result.fechaIda)}
               </p>
@@ -100,17 +108,10 @@ const ListSearch = () => {
               </p>
               <p className="text-sm mb-2">Cupos disponibles: {result.cupos}</p>
             </div>
+
             <p className="text-sm mb-4 text-justify">
               {result.producto && result.producto.descripcion}
             </p>
-            <div>
-              <Link
-                to={`/details/${result.producto.Id}`}
-                className="text-sm text-purple-500 hover:underline"
-              >
-                Ver más
-              </Link>
-            </div>
           </div>
         ))}
       </div>
