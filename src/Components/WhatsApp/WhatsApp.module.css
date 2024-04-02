@@ -5,3 +5,9 @@ header {
 .button{
     background-color: #872bff !important;
 }
+
+.buttonMobile {
+    background-color: #872bff !important;
+    width: 50%;
+    height: 50%;
+}

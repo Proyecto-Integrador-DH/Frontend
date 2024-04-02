@@ -8,6 +8,7 @@ import { fetchListarProductosRecom } from "../../services/api";
 import { Link } from "react-router-dom";
 import { useParams } from "react-router-dom";
 import Loading from "../Loading/Loading";
+import { useMediaQuery } from 'react-responsive';
 
 const Recommended = () => {
   const [showAll, setShowAll] = useState(false);
@@ -15,6 +16,7 @@ const Recommended = () => {
   const [productosApi, setProductosApi] = useState([]);
   const { id } = useParams();
   const [loading, setLoading] = useState(true);
+  const isMobile = useMediaQuery({ maxWidth: 767 });
 
   const defaultImage = "https://via.placeholder.com/150";
 
@@ -39,7 +41,7 @@ const Recommended = () => {
     dots: false,
     infinite: true,
     speed: 500,
-    slidesToShow: 3,
+    slidesToShow: isMobile ? 1 : 3,
     slidesToScroll: 1,
   };
 
@@ -67,11 +69,15 @@ const Recommended = () => {
         <div className={RecommendedStyles.recommendedContainer}>
           <div className={RecommendedStyles.tittleContainer}>
             <h2>RECOMENDADOS</h2>
-            <h3 className="w-full:max-md md:w-5/6 lg:w-auto">Explora nuestros planes</h3>
+            <h3 className="w-full:max-md md:w-5/6 lg:w-auto">
+              Explora nuestros planes
+            </h3>
           </div>
         </div>
 
-        <div className={`${RecommendedStyles.navigationArrows} hidden md:flex `} >
+        <div
+          className={`${RecommendedStyles.navigationArrows} hidden md:flex `}
+        >
           <button
             className={RecommendedStyles.back}
             onClick={() => sliderRef.current.slickPrev()}
@@ -89,7 +95,9 @@ const Recommended = () => {
         </div>
       </div>
       {showAll ? (
-        <div className={`${RecommendedStyles.showAll} grid grid-cols-2 gap-6`}>
+        <div
+          className={`${RecommendedStyles.showAll} grid sm:grid-cols-1  xl:grid-cols-2 gap-6`}
+        >
           {productosApi.map((product, index) => (
             <div
               key={index}
@@ -110,7 +118,7 @@ const Recommended = () => {
                   />
                 )}
               </div>
-              <div>
+              <div className="overflow-hidden sm">
                 <p>{product.nombre}</p>
               </div>
               <Link to={`/details/${product.Id}`}>
@@ -126,11 +134,11 @@ const Recommended = () => {
           ref={sliderRef}
           {...(showAll ? allProductsSliderSettings : sliderSettings)}
         >
-        
           {productosApi.map((product, index) => (
-            <div 
-              key={index} 
-              className=" w-2/5 pb-6 bg-white rounded-lg shadow-md overflow-hidden transition duration-300 hover:shadow-lg">
+            <div
+              key={index}
+              className="pb-6 bg-white rounded-lg shadow-md overflow-hidden transition duration-300 hover:shadow-lg"
+            >
               <div className={RecommendedStyles.imagenContainer}>
                 {product.imagenes.length > 0 ? (
                   <img
@@ -142,7 +150,7 @@ const Recommended = () => {
                   <img src={defaultImage} alt="Imagen por defecto" />
                 )}
               </div>
-              <div className="">
+              <div>
                 <p className="mt-3 mb-1 titulo-card h-14">{product.nombre}</p>
               </div>
               <Link to={`/details/${product.Id}`}>

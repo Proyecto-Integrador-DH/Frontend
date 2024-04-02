@@ -145,7 +145,7 @@
 
 @media (min-width: 992px) {
   .showAll .cardRecommended2 {
-    width: 50%; /* Ajusta el ancho para mostrar dos elementos por fila */
+    /*width: 50%; /* Ajusta el ancho para mostrar dos elementos por fila */
     box-sizing: border-box; /* Incluye el borde en el ancho total */
     padding: 10px; /* Espacio entre los elementos */
   }
