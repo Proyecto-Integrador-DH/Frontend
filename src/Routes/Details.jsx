@@ -68,7 +68,7 @@ const Details = ({ clienteId }) => {
         </h1>
       </div>
       <div className="imageContainer relative">
-        <div className="absolute right-40 top-0">
+        <div className="flex gap-4 absolute right-40 top-0">
           <FavoriteButton
             clienteId={clienteId}
             productoId={id}

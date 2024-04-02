@@ -19,7 +19,8 @@ const ListProducts = () => {
   const [error, setError] = useState(null);
   const [titleError, setTitleError] = useState(null);
   const [modalErrorVisible, setModalErrorVisible] = useState(false);
-  const [mostrarAsignarCaracteristica, setMostrarAsignarCaracteristica] =useState(false);
+  const [mostrarAsignarCaracteristica, setMostrarAsignarCaracteristica] =
+    useState(false);
 
   useEffect(() => {
     fetchListarProductos()

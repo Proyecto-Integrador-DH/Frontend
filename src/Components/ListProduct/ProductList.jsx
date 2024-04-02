@@ -9,8 +9,10 @@ const ProductList = ({ clienteId }) => {
   const [productos, setProductos] = useState([]);
   const [categoria, setCategoria] = useState(null);
   const { categoryId } = useParams();
+  console.log("categoryId:es lo max", categoryId);
 
   useEffect(() => {
+    console.log("categoryId:", categoryId);
     const cargarCategoria = async () => {
       const id = Number(categoryId);
       try {
@@ -25,6 +27,7 @@ const ProductList = ({ clienteId }) => {
 
   useEffect(() => {
     const loadProducts = async () => {
+      console.log("categoryId:", categoryId);
       const id = Number(categoryId);
       try {
         const data = await fetchCategoryProducts(id);

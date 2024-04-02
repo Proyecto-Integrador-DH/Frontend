@@ -13,7 +13,7 @@ const Card = ({ producto }) => {
         <div className="col-md-8">
           <div className="card-body" style={{ height: '150px' }}>
             <h5 className="card-title" style={{fontWeight: 'bold'}}>{producto.nombre}</h5>
-            <p className="card-text">{descripcionCorta}</p>
+            <p className="card-text text-sm">{descripcionCorta}</p>
           </div>
         </div>
       </div>

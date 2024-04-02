@@ -25,7 +25,6 @@ export const fetchCategoria = async (id) => {
 };
 
 export const fetchCategoryProducts = async (id) => {
-  console.log("ID", id);
   const url = `${baseUrl}/categoria/categoryProducts/${id}`;
   console.log("URL", url);
   try {
@@ -484,3 +483,38 @@ export const fetchBorrarCaracteristica = async (id) => {
     throw new Error('Error en la solicitud: ' + response.status);
   }
 }
+
+export const fetchProductosAleatorios = async (cantidad)=> {
+  try{
+    const todosProductos = await fetchListarProductos();
+    const random = [];
+    while (random.length < cantidad) {
+      const indice = Math.floor(Math.random()*todosProductos.length);
+      if (!random.includes(indice)) {
+        random.push(indice);
+      }
+    }
+    const productosAleatorios = random.map(
+      (indice) => todosProductos[indice]
+    );
+    return productosAleatorios;
+  }catch(error){
+    console.error("Error al obtener sugeridos:", error);
+    throw error;
+  }
+};
+
+export const fetchCategoriaNueva = async (data) => {
+  const url = `${baseUrl}/categoria/nueva`;
+  console.log("datos categoria ", data);
+  const response = await fetch(url, {
+    method: "POST", 
+    headers: {
+      "Content-Type": "application/json",
+  },
+    body: JSON.stringify(data),
+});if (!response.ok) {
+  throw new Error("Error en la solicitud: " + response.status);
+}
+return await response.text();
+ }
