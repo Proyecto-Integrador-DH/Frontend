@@ -8,6 +8,32 @@ header {
 
 .buttonMobile {
     background-color: #872bff !important;
-    width: 50%;
-    height: 50%;
+    width: 35px !important;
+    height: 35px !important;
+}
+
+.chatboxMobile span{
+  font-size: 10px !important;
+}
+
+.chatboxMobile p {
+  font-size: 10px !important;
+}
+
+.chatboxMobile header {
+  height: 90px !important;
+  padding: 0 !important;
+}
+
+.chatboxMobile header div {
+  padding: 5px !important;
+}
+
+.chatboxMobile header img {
+  width: 30px !important;
+  height: 30px !important;
+}
+
+.chatboxMobile footer input {
+  font-size: 12px !important;
 }

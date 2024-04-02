@@ -8,6 +8,7 @@ const WhatsAppFloatingButton = () => {
   const isMobile = useMediaQuery({ maxWidth: 767 });
 
   const button = isMobile ? style.buttonMobile : style.button;
+  const chatboxStyle = isMobile ? style.chatboxMobile : style.chatbox;
 
   return (
     <FloatingWhatsApp
@@ -17,7 +18,7 @@ const WhatsAppFloatingButton = () => {
       statusMessage="Estamos en línea"
       chatMessage="Hola! Somos Solo Aventuras, queremos que hagas match con tu próxima experiencia. ¿En qué podemos ayudarte?"
       placeholder="Escribe tu mensaje aquí"
-      chatboxStyle={style}
+      chatboxClassName={chatboxStyle}
       buttonClassName={button}
     />
   );
