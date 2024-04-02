@@ -33,7 +33,18 @@ function SearchForm() {
     "tango",
     "Colombia",
     "Argentina",
-    "noche"
+    "noche",
+    "día",
+    "relax",
+    "naturaleza",
+    "cultural",
+    "histórico",
+    "Bolivia",
+    "mar",
+    "sol",
+    "arena",
+    "montaña",
+    "glamping",
   ];
 
   useEffect(() => {

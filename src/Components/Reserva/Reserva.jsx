@@ -14,6 +14,8 @@ import { FaLanguage } from "react-icons/fa";
 import { FaWheelchair } from "react-icons/fa";
 import SearchForm from "../searcher/SearcherForm";
 import Card from "../Card/Card";
+import Loading from "../Loading/Loading";
+import { set } from "date-fns";
 
 const Reserva = ({ cliente, usuario }) => {
   const [formData, setFormData] = useState({
@@ -33,6 +35,7 @@ const Reserva = ({ cliente, usuario }) => {
   const [productosSugeridos, setProductosSugeridos] = useState([]);
   const navigate = useNavigate();
   const location = useLocation();
+  const [loading, setLoading] = useState(false);
 
   useEffect(() => {
     fetchProductosAleatorios(4)
@@ -50,20 +53,18 @@ const Reserva = ({ cliente, usuario }) => {
       decodeURIComponent(new URLSearchParams(location.search).get("agenda"))
     );
     fetchObtenerClienteByUsuario(Number(usuario.id))
-      .then((clienteData) => {
-        setClient(clienteData);
-        console.log("Cliente", clienteData);
-        setAgenda(agendaSeleccionada);
-      })
-      .catch((error) => {
-        navigate(
-          `/cliente?agenda=${encodeURIComponent(
-            JSON.stringify(agendaSeleccionada)
-          )}`
-        );
-        console.error(errorHandling(error));
-      });
-  };
+    .then((clienteData) => {
+      setClient(clienteData); 
+      setAgenda(agendaSeleccionada);
+    })
+    .catch((error) => {
+      navigate(`/cliente?agenda=${encodeURIComponent(JSON.stringify(agendaSeleccionada))}`);
+      console.error(errorHandling(error));
+    })
+    .finally(() => {
+      setLoading(false);
+    });
+  }
 
   useEffect(() => {
     if (usuario) {
@@ -95,9 +96,9 @@ const Reserva = ({ cliente, usuario }) => {
         cliente: { id: client.id },
         agenda: { id: parseInt(formData.agenda) },
       };
+      setLoading(true);
       fetchNuevaReserva(formDataCopy)
         .then((data) => {
-          console.log("Reserva", data);
           setModalErrorVisible(true);
           setTitleError("Reserva generada");
           setError("La reserva se generó correctamente");
@@ -111,6 +112,9 @@ const Reserva = ({ cliente, usuario }) => {
           setModalErrorVisible(true);
           setTitleError("Error");
           setError("No hay cupos disponibles para la agenda seleccionada");
+        })
+        .finally(() => {
+          setLoading(false);
         });
     } else {
       console.error("Debe seleccionar una agenda");
@@ -134,6 +138,7 @@ const Reserva = ({ cliente, usuario }) => {
     }
     return text.substr(0, maxLength) + "...";
   };
+  if (loading) return <Loading />;
 
   return (
     <div className="w-full">

@@ -1,6 +1,5 @@
 import "./App.css";
 import { Route, Routes } from "react-router";
-import Products from "./Routes/Products.jsx";
 import HomePage from "./Pages/home/Home.jsx";
 import RegisterProducts from "./Components/registerProduct/RegisterProducts.jsx";
 import Details from "./Routes/Details.jsx";
@@ -28,31 +27,33 @@ import SearchResults from "./Components/searcher/ListSearcher.jsx";
 import Caracteristicas from "./Components/Caracteristicas/Caracteristicas.jsx";
 import AsignarCaracteristica from "./Components/AsignarCaracteristica/AsignarCaracteristica.jsx";
 import Reservas from "./Components/ListReservas/Reservas.jsx";
-import "bootstrap/dist/css/bootstrap.min.css";
+import 'bootstrap/dist/css/bootstrap.min.css';
+import Ours from "./Components/Ours/Ours.jsx";
+import Contact from "./Components/Contactanos/Contactanos.jsx";
+import Politicas  from "./Components/Politica/Politicas.jsx";
 import WhatsAppFloatingButton from "./Components/WhatsApp/WhatsApp.jsx";
 
 function App() {
   const [user, setUser] = useState(null);
   const [email, setEmail] = useState("");
   const [cliente, setCliente] = useState(null);
+  const [loading, setLoading] = useState(true);
 
   useEffect(() => {
     const obtenerEmail = () => {
       if (localStorage.getItem("token")) {
         const token = localStorage.getItem("token");
         const decoded = jwtDecode(token);
-        console.log("Decoded", decoded);
         setEmail(decoded.sub);
 
         fetchEmail(decoded.sub)
           .then((data) => {
             setUser(data);
-            console.log("Info de usuario", data);
             if (data) {
               fetchObtenerClienteByUsuario(Number(data.id))
                 .then((clienteData) => {
                   setCliente(clienteData);
-                  console.log("Cliente", clienteData);
+                  setLoading(false);
                 })
                 .catch((error) => {
                   console.error(errorHandling(error));
@@ -83,9 +84,8 @@ function App() {
     <>
       <Header user={user} onLogout={handleLogout} />
       <WhatsAppFloatingButton />
-      <Routes>
+      <Routes>   
         <Route path="/Login" element={<Login />} />
-        <Route path="/products" element={<Products />} />
         <Route path="/" element={<HomePage />} />
         <Route
           path="/details/:id"
@@ -140,6 +140,9 @@ function App() {
             )
           }
         />
+        <Route path="/ours" element={<Ours />} />
+        <Route path="/contact" element={<Contact/>} />
+        <Route path="/politicas" element={<Politicas/>} />
       </Routes>
     </>
   );

@@ -4,22 +4,27 @@ import { errorHandling } from "../../services/errorHandling";
 import { useParams, Link } from "react-router-dom";
 import FavoriteButton from "../Favorite/Favorite";
 import Card from "../Card/Card.jsx";
+import Loading from "../Loading/Loading.jsx";
+import { set } from "date-fns";
 
 const ProductList = ({ clienteId }) => {
   const [productos, setProductos] = useState([]);
   const [categoria, setCategoria] = useState(null);
   const { categoryId } = useParams();
-  console.log("categoryId:es lo max", categoryId);
+  const [loading, setLoading] = useState(true);
 
   useEffect(() => {
     console.log("categoryId:", categoryId);
     const cargarCategoria = async () => {
       const id = Number(categoryId);
       try {
+        setLoading(true);
         const data = await fetchCategoria(id);
         setCategoria(data);
       } catch (error) {
         console.error(errorHandling(error));
+      } finally {
+        setLoading(false);
       }
     };
     cargarCategoria();
@@ -30,11 +35,13 @@ const ProductList = ({ clienteId }) => {
       console.log("categoryId:", categoryId);
       const id = Number(categoryId);
       try {
+        setLoading(true);
         const data = await fetchCategoryProducts(id);
         setProductos(data[0].productos);
-        console.log("Productos: ", data[0].productos);
       } catch (error) {
         console.error(errorHandling(error));
+      } finally {
+        setLoading(false);
       }
     };
 
@@ -42,6 +49,8 @@ const ProductList = ({ clienteId }) => {
       loadProducts();
     }
   }, [categoryId]);
+
+  if (loading) return <Loading />;
 
   return (
     <div className="overflow-hidden">

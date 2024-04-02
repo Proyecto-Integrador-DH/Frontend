@@ -7,40 +7,49 @@ import {
 } from "../../services/api";
 import style from "./ListarUsuarios.module.css";
 import ErrorComponent from "../error/ErrorAlert";
+import Loading from "../Loading/Loading";
+import { set } from "date-fns";
 
 const ListarUsuarios = () => {
   const [usuarios, setUsuarios] = useState([]);
   const [error, setError] = useState(null);
   const [titleError, setTitleError] = useState(null);
   const [modalErrorVisible, setModalErrorVisible] = useState(false);
+  const [loading, setLoading] = useState(true);
 
   useEffect(() => {
     fetchListarUsuarios()
       .then((data) => {
+        setLoading(true);
         setUsuarios(data);
-        console.log(data);
       })
       .catch((error) => {
         console.error(errorHandling(error));
+      })
+      .finally(() => {
+        setLoading(false);
       });
   }, []);
 
   const refrescarUsuarios = async () => {
     try {
+      setLoading(true);
       const data = await fetchListarUsuarios();
       setUsuarios(data);
-      console.log("Lista de usuarios actualizada");
     } catch (error) {
       console.error("Error al actualizar la lista de usuarios:", error.message);
       console.error(
         "Error al actualizar la lista de usuarios. Por favor, inténtalo de nuevo."
       );
+    } finally {
+      setLoading(false);
     }
   };
 
   const handleAsignarRol = async (usuarioId, rolId) => {
     const id = Number(usuarioId);
     try {
+      setLoading(true);
       await fetchAsignarRol({ id, roles: [{ id: rolId }] });
       setModalErrorVisible(true);
       setTitleError("Rol actualizado");
@@ -54,12 +63,15 @@ const ListarUsuarios = () => {
       }
       console.error("Error al asignar el rol:", error.message);
       console.error("Error al asignar el rol. Por favor, inténtalo de nuevo.");
+    } finally {
+      setLoading(false);
     }
   };
 
   const handleQuitarRol = async (usuarioId, rolId) => {
     const id = Number(usuarioId);
     try {
+      setLoading(true);
       await fetchQuitarRol({ id, roles: [{ id: rolId }] });
       setModalErrorVisible(true);
       setTitleError("Rol actualizado");
@@ -73,6 +85,8 @@ const ListarUsuarios = () => {
       }
       console.error("Error al quitar el rol:", error.message);
       console.error("Error al quitar el rol. Por favor, inténtalo de nuevo.");
+    } finally {
+      setLoading(false);
     }
   };
 
@@ -80,6 +94,8 @@ const ListarUsuarios = () => {
     setModalErrorVisible(false);
     errorHandling(error);
   };
+
+  if (loading) return <Loading />;
 
   return (
     <div className="w-[95vw] mx-auto">

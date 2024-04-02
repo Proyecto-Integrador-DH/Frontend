@@ -4,7 +4,8 @@ import "react-datepicker/dist/react-datepicker.css";
 import { fetchListarAgendaProducto } from "../../services/api";
 import { isValid, isAfter, format, isSameDay } from "date-fns";
 import ErrorComponent from "../error/ErrorAlert";
-import { useNavigate, Link } from "react-router-dom";
+import { useNavigate } from "react-router-dom";
+import Loading from "../Loading/Loading";
 
 const Agenda = ({ productoId }) => {
   const [startDate, setStartDate] = useState(new Date());
@@ -13,7 +14,6 @@ const Agenda = ({ productoId }) => {
   const [showCalendar, setShowCalendar] = useState(false);
   const calendarRef = useRef(null);
   const [cuposDisponibles, setCuposDisponibles] = useState(null);
-  const [hoveredDate, setHoveredDate] = useState(null);
   const [error, setError] = useState(null);
   const [titleError, setTitleError] = useState(null);
   const [modalErrorVisible, setModalErrorVisible] = useState(false);
@@ -21,7 +21,9 @@ const Agenda = ({ productoId }) => {
   const [showReservaModal, setShowReservaModal] = useState(false);
   // const token = localStorage.getItem("token");
   const [isLoggedIn, setIsLoggedIn] = useState(!!localStorage.getItem("token"));
+  const token = localStorage.getItem("token");
   const history = useNavigate();
+  const [loading, setLoading] = useState(true);
 
   useEffect(() => {
     fetchAgendaExperiencia();
@@ -29,6 +31,7 @@ const Agenda = ({ productoId }) => {
 
   const fetchAgendaExperiencia = async () => {
     try {
+      setLoading(true);
       const response = await fetchListarAgendaProducto(Number(productoId));
       const fechas = response.map((item) => ({
         id: item.id,
@@ -53,11 +56,11 @@ const Agenda = ({ productoId }) => {
           seenDates.add(key);
         }
       });
-
-      console.log("Agenda", filteredAgenda);
       setAgenda(filteredAgenda);
     } catch (error) {
       console.error("Error al obtener la agenda:", error);
+    } finally {
+      setLoading(false);
     }
   };
 
@@ -141,7 +144,6 @@ const Agenda = ({ productoId }) => {
         setError("Debe seleccionar una fecha disponible");
         return;
       }
-      console.log("Agenda seleccionada", agendaSeleccionada);
       history(`/reserva?agenda=${encodeURIComponent(JSON.stringify(agendaSeleccionada))}`);
     }
   };
@@ -157,6 +159,8 @@ const Agenda = ({ productoId }) => {
     // Redirige al usuario a la página de inicio de sesión
     history("/Login");
   };
+
+  if (loading) return <Loading />;
 
   return (
     <div className="mb-2 mr-2">

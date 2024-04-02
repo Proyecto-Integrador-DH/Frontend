@@ -4,6 +4,7 @@ import { fetchLogin } from "../services/api";
 import { errorHandling } from "../services/errorHandling";
 import ErrorComponent from "../Components/error/ErrorAlert";
 import { Link } from "react-router-dom";
+import Loading from "../Components/Loading/Loading";
 
 const Login = () => {
   const [email, setEmail] = useState("");
@@ -11,19 +12,18 @@ const Login = () => {
   const [error, setError] = useState(null);
   const [titleError, setTitleError] = useState(null);
   const [modalErrorVisible, setModalErrorVisible] = useState(false);
+  const [loading, setLoading] = useState(false);
 
   const handleSubmit = async (event) => {
     event.preventDefault();
 
     try {
+      setLoading(true);
       const loginResponse = await fetchLogin({
         email,
         pass,
       });
-      console.log(typeof loginResponse);
-      console.log(loginResponse);
       if (loginResponse) {
-        console.log("Login exitoso.");
         setError("Login exitoso.");
         setTitleError("Inicio de sesión exitoso.");
         setModalErrorVisible(true);
@@ -36,11 +36,12 @@ const Login = () => {
         return;
       }
       } catch (error) {
-        console.log("Correo o contraseña incorrectos.");
         setError("Por favor verifique los datos ingresados");
         setTitleError("Correo o contraseña incorrectos.");
         setModalErrorVisible(true);
         return;
+    } finally {
+      setLoading(false);
     }
   };
 
@@ -50,6 +51,8 @@ const Login = () => {
   };
 
   const isAuthenticated = localStorage.getItem("token");
+
+  if (loading) return <Loading />;
 
   return (
     <div>

@@ -26,7 +26,6 @@ export const fetchCategoria = async (id) => {
 
 export const fetchCategoryProducts = async (id) => {
   const url = `${baseUrl}/categoria/categoryProducts/${id}`;
-  console.log("URL", url);
   try {
     const response = await fetch(url);
     if (!response.ok) {
@@ -35,7 +34,6 @@ export const fetchCategoryProducts = async (id) => {
       );
     }
     const data = await response.json();
-    console.log("Productos de la categoría seleccionada", data);
     return data;
   } catch (error) {
     console.error(error);
@@ -75,7 +73,6 @@ export const fetchDeleteProducto = async (id) => {
       throw new Error("Error al eliminar el producto");
     }
     const data = await response.json();
-    console.log(data);
   } catch (error) {
     console.error("Error:", error);
   }
@@ -83,7 +80,6 @@ export const fetchDeleteProducto = async (id) => {
 
 export const fetchCargarImagen = async (data) => {
   const url = `${baseUrl}/imagen/cargar`;
-  console.log("datos login ", data);
 
   const response = await fetch(url, {
     method: "POST",
@@ -101,7 +97,6 @@ export const fetchCargarImagen = async (data) => {
 export const fetchListarProductos = async () => {
   const url = `${baseUrl}/producto/productosAll`;
   const response = await fetch(url);
-  console.log("Productos: ", response);
   if (!response.ok) {
     throw new Error("Error en la solicitud: " + response.status);
   }
@@ -111,7 +106,6 @@ export const fetchListarProductos = async () => {
 export const fetchListarProductosRecom = async () => {
   const url = `${baseUrl}/producto/productos`;
   const response = await fetch(url);
-  console.log("Productos: ", response);
   if (!response.ok) {
     throw new Error("Error en la solicitud: " + response.status);
   }
@@ -121,7 +115,6 @@ export const fetchListarProductosRecom = async () => {
 export const fetchProduct = async (id) => {
   const url = `${baseUrl}/producto/${id}`;
   const response = await fetch(url);
-  console.log("Productos: ", response);
   if (!response.ok) {
     throw new Error("Error en la solicitud: " + response.status);
   }
@@ -130,8 +123,6 @@ export const fetchProduct = async (id) => {
 
 export const fetchCrearUsuario = async (data) => {
   const url = `${baseUrl2}/usuario/nuevo`;
-
-  console.log("Data user", data);
 
   const response = await fetch(url, {
     method: "POST",
@@ -149,7 +140,6 @@ export const fetchCrearUsuario = async (data) => {
 
 export const fetchEmail = async (email) => {
   const url = `${baseUrl2}/usuario/email/${email}`;
-  console.log("email", email);
   const response = await fetch(url, {
     method: "GET",
     headers: {
@@ -172,7 +162,6 @@ export const fetchLogin = async (data) => {
     },
     body: JSON.stringify(data),
   });
-  console.log("login", response);
   if (!response.ok) {
     throw new Error("Error en la solicitud: " + response.status);
   }
@@ -188,7 +177,6 @@ export const fetchListarUsuarios = async () => {
       Authorization: token,
     },
   });
-  console.log("Usuario BD", response);
   if (!response.ok) {
     throw new Error("Error en la solicitud: " + response.status);
   }
@@ -223,7 +211,6 @@ export const fetchAsignarRol = async (data) => {
     },
     body: JSON.stringify(data),
   });
-  console.log("Error rol", response);
   if (!response.ok) {
     throw new Error("Error en la solicitud: " + response.status);
   }
@@ -249,7 +236,6 @@ export const fetchQuitarRol = async (data) => {
 
 export const fetchAgendarExperiencia = async (data) => {
   const url = `${baseUrl}/agenda/nueva`;
-  console.log("Data agenda", data);
   const response = await fetch(url, {
     method: "POST",
     headers: {
@@ -267,7 +253,6 @@ export const fetchAgendarExperiencia = async (data) => {
 export const fetchListarAgenda = async () => {
   const url = `${baseUrl}/agenda/all`;
   const response = await fetch(url);
-  console.log("Agendas: ", response);
   if (!response.ok) {
     throw new Error("Error en la solicitud: " + response.status);
   }
@@ -277,7 +262,6 @@ export const fetchListarAgenda = async () => {
 export const fetchListarAgendaProducto = async (id) => {
   const url = `${baseUrl}/agenda/producto/${id}`;
   const response = await fetch(url);
-  console.log("Agendas: ", response);
   if (!response.ok) {
     throw new Error("Error en la solicitud: " + response.status);
   }
@@ -286,7 +270,6 @@ export const fetchListarAgendaProducto = async (id) => {
 
 export const fetchNuevaReserva = async (data) => {
   const url = `${baseUrl}/reserva/nueva`;
-  console.log("Data reserva", data);
   const response = await fetch(url, {
     method: "POST",
     headers: {
@@ -315,7 +298,6 @@ export const fetchSearch = async (fechaIda, fechaVuelta) => {
 };
 
 export const fetchCrearCliente = async (cliente) => {
-  console.log("Cliente", cliente);
   const url = `${baseUrl}/cliente/nuevo`;
   const response = await fetch(url, {
     method: "POST",
@@ -348,7 +330,6 @@ export const fetchObtenerClienteByUsuario = async (id) => {
 
 export const fetchAddFavoritos = async (favorito) => {
   const url = `${baseUrl}/favoritos/save`;
-  console.log("Favorito", favorito);
   const response = await fetch(url, {
     method: "POST",
     headers: {
@@ -365,7 +346,6 @@ export const fetchAddFavoritos = async (favorito) => {
 
 export const fetchRemoveFavoritos = async (favorito) => {
   const url = `${baseUrl}/favoritos/delete`;
-  console.log("Favorito", favorito);
   const response = await fetch(url, {
     method: "DELETE",
     headers: {
@@ -412,7 +392,6 @@ export const fetchReservasCliente = async (id) => {
 
 export const fetchListarFavoritosCliente = async (id) => {
   const url = `${baseUrl}/favoritos/cliente/${id}`;
-  console.log("ID cliente", id);
   const response = await fetch(url, {
     method: "GET",
     headers: {
@@ -441,7 +420,6 @@ myHeaders.append("Content-Type", "application/json");
 
 export const fetchCaracteristicaNueva = async (data) => {
   const url = `${baseUrl}/icono/subir`;
-  console.log("datos caracteristicas ", data);
   const response = await fetch(url, {
     method: "POST", 
     headers: {
@@ -457,7 +435,6 @@ return await response.text();
 export const fetchEditarCaracteristica = async (data) => {
   const url = `${baseUrl}/icono`;
   const raw = JSON.stringify(data);
-  console.log("datos caracteristicas ", data);
 
   const requestOptions = {
     method: "PUT",

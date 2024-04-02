@@ -6,6 +6,8 @@ import { fetchCargarImagen } from "../../services/api";
 import { errorHandling } from "../../services/errorHandling";
 import Button from "../button/Button";
 import { fetchCategorias } from "../../services/api";
+import Loading from "../Loading/Loading";
+import { set } from "date-fns";
 
 const RegisterProducts = () => {
   const [nombre, setNombre] = useState("");
@@ -19,15 +21,19 @@ const RegisterProducts = () => {
   const [showOptions, setShowOptions] = useState(false);
   const [categorias, setCategoria] = useState([]);
   const [categoriaSeleccionada, setCategoriaSeleccionada] = useState(null);
+  const [loading, setLoading] = useState(true);
 
   useEffect(() => {
     fetchCategorias()
       .then((data) => {
+        setLoading(true);
         setCategoria(data);
-        console.log(data);
       })
       .catch((error) => {
         console.error(errorHandling(error));
+      })
+      .finally(() => {
+        setLoading(false);
       });
   }, []);
 
@@ -35,6 +41,7 @@ const RegisterProducts = () => {
     event.preventDefault();
 
     try {
+      setLoading(true);
       const productoResponse = await fetchProductoNuevo({
         nombre,
         descripcion,
@@ -46,7 +53,6 @@ const RegisterProducts = () => {
       });
 
       if (productoResponse == 400) {
-        console.log("Ya existe un producto con ese nombre.");
         setTitleError("Error");
         setError("Ya existe una experiencia con ese nombre.");
         setModalErrorVisible(true);
@@ -74,6 +80,8 @@ const RegisterProducts = () => {
     } catch (error) {
       setModalErrorVisible(true);
       console.error("Error al registrar el producto:", error.message);
+    } finally {
+      setLoading(false);
     }
   };
 
@@ -95,9 +103,7 @@ const RegisterProducts = () => {
         });
       })
     ).then(() => {
-      console.log("Imágenes convertidas a base64:", imagenes);
       setImagenes(imagenes.length === 0 ? [] : imagenes);
-      console.log("Estado de imágenes actualizado:", imagenes.length);
     });
   };
 
@@ -105,6 +111,8 @@ const RegisterProducts = () => {
     setModalErrorVisible(false);
     errorHandling(error);
   };
+
+  if (loading) return <Loading />;
 
   return (
     <div>

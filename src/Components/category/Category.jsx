@@ -8,16 +8,24 @@ import ImageHistoria from "../../assets/Historia.png";
 import { fetchCategorias } from "../../services/api";
 import { errorHandling } from "../../services/errorHandling";
 import { Link } from "react-router-dom";
+import Loading from "../Loading/Loading";
 
 const Category = () => {
     const [categorias, setCategorias] = useState([]);
     const [selectedCategory, setSelectedCategory] = useState(null); 
+    const [loading, setLoading] = useState(true);
 
     useEffect(() => {
         fetchCategorias()
-            .then(data => setCategorias(data))
+            .then(data => {
+                setLoading(true);
+                setCategorias(data);
+            })
             .catch(error => {
                 console.error(errorHandling(error));
+            })
+            .finally(() => {
+                setLoading(false);
             });
     }, []);
     
@@ -28,6 +36,8 @@ const Category = () => {
             setSelectedCategory(categoryId); 
         }
     }
+
+    if (loading) return <Loading />;
 
     return (
         <div>
