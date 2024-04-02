@@ -67,11 +67,11 @@ const Recommended = () => {
         <div className={RecommendedStyles.recommendedContainer}>
           <div className={RecommendedStyles.tittleContainer}>
             <h2>RECOMENDADOS</h2>
-            <h3>Explora nuestros planes</h3>
+            <h3 className="w-full:max-md md:w-5/6 lg:w-auto">Explora nuestros planes</h3>
           </div>
         </div>
 
-        <div className={RecommendedStyles.navigationArrows}>
+        <div className={`${RecommendedStyles.navigationArrows} hidden md:flex `} >
           <button
             className={RecommendedStyles.back}
             onClick={() => sliderRef.current.slickPrev()}
@@ -130,13 +130,13 @@ const Recommended = () => {
           {productosApi.map((product, index) => (
             <div 
               key={index} 
-              className="w-2/5 pb-6 bg-white rounded-lg shadow-md overflow-hidden transition duration-300 hover:shadow-lg">
+              className=" w-2/5 pb-6 bg-white rounded-lg shadow-md overflow-hidden transition duration-300 hover:shadow-lg">
               <div className={RecommendedStyles.imagenContainer}>
                 {product.imagenes.length > 0 ? (
                   <img
                     src={product.imagenes[0].url}
                     alt={product.imagenes[0].altText}
-                    className="md:max-h-56 lg:max-h-none rounded-xl"
+                    className="max-h-28 md:max-h-48 lg:max-h-none rounded-xl"
                   />
                 ) : (
                   <img src={defaultImage} alt="Imagen por defecto" />

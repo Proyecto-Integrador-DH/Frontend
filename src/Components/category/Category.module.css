@@ -3,7 +3,6 @@
     flex-direction: row;
     width: 100%;
     margin-top: 40px;
-
 }
 
 h3 {
@@ -58,8 +57,6 @@ h3 {
     align-items: center;
     border: solid #19182518;
     border-radius: 20px;
-    height: 160px;
-    width: 250px;
 }
 
 .cityImg {
@@ -75,8 +72,6 @@ h3 {
     align-items: center;
     border: solid #19182518;
     border-radius: 20px;
-    height: 160px;
-    width: 250px;
 }
 
 .natureImg {
@@ -92,13 +87,10 @@ h3 {
     align-items: center;
     border: solid #19182518;
     border-radius: 20px;
-    height: 160px;
-    width: 250px;
 }
 
 .historyImg{
-    align-items: center;
-    justify-content: center;
+    margin-top: 2px;
     height: 114px;
     width: 108px;
 }
@@ -110,13 +102,11 @@ h3 {
     align-items: center;
     border: solid #19182518;
     border-radius: 20px;
-    height: 160px;
-    width: 250px;
+    background-color: white;
 }
 
 .walfareImg {
-    align-items: center;
-    justify-content: center;
+    margin-top: 2px;
     height: 114px;
     width: 108px;
 }

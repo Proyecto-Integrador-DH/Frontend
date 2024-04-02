@@ -46,43 +46,43 @@ const Category = () => {
                     <img src={ImageCategorys} alt="no funciona" />
                 </div>
                 <div className={CategoryStyle.category}>
-                    <h2 className="md:pl-5 lg:pl-0">CATEGORIAS</h2>
-                    <h3 className="md:pl-5 lg:pl-0 w-full mb-5">Encuentra la experiencia de tus sueños</h3>
-                    <div className={CategoryStyle.categoryLinks}>
+                    <h2 className="mb-2 md:pl-5 lg:pl-0">CATEGORIAS</h2>
+                    <h3 className="md:pl-5 lg:pl-0 w-full">Encuentra la experiencia de tus sueños</h3>
+                    <div className={`${CategoryStyle.categoryLinks}`}>
                         <Link 
                             to={`/listarProductos/${selectedCategory}`} 
                             target="_blank" 
-                            className={CategoryStyle.cityAndNigth} 
+                            className={`${CategoryStyle.cityAndNigth} bg-white h-36 md:h-full lg:max-h-36 lg:max-w-64`}  
                             onClick={() => handleClickCategory("Ciudad y Noche")}
                         >
-                            <img className={CategoryStyle.cityImg} src={ImageCiudad} alt=""/>
+                            <img className={`${CategoryStyle.cityImg} rounded-3xl `}  src={ImageCiudad} alt=""/>
                             <p>Ciudad y Noche</p>
                         </Link>
                         <Link 
                             to={`/listarProductos/${selectedCategory}`} 
                             target="_blank" 
-                            className={CategoryStyle.adventureAndNature} 
+                            className={`${CategoryStyle.adventureAndNature} bg-white h-36 md:h-full lg:max-h-36 lg:max-w-64`} 
                             onClick={() => handleClickCategory("Aventura y Naturaleza")}
                         >
-                            <img className={CategoryStyle.natureImg} src={ImagenNaturaleza} alt="" />
+                            <img className={`${CategoryStyle.natureImg} rounded-3xl`} src={ImagenNaturaleza} alt="" />
                             <p>Aventura y Naturaleza</p>
                         </Link>
                         <Link 
                             to={`/listarProductos/${selectedCategory}`} 
                             target="_blank" 
-                            className={CategoryStyle.cultureAndHeritage} 
+                            className={`${CategoryStyle.cultureAndHeritage} bg-white h-36 md:h-full lg:max-h-36 lg:max-w-64`}
                             onClick={() => handleClickCategory("Cultura y Patrimonio")}
                         >
-                            <img className={CategoryStyle.historyImg} src={ImageHistoria} alt="" />
+                            <img className={`${CategoryStyle.historyImg} rounded-3xl`} src={ImageHistoria} alt="" />
                             <p>Cultura y Patrimonio</p>
                         </Link>
                         <Link 
                             to={`/listarProductos/${selectedCategory}`} 
                             target="_blank" 
-                            className={CategoryStyle.welfareAndCouching} 
+                            className={`${CategoryStyle.welfareAndCouching} h-36 md:h-full lg:max-h-36 lg:max-w-64`} 
                             onClick={() => handleClickCategory("Bienestar y Coaching")}
                         >
-                            <img className={CategoryStyle.walfareImg} src={ImageBienestar} alt=""/>
+                            <img className={`${CategoryStyle.walfareImg} rounded-2xl`} src={ImageBienestar} alt=""/>
                             <p>Bienestar y Coaching</p>
                         </Link>
                     </div>

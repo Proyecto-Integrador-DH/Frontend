@@ -62,16 +62,16 @@ const Details = ({ clienteId }) => {
 
   return (
     <>
-      <div className="flex flex-col items-center my-10">
-        <p className="text-rosa font-bold tracking-widest text-2xl mb-5">
+      <div className="flex flex-col items-center md:my-10">
+        <p className="text-rosa font-bold tracking-widest text-2xl md:mb-5">
           NUESTROS
         </p>
-        <h1 className="text-3xl font-bold tracking-wide">
+        <h1 className="text-3xl font-bold tracking-wide mb-5 md:mb-0">
           Tours & experiencias
         </h1>
       </div>
-      <div className="relative lg:pt-20 lg:px-36 sm:flex sm:flex-col md:grid md:grid-cols-2 gap-2 mx-32">
-        <div className="absolute lg:right-40 lg:top-0 md:right-0 md:-top-16">
+      <div className="relative mx-10 md:grid md:grid-cols-2 md:mx-32 gap-2 lg:pt-20 lg:px-36">
+        <div className="absolute lg:right-40 lg:top-0 right-0 -top-10 md:-top-16">
           <FavoriteButton
             clienteId={clienteId}
             productoId={id}
@@ -79,12 +79,12 @@ const Details = ({ clienteId }) => {
           />
         </div>
         {/* Imagen principal grande a la izquierda */}
-        <div className="max-h-96">
+        <div className="w-4/4 max-h-60 md:max-h-96">
           {detallesProducto?.imagenes?.length > 0 ? (
             <img
               src={detallesProducto.imagenes[0]?.url}
               alt={`Imagen principal`}
-              className="md:max-h-72  lg:h-full lg:max-h-foto object-cover h-full w-full rounded-2xl "
+              className="max-h-60 md:max-h-72 lg:h-full lg:max-h-foto object-cover w-full rounded-2xl "
             />
           ) : (
             <img src={defaultImage} alt="Imagen por defecto" />
@@ -92,7 +92,7 @@ const Details = ({ clienteId }) => {
         </div>
 
         {/* Cuadrícula de imágenes más pequeñas a la derecha */}
-        <div className=" lg:h-full grid grid-cols-2 gap-2 rounded-full max-h-96">
+        <div className="hidden lg:h-full md:grid md:grid-cols-2 gap-2 rounded-full md:max-h-96">
           {allImages &&
             allImages.map((imagen, index) => (
               <img
@@ -130,7 +130,7 @@ const Details = ({ clienteId }) => {
             <div className="flex justify-end">
               <button
                 onClick={() => navigate(-1)}
-                className="flex items-center"
+                className="flex items-center mr-5 mt-4 lg:mr-0 md:mt-0"
               >
                 <img src={flecha} alt="Volver" className="w-6 h-6 mr-2" />
                 <span className="text-gray-400">Volver</span>
