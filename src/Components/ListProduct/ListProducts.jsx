@@ -23,6 +23,7 @@ const ListProducts = () => {
   const [mostrarAsignarCaracteristica, setMostrarAsignarCaracteristica] =
     useState(false);
   const [loading, setLoading] = useState(true);
+  const [productoSeleccionadoId, setProductoSeleccionadoId] = useState(null);
 
   useEffect(() => {
     fetchListarProductos()
@@ -78,7 +79,6 @@ const ListProducts = () => {
     const idCategoria = categorias.find((c) => c.nombre === valor).id;
     try {
       setLoading(true);
-      console.log("idProducto", idProducto, "idCategoria", idCategoria);
       await fetchCambiarCategoria(idProducto, idCategoria);
       await refrescarProductos();
       setModalErrorVisible(true);
@@ -126,9 +126,10 @@ const ListProducts = () => {
     errorHandling(error);
   };
 
-  const guardarCaracteristicasSeleccionadas = (caracteristicas) => {
-    setMostrarAsignarCaracteristica(false);
-  };
+  const handleMostrarAsignarCaracteristica = () => {
+    setMostrarAsignarCaracteristica(!mostrarAsignarCaracteristica);
+  }
+
 
   if (loading) return <Loading />;
 
@@ -283,11 +284,8 @@ const ListProducts = () => {
                   <button
                     className={style.button1}
                     onClick={() => {
-                      if (mostrarAsignarCaracteristica) {
-                        setMostrarAsignarCaracteristica(false);
-                      } else {
-                        setMostrarAsignarCaracteristica(true);
-                      }
+                      setProductoSeleccionadoId(producto.Id);
+                      handleMostrarAsignarCaracteristica();
                     }}
                   >
                     {mostrarAsignarCaracteristica
@@ -311,7 +309,9 @@ const ListProducts = () => {
           </tbody>
         </table>
         {mostrarAsignarCaracteristica && (
-          <AsignarCaracteristica onSave={guardarCaracteristicasSeleccionadas} />
+          <AsignarCaracteristica
+            productoSeleccionadoId={productoSeleccionadoId}
+          />
         )}
       </div>
     </div>

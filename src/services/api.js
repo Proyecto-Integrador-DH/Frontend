@@ -1,6 +1,6 @@
-const baseUrl = "http://booking.us-east-1.elasticbeanstalk.com";
+//const baseUrl = "http://booking.us-east-1.elasticbeanstalk.com";
 const baseUrl2 = "http://usuario.us-east-1.elasticbeanstalk.com";
-//const baseUrl = "http://localhost:8081";
+const baseUrl = "http://localhost:8081";
 //const baseUrl2 = "http://localhost:8080";
 
 const token = localStorage.getItem("token");
@@ -201,6 +201,25 @@ export const fetchCambiarCategoria = async (idProducto, idCategoria) => {
   return await response.text();
 };
 
+export const fetchCambiarCaracteristicas = async (idProducto, caracteristicas) => {
+  const url = `${baseUrl}/producto/addCaracteristicas/${idProducto}`;
+  const response = await fetch(url, {
+    method: "PUT",
+    headers: {
+      "Content-Type": "application/json",
+      Authorization: token,
+    },
+    body: JSON.stringify(caracteristicas),
+  });
+
+  if (!response.ok) {
+    throw new Error("Error en la solicitud: " + response.status);
+  }
+
+  return await response.text();
+
+}
+
 export const fetchAsignarRol = async (data) => {
   const url = `${baseUrl2}/usuario/asignarRol`;
   const response = await fetch(url, {
@@ -233,6 +252,7 @@ export const fetchQuitarRol = async (data) => {
   }
   return await response.text();
 };
+
 
 export const fetchAgendarExperiencia = async (data) => {
   const url = `${baseUrl}/agenda/nueva`;

@@ -1,9 +1,9 @@
 import React, { useState, useEffect } from "react";
-import { fetchCaracteristicas } from "../../services/api";
+import { fetchCaracteristicas, fetchCambiarCaracteristicas } from "../../services/api";
 import style from './AsignarCaracterisica.module.css'
 import Loading from "../Loading/Loading";
 
-const AsignarCaracteristica = ({ onSave }) => {
+const AsignarCaracteristica = ({ productoSeleccionadoId}) => {
   const [caracteristicas, setCaracteristicas] = useState([]);
   const [caracteristicasSeleccionadas, setCaracteristicasSeleccionadas] = useState([]);
   const [loading, setLoading] = useState(true);
@@ -15,7 +15,7 @@ const AsignarCaracteristica = ({ onSave }) => {
         setCaracteristicas(data);
       })
       .catch(error => {
-        console.error(errorHandling(error));
+        console.error(error);
       })
       .finally(() => {
         setLoading(false);
@@ -32,10 +32,12 @@ const AsignarCaracteristica = ({ onSave }) => {
     }
   };
 
-  const handleGuardar = () => {
-    setCaracteristicasSeleccionadas([...caracteristicasSeleccionadas]);
-    localStorage.setItem('selectedfeatures', JSON.stringify(caracteristicasSeleccionadas));
-    onSave([...caracteristicasSeleccionadas]);
+  const handleGuardar = async () => {
+    try {
+      await fetchCambiarCaracteristicas(productoSeleccionadoId, caracteristicasSeleccionadas.map(c => c.id));
+    } catch (error) {
+      console.error(error);
+    }
   };
 
   if (loading) return <Loading />;

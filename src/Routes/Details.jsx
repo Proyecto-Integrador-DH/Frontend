@@ -140,7 +140,7 @@ const Details = ({ clienteId }) => {
         </div>
 
         <h2 className="text-2xl font-bold mt-4 mb-2">La experiencia incluye</h2>
-        <CardCaracteristica />
+        <CardCaracteristica producto= {detallesProducto}/>
       </div>
       <div className="mb-10">
         <p className="text-base mb-2">Antes de reservar, consulta nuestros</p>
