@@ -84,7 +84,7 @@ const Details = ({ clienteId }) => {
             <img
               src={detallesProducto.imagenes[0]?.url}
               alt={`Imagen principal`}
-              className="max-h-60 md:max-h-72 lg:h-full lg:max-h-foto object-cover w-full rounded-2xl "
+              className="max-h-60 md:max-h-72 lg:h-full md:h-64 lg:max-h-foto object-cover w-full rounded-2xl "
             />
           ) : (
             <img src={defaultImage} alt="Imagen por defecto" />
@@ -99,7 +99,7 @@ const Details = ({ clienteId }) => {
                 key={index}
                 src={imagen.url}
                 alt={`Imagen ${index + 1}`}
-                className="md:h-full md:min-h-32 md:max-h-36 md:w-full lg:w-full lg:h-auto object-cover rounded-2xl max-h-48 overflow-hidden"
+                className="md:h-full md:min-h-32 md:max-h-32 lg:max-h-36 md:w-full lg:w-full lg:h-auto object-cover rounded-2xl max-h-48 overflow-hidden"
               />
             ))}
         </div>

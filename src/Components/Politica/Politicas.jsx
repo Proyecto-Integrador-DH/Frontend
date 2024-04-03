@@ -2,7 +2,7 @@ import React from "react";
 
 const Politicas = () => {
   return (
-    <div className="modal-overlay p-12">
+    <div className="modal-overlay p-8 md:p-12">
       <div className="container mx-auto">
         <h2 className="text-2xl font-bold underline mb-4">
           Políticas de términos y condiciones
@@ -15,7 +15,7 @@ const Politicas = () => {
         <h2 className="text-2xl font-bold underline pt-6">
           Términos y condiciones
         </h2>
-          <div className="grid grid-cols-3 gap-4 p-10">
+          <div className="grid grid-cols-1 md:grid-cols-3 gap-4 p-1 md:p-10">
             <div className="place-items-center">
               <h3 className="font-semibold text-center w-full pb-1.5">Celebración del contrato</h3>
               <p className="text-sm">
