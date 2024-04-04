@@ -62,7 +62,7 @@ const Details = ({ clienteId }) => {
 
   return (
     <>
-      <div className="flex flex-col items-center md:my-10">
+      <div className="flex flex-col items-center md:my-10 mt-20">
         <p className="text-rosa font-bold tracking-widest text-2xl md:mb-5">
           NUESTROS
         </p>

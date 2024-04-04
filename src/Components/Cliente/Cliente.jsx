@@ -79,7 +79,7 @@ const CrearClienteForm = ({ user, onSubmit }) => {
   if (loading) return <Loading />;
 
   return (
-    <div>
+    <div className="mt-20">
       {modalErrorVisible && (
         <ErrorComponent
           title={titleError}

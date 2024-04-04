@@ -40,7 +40,7 @@ const ListFavorite = ({ clienteId }) => {
   if (loading) return <Loading />;
 
   return (
-    <div className="overflow-hidden">
+    <div className="overflow-hidden mt-20">
       <h2 className="text-3xl font-bold mb-6">Tus Experiencias Favoritas</h2>
       <div className="flex flex-wrap sm:justify-center sm:columns-1 md:columns-2 gap-6 m-5">
         {favoritos.map((favorito) => (

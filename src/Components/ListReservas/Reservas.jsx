@@ -62,7 +62,7 @@ const Reservas = ({ usuario }) => {
   if (loading) return <Loading />;
 
   return (
-    <div>
+    <div className="mt-20">
       <h2 className="text-3xl font-bold mb-4">Reservas</h2>
       {reservas.length > 0 ? (
         reservas.map((reserva) => (

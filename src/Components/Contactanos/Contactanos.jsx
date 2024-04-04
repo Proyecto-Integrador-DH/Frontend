@@ -5,7 +5,7 @@ import fondo from '../../assets/bodyback.png';
 
 const Contactanos = () => {
     return (
-        <div className="container mt-5">
+        <div className="container mt-5 mt-20">
             <div className="row">
                 <div className="col-md-8 offset-md-2">
                 <div className="card p-5" style={{ border: '2px solid #a257b1', backgroundImage: `url(${fondo})` }}>

@@ -54,7 +54,7 @@ const Agenda = () => {
   if (loading) return <Loading />;
 
   return (
-    <div className="w-[90vw] mx-auto">
+    <div className="w-[90vw] mx-auto mt-20">
       {modalErrorVisible && (
         <ErrorComponent
           title={titleError}

@@ -67,7 +67,7 @@ const AgendaProducto = () => {
   if (loading) return <Loading />;
 
   return (
-    <div className="w-[90vw] mx-auto">
+    <div className="w-[90vw] mx-auto mt-20">
       {producto.nombre && (
         <h2 className="text-3xl font-bold mb-6">
           Agenda de la Experiencia

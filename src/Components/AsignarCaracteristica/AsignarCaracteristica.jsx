@@ -43,7 +43,7 @@ const AsignarCaracteristica = ({ productoSeleccionadoId}) => {
   if (loading) return <Loading />;
 
   return (
-    <div className="size-3/4 mx-auto my-10 pb-10">
+    <div className="size-3/4 mx-auto my-10 pb-10 mt-20">
       <h2 className="my-10 text-2xl font-bold mb-6">Características Disponibles</h2>
       <ul className="inline-grid gap-4 grid-cols-3 grid-rows-3">
         {caracteristicas.map(caracteristica => (

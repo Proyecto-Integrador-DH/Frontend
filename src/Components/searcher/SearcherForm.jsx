@@ -151,7 +151,7 @@ function SearchForm() {
   };
 
   return (
-    <div className="w-screen mx-auto bg-transparent rounded-lg shadow-lg p-4">
+    <div className="mt-20 w-screen mx-auto bg-transparent rounded-lg shadow-lg p-4">
       {modalErrorVisible && (
         <ErrorComponent
           title={titleError}

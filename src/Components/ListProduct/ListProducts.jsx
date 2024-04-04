@@ -134,7 +134,7 @@ const ListProducts = () => {
   if (loading) return <Loading />;
 
   return (
-    <div className="w-[95vw] mx-auto mb-20">
+    <div className="w-[95vw] mx-auto mb-20 mt-20">
       <h2 className="text-3xl font-bold mb-6">Lista de Experiencias</h2>
       {modalErrorVisible && (
         <ErrorComponent

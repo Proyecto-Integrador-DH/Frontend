@@ -23,7 +23,7 @@ const AsignarCategoria = () => {
   if (loading) return <Loading />;
 
   return (
-    <div className="w-[90vw] mx-auto">
+    <div className="w-[90vw] mx-auto mt-20">
       <h2 className="text-3xl font-bold mb-6">Lista de categorias</h2>
       <div className="">
         <table className="max-w-m whitespace-nowrap table-auto">

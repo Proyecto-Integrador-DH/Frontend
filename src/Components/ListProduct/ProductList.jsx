@@ -54,7 +54,7 @@ const ProductList = ({ clienteId }) => {
   if (loading) return <Loading />;
 
   return (
-    <div className="overflow-hidden">
+    <div className="overflow-hidden mt-20">
       <h2 className="text-3xl font-bold mb-6">
         Experiencias de la categoría
         <span className="capitalize">

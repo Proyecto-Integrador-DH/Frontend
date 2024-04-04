@@ -98,7 +98,7 @@ const ListarUsuarios = () => {
   if (loading) return <Loading />;
 
   return (
-    <div className="w-[95vw] mx-auto">
+    <div className="w-[95vw] mx-auto mt-20">
       <h2 className="text-3xl font-bold mb-6">Lista de Usuarios</h2>
 
       {modalErrorVisible && (
