@@ -11,9 +11,9 @@ const Card = ({ producto }) => {
           <img src={producto.imagenes[0].url} className="img-fluid rounded-start" alt="Foto de la experiencia" style={{ width: '100%', height: '100%' }} />
         </div>
         <div className="col-md-8 col-sm-12">
-          <div className="card-body" style={{ height: '150px' }}>
-            <h5 className="card-title" style={{fontWeight: 'bold'}}>{producto.nombre}</h5>
-            <p className="card-text text-sm">{descripcionCorta}</p>
+          <div className="">
+            <h5 className="text-lg font-bold mb-2 mt-10">{producto.nombre}</h5>
+            <p className="text-sm md:text-base">{descripcionCorta}</p>
           </div>
         </div>
       </div>

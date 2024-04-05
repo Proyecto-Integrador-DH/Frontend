@@ -6,7 +6,7 @@ import { Link } from "react-router-dom";
 
 const PanelUsuario = () => {
   return (
-    <div>
+    <div className="mt-20 px-4">
       <h2 className={AdminStyle.h2}>Preferencias de Usuario</h2>
       <h3 className={AdminStyle.h3}>
         No puedes acceder al panel con un dispositivo móvil
@@ -35,7 +35,7 @@ const PanelUsuario = () => {
           </div>
         </div>
       </div>
-      <div className="fixed bottom-0">
+      <div className="xl:absolute bottom-0 w-full">
         <Footer />
       </div>
     </div>
