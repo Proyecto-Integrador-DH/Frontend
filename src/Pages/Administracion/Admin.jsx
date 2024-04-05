@@ -6,7 +6,7 @@ import { Link } from 'react-router-dom';
 
 const Adminstrador = () => {
   return (
-    <div>
+    <div className="mt-20">
       <h2 className={AdminStyle.h2}>Panel de administración</h2>
       <h3 className={AdminStyle.h3}>No puedes acceder al panel con un dispositivo móvil</h3>
       <div className={AdminStyle.contenedor}>
