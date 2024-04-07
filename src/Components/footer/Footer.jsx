@@ -71,6 +71,9 @@ const Footer = () => {
       </div>
       <div className="parte2">
         <img src={Copyright} alt="" />
+        <div>
+        <Link to='/ours'>Sobre Nosotros</Link>
+        </div>
         <div className="footer-social">
           <a href="https://www.facebook.com/SoloAventuraDH/" target="_blank" rel="noopener noreferrer"><FontAwesomeIcon icon={faFacebook} className="h-8" /></a>
           <a href="https://twitter.com/Hugo3802128953/" target="_blank" rel="noopener noreferrer"><FontAwesomeIcon icon={faTwitterSquare} className="twitter h-8" /></a>

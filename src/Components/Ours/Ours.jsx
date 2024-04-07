@@ -4,6 +4,7 @@ import Matt from '../../assets/matt2.jpg';
 import Erika from  '../../assets/erika3.jpg';
 import glendis from '../../assets/glendis.jpg';
 import hugo from '../../assets/hugo2.jpg';
+import { Link } from 'react-router-dom';
 
 const Ours = () => {
   return (
@@ -69,6 +70,11 @@ const Ours = () => {
             </div>
           </li>
         </ul>
+      </div>
+      <div class="bg-purple-500 hover:bg-purple-400 text-white font-bold py-2 px-4 border-b-4 border-purple-700 hover:border-purple-500 rounded w-40 ml-40">
+            <Link to='/'>
+            <button>Inicio</button>
+            </Link>
       </div>
     </div>
   );
